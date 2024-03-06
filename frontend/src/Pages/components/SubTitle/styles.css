@@ -3,6 +3,8 @@
     position: relative;
 }
 .sub-title h2 {
+    width: 100%;
+
     font-size: 24px;
     font-weight: 300;
 
@@ -10,6 +12,8 @@
     position: relative;
 
     padding: 10px 0 13px;
+
+    color: var(--text-color);
 }
 .sub-title h2::before {
     content: '';
