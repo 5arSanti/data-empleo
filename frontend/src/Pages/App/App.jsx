@@ -7,7 +7,7 @@ import './App.css'
 import "./App.css"
 
 //Context
-import { AppProvider } from "../../Context";
+import { AppContext, AppProvider } from "../../Context";
 
 
 //Screens
@@ -21,6 +21,8 @@ import { AccesibilityCard } from "../components/AccesibilityCard";
 import { GovNavbar } from "../components/GovNavbars";
 import { LoginScreen } from "../Screens/LoginScreen";
 import { RegisterScreen } from "../Screens/RegisterScreen";
+import { DashboardScreen } from "../Screens/DashboardScreen";
+import { ConfirmationModal } from "../components/ConfirmationModal";
 
 
 const Wrapper = ({children}) => {
@@ -33,18 +35,23 @@ const Wrapper = ({children}) => {
 }
 
 const AppRoutes = () => {
+    const context = React.useContext(AppContext);
+    const { auth } = context;
+
     let routes = useRoutes([
-        {path: "/register", element: <RegisterScreen/>},
-        {path: "/login", element: <LoginScreen/>},
-        {path: "/", element: <Home/>},
-        {path: "/*", element: <Navigate to={"/login"}/>},
+        {path: "/home", element: <Home/>},
+        {path: "/*", element: <Navigate replace to={"/home"}/>},
+        {path: "/dashboard", element: <DashboardScreen/>},
+
+        
+        {path: "/register", element: auth ? <RegisterScreen/> : <Navigate replace to={"/login"} />},
+        {path: "/login", element: !auth ? <LoginScreen/> : <Navigate replace to={"/home"}/>},
     ]);
     
     return routes;
 }
 
 const App = () => {
-
     return (
         <AppProvider>
             <HashRouter>
@@ -52,12 +59,12 @@ const App = () => {
                     <GovNavbar/>
                     <Navbar/>
                     <NavBarResponsive/>
+                    <ConfirmationModal/>
                     <AccesibilityCard/>
                     <MainContainer>
                         <AppRoutes/>
                     </MainContainer>
                     <Footer/>
-                    
                 </Wrapper>
             </HashRouter>
         </AppProvider>

@@ -1,29 +1,19 @@
-import { MainTextContainer } from "../MainTextContainer";
-
-import { MdNavigateNext } from "react-icons/md";
-import { IoIosArrowBack } from "react-icons/io";
-import { GraphContainer } from "../GraphContainer";
-import { TableContainer } from "../TableContainer";
-
 import "./styles.css";
 
-const AllInfoContainer = () => {
+const AllInfoContainer = ({children}) => {
     return(
         <div className="all-info-container">
-            <div className="main-text-and-graph-container">
-                <MainTextContainer/>
-                
-                <GraphContainer/>
-            </div>
-            <div className="table-and-ágination-container">
-                <div className="pagination-buttons-container">
-                    <IoIosArrowBack/>
-                    <MdNavigateNext/>
-                </div>
-
-                <TableContainer/>
-            </div>
+            {children}
         </div>
     );
 }
-export { AllInfoContainer };
+
+const AllInfoGridContainer = ({children, className="grid-075-125"}) => {
+    return(
+        <div className={`all-info-grid-container ${className}`}>
+            {children}
+        </div>
+    );
+}
+
+export { AllInfoContainer, AllInfoGridContainer };

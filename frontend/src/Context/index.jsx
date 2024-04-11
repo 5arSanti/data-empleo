@@ -1,6 +1,11 @@
 import React from "react";
+import axios from "axios";
+
 import PropTypes from "prop-types";
 
+import { actualMonth, actualYear } from "../utils/dateFunctions";
+import { graphLabels } from "../utils/chartTypes";
+import { handleColorsByFilters } from "../utils/handleColors";
 
 
 export const AppContext = React.createContext();
@@ -22,26 +27,23 @@ const AppProvider = ({children}) => {
     //LOADING, ERROR
     const [loading, setLoading] = React.useState(null);
 
+    //Login Auth
+    const [auth, setAuth] = React.useState(false);
+    const [message, setMessage] = React.useState("");
+    const [name, setName] = React.useState("");
+
+    //Logout
+    const handleLogout = () => {
+        axios.get(`${apiUri}/user/logout`)
+            .then(res => {
+                location.reload(true);
+            })
+            .catch(err => {console.log(err)})
+    }
+
 
     // RESPONSE:
     const [responseData, setResponseData] = React.useState({});
-
-    const [filters, setFilters] = React.useState({
-        RANGO_SALARIAL: "",
-        NOMBRE_PRESTADOR: "",
-        TELETRABAJO: "",
-        TIPO_CONTRATO: "",
-        NIVEL_ESTUDIOS: "",
-        DEPARTAMENTO: "",
-        HIDROCARBUROS: "",
-        PLAZA_PRACTICA: "",
-        BUSQUEDA: "",
-        DESCRIPCION_VACANTE: "",
-    });
-
-    const handleFilterChange = (filterName, value) => {
-        setFilters((prevFilters) => ({ ...prevFilters, [filterName]: value }));
-    };
 
     const fetchData = async (endpoint) => {
         try {
@@ -62,10 +64,10 @@ const AppProvider = ({children}) => {
     const fetchAllData = async () => {
         try {
             setLoading(true);
-            const filterParams = new URLSearchParams(filters);
+            const filterParams = new URLSearchParams();
 
             const endpoints = [
-                // "/vacantes/resultados"
+                "/graph"
                 /* otros endpoints */
             ];
 
@@ -76,7 +78,6 @@ const AppProvider = ({children}) => {
                 return { ...acc, ...result };
             }, {});
             setResponseData(combinedResults);
-            console.log(responseData);
         } 
         catch (err) {
             alert(err.message);
@@ -88,54 +89,39 @@ const AppProvider = ({children}) => {
 
     React.useEffect(() => {
         fetchAllData();
-    }, [filters]);
+    }, []);
 
-    //CAMBIO DE COLORES
-    const [activeButton, setActiveButton] = React.useState(1);
-    const [activeHighContrast, setActiveHighContrast] = React.useState(false);
+    // Valores de la Grafica
+    const [editingGraph, setEditingGraph] = React.useState(false);
+    const [graphValues, setGraphValues] = React.useState({
+        title: "",
+        year: actualYear,
+        month: actualMonth,
+        grapLabelsType: "ofertasRegistradas",
+        graphType: "bar",
+        description: "",
+        values: [20000, 10000, 4, 7, 8, 1],
+    })
+    
+    const handleGraphValuesChange = (key, value) => {
+        const numericValue = parseInt(value) || value;
+
+        setGraphValues((prevValues) => ({ 
+            ...prevValues, 
+            [key]: numericValue
+         }));
+    };
 
     React.useEffect(() => {
-        handleColorsByFilters();
-    }, [activeButton, activeHighContrast]);
+        handleGraphValuesChange("graphType", graphLabels[graphValues.grapLabelsType].type)
+    }, [graphValues.grapLabelsType]);
+    
 
-    const handleColorsByFilters = () => {
-        const root = document.documentElement;
-        const normalStyles = {
-            "--navbar-color": "#3366cc",
-            "--main-body-color": "#EEFAFF",
-            "--main-title-color": "#681d35",
-            "--light-gray-color": "rgba(236,236,236,0.65)",
-            "--confirm-color": "#069169",
-            "--cancel-color": "#D31F3F",
-            "--time-color": "#3366cc",
-            "--gov-accesibility-card": "#681d35",
-            "--black-to-white-color": "#000000",
-            "--white-to-black-color": "#FFFFFF",
-            "--lines-color": "#681d35",
-            "--lines-color2": "#681d35",
-            "--text-color": "#717171"
-        };
-        const highContrastStyles = {
-            "--navbar-color": "#000000",
-            "--main-body-color": "#737373",
-            "--main-title-color": "rgba(255, 255, 255,1)",
-            "--light-gray-color": "#000000",
-            "--confirm-color": "#737373",
-            "--cancel-color": "#737373",
-            "--time-color": "#737373",
-            "--gov-accesibility-card": "#000000",
-            "--black-to-white-color": "#FFFFFF",
-            "--white-to-black-color": "#000000",
-            "--lines-color": "#FFFFFF",
-            "--lines-color2": "#FFFFFF",
-            "--text-color": "#FFFFFF"
-        };
-
-        const styles = activeHighContrast ? highContrastStyles : normalStyles;
-        Object.entries(styles).forEach(([key, value]) => {
-            root.style.setProperty(key, value);
-        });
-    };
+    //CAMBIO DE COLORES
+    const [activeHighContrast, setActiveHighContrast] = React.useState(false);
+    React.useEffect(() => {
+        handleColorsByFilters(activeHighContrast);
+    }, [activeHighContrast]);
 
 
     // Screen Width
@@ -149,8 +135,18 @@ const AppProvider = ({children}) => {
         return () => window.removeEventListener('resize', handleResize);
       }, []);
 
-
+    // Navbar Responsive
     const [toggleNavBarResponsive, setToggleNavBarResponsive] = React.useState(false);
+
+    // Modal de Confirmacion
+    const [openConfirmationModal, setOpenConfirmationModal] = React.useState({
+        status: false,
+        title: "",
+        onConfirm: null,
+        onCancel: null,
+    });
+
+    
 
 
 
@@ -160,6 +156,16 @@ const AppProvider = ({children}) => {
                 apiUri,
                 loading,
                 setLoading,
+                
+                auth,
+                setAuth,
+                handleLogout,
+                
+                name,
+                setName,
+
+                message,
+                setMessage,
 
                 //NavBar Responsive
                 toggleNavBarResponsive,
@@ -169,8 +175,6 @@ const AppProvider = ({children}) => {
                 windowWidth,
                 setWindowWidth,
 
-                //Filtros y paginacion
-                setFilters,
 
                 //Informacion desde el serveidor
                 responseData,
@@ -178,10 +182,19 @@ const AppProvider = ({children}) => {
 
                 //COLORES POR FILTRO
                 handleColorsByFilters,
-                activeButton,
-                setActiveButton,
                 activeHighContrast,
                 setActiveHighContrast,
+
+                // Valores de la Grafica
+                graphValues,
+                setGraphValues,
+                handleGraphValuesChange,
+                editingGraph,
+                setEditingGraph,
+
+                //Modal de confirmación
+                openConfirmationModal,
+                setOpenConfirmationModal,
 
             }}
         >

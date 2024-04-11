@@ -1,22 +1,13 @@
+import { obtenerFechaActual } from "../../../utils/dateFunctions";
 import "./styles.css";
 
-const DateCard = () => {
-    const obtenerFechaActual = () => {
-        const opciones = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-        const fecha = new Date();
-        const fechaFormateada = fecha.toLocaleDateString('es-ES', opciones);
 
-        const fechaCapitalizada = fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1);
-      
-        return fechaCapitalizada;
-      }
-      
-      // Ejemplo de uso
-      const fechaActual = obtenerFechaActual();
+const fechaActual = obtenerFechaActual();
 
+const DateCard = ({children = fechaActual, className="top-right"}) => {
     return(
-        <p className="date">
-            {fechaActual}
+        <p className={`date ${className}`}>
+            {children}
         </p>
     );
 }

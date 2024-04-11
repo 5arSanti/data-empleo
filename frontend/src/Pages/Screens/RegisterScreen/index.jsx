@@ -3,12 +3,33 @@ import axios from "axios";
 
 import { AppContext } from "../../../Context";
 
-import "./styles.css";
 import { SubTitle } from "../../components/SubTitle";
 import { useNavigate } from "react-router-dom";
+import { Title } from "../../components/Title";
 
 const RegisterScreen = () => {
     const context = React.useContext(AppContext);
+
+    const navigate = useNavigate();
+    axios.defaults.withCredentials = true;
+
+    React.useEffect(() => {
+        axios.get(`${context.apiUri}/user/`)
+            .then(response => {
+                const {data} = response;
+
+                if(data.Status === "Success") {
+                    context.setAuth(true);
+                    context.setName(data.name);
+                } else {
+                    context.setAuth(false);
+                    context.setMessage(data.Error);
+                    navigate("/home");
+                }
+            })
+            .catch(err => {console.log(err)})
+    }, []) 
+
 
     const [values, setValues] = React.useState({
         name: "",
@@ -16,10 +37,8 @@ const RegisterScreen = () => {
         password: "",
     })
 
-    const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
-
         try {
             axios.post(`${context.apiUri}/user/register`, values)
                 .then(response => {
@@ -38,16 +57,14 @@ const RegisterScreen = () => {
 
     return(
 		<>
-			<SubTitle
-                    textAlign="center"
-			>
-				Bienvenido a DataEmpleo
-			</SubTitle>
+			<Title>
+				Registrar Nuevo Usuario Administrador
+			</Title>
 			<div className="login-container">
 				<SubTitle
                     textAlign="center"
 				>
-					Registrarse
+					Registro
 				</SubTitle>
 
 				<form className="login-form-container" onSubmit={handleSubmit}>

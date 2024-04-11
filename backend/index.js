@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 
-const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 
 const routerApi = require("./routes");
@@ -11,10 +10,14 @@ const port = 3080;
 
 app.use(express.json());
 const whiteList = [
+    //DEV
 	"http://localhost:5173",
 	"http://127.0.0.1:5173",
-	"https://buscadordeempleo.gov.co/",
 	"http://127.0.0.1:3090",
+
+    //QA Y PROD
+    "http://10.140.0.16:15205",
+	"https://buscadordeempleo.gov.co/",
 ];
 const options = {
     origin: (origin, callback) => {
@@ -24,7 +27,7 @@ const options = {
             callback(new Error("No permitido"));
         }
     },
-	methods: ["POST", "GET"],
+	methods: ["POST", "GET", "DELETE", "PATCH"],
 	credentials: true,
 }
 app.use(cors(options));

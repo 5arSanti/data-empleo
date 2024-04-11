@@ -1,76 +1,72 @@
 import Chart from 'chart.js/auto';
 import React from 'react';
+import { AppContext } from '../../../../Context';
 
-const Graph = (props) => {
+const Graph = ({values}) => {
+    const context = React.useContext(AppContext);
+
     const colors = ["rgba(255, 63, 100, .5)", "rgba(234,28,251,.5)", "rgba(28,123,251,.5)"];
+    let highContrastStyle = context.activeHighContrast ? "#FFF" : "#000";
+
 
     React.useEffect(() => {
         // Configuración de los datos
         const data = {
-            labels: props.labels,
+            labels: values.labels,
             datasets: [
                 {
-                    label: props.datasetLabel[0],
-                    data: props.data[0],
+                    label: values.datasetLabel[0],
+                    data: values.data[0],
 
                     backgroundColor: colors[0], // Color de fondo
                     borderColor: colors[0], // Color del borde
                     borderWidth: 1,
-                    color: "#000"
+                    color: highContrastStyle
                 },
                 {
-                    label: props.datasetLabel[1],
-                    data: props.data[1],
+                    label: values.datasetLabel[1],
+                    data: values.data[1],
 
                     backgroundColor: colors[1], // Color de fondo
                     borderColor: colors[1], // Color del borde
                     borderWidth: 1,
-                    color: "#000"
+                    color: highContrastStyle
                 },
             ],
         };
 
         // Configuración del gráfico
         const options = {
+            indexAxis: values.options.indexAxis,
             scales: {
                 y: {
                     beginAtZero: true,
-                    ticks: {
-                        color: "#000",
-                    }
+                    ticks: { color: highContrastStyle, }
                 },
                 x: {
-                    ticks: {
-                        color: "#000",
-                    }
-                }
+                    ticks: { color: highContrastStyle, }
+                },
             },
             plugins: {
                 legend: {
-                    labels: {
-                        color: "#000",
-                    },
+                    labels: { color: highContrastStyle }
                 },
-              }          
+              },
+              color: highContrastStyle,       
         };
 
         // Crear la instancia del gráfico
         const ctx = document.getElementById('myChart').getContext('2d');
         const myChart = new Chart(ctx, {
-            type: 'bar', // Puedes cambiar el tipo de gráfico (bar, line, pie, etc.)
+            type: values.options.type,
             data: data,
             options: options,
         });
 
-        // Limpiar el gráfico al desmontar el componente
         return () => {
             myChart.destroy();
         };
-    }, [
-        props.data, 
-        props.labels, 
-        props.datasetLabel
-    ]);
+    }, [values]);
 
     return (
         <canvas id="myChart" height={150}></canvas>
