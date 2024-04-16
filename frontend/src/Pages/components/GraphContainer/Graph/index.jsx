@@ -2,7 +2,9 @@ import Chart from 'chart.js/auto';
 import React from 'react';
 import { AppContext } from '../../../../Context';
 
-const Graph = ({values}) => {
+import "./styles.css"
+
+const Graph = ({values, index=""}) => {
     const context = React.useContext(AppContext);
 
     const colors = ["rgba(255, 63, 100, .5)", "rgba(234,28,251,.5)", "rgba(28,123,251,.5)"];
@@ -51,12 +53,13 @@ const Graph = ({values}) => {
                 legend: {
                     labels: { color: highContrastStyle }
                 },
-              },
-              color: highContrastStyle,       
+            },
+            color: highContrastStyle,
+                   
         };
 
         // Crear la instancia del gráfico
-        const ctx = document.getElementById('myChart').getContext('2d');
+        const ctx = document.getElementById(`myChart${index}`).getContext('2d');
         const myChart = new Chart(ctx, {
             type: values.options.type,
             data: data,
@@ -66,10 +69,10 @@ const Graph = ({values}) => {
         return () => {
             myChart.destroy();
         };
-    }, [values]);
+    }, [values, colors, highContrastStyle, index]);
 
     return (
-        <canvas id="myChart" height={150}></canvas>
+        <canvas id={`myChart${index}`} height={150}></canvas>
     )
 };
 

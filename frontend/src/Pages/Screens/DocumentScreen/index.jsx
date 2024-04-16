@@ -1,18 +1,13 @@
-import React from "react";
-import axios from "axios";
-
-import { AppContext } from "../../../Context";
-
-import { Title } from "../../components/Title";
-
+import React from 'react';
+import axios from 'axios';
 
 import { useNavigate } from "react-router-dom";
-import { HomeInfoContainer } from "../../components/HomeInfoContainer";
 
-import "./styles.css"
+import { AppContext } from '../../../Context';
+import { DocumentInfoContainer } from '../../components/DocumentInfoContainer';
 
 
-const Home = () => {
+const DocumentScreen = () => {
     const context = React.useContext(AppContext);
 
     const navigate = useNavigate();
@@ -33,20 +28,16 @@ const Home = () => {
                 }
             })
             .catch(err => {
-                context.setAuth(false);
-                context.setMessage(data.Error);
+                navigate("/home");
                 console.log(err)
             })
     }, [])
 
-    return (
-        <>
-            <Title>
-                DATAEMPLEO
-            </Title>
-            <HomeInfoContainer/>
+    return(
+        <>  
+            <DocumentInfoContainer/>
         </>
     );
 }
 
-export { Home };
+export { DocumentScreen };
