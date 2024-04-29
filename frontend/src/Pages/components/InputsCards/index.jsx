@@ -1,3 +1,4 @@
+import { AiOutlineCloudUpload } from "react-icons/ai";
 import "./styles.css";
 
 const InputCard = ({type="text", id, label, placeholder="placeholder", onChange, required=true, stateKey, defaultValue=""}) => {
@@ -56,5 +57,28 @@ const TextAreaCard = ({id, label, placeholder="placeholder", onChange, required=
     );
 }
 
+const UploadFileCard = ({id, label="Cargar Archivo", onChange, selectedFile=null, description="Archivos PDF (.pdf) o Excel (.xlsx)"}) => {
+    return(
+        <label htmlFor={id} className="upload-file-container">
+            <input
+                id={id}
+                type="file"
+                accept=".pdf, .xlsx"
+                onChange={(event) => {onChange(event)}}
+                onClick={(event) => event.target.value = null}
+                name={id}
+            />
+            <span>
+                <AiOutlineCloudUpload/>
+            </span>
+            <div className="upload-file-info-container">
+                <p>{label}</p>
+                <p>{selectedFile ? selectedFile : description}</p>
+            </div>
 
-export { InputCard, OptionInputCard, TextAreaCard };
+        </label>
+    );
+}
+
+
+export { InputCard, OptionInputCard, TextAreaCard, UploadFileCard };

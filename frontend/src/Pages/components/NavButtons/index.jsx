@@ -23,6 +23,9 @@ const NavButtons = ({className="idioma-icon-barra-superior-govco"}) => {
                     <Link to={"/home"} className={`${className}`}>
                         Home
                     </Link>
+                    <Link to={"/upload"} className={`${className}`}>
+                        Publicar
+                    </Link>
                     <Link to={"/dashboard"} className={`${className}`}>
                         Dashboard
                     </Link>

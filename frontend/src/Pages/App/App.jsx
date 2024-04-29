@@ -26,6 +26,7 @@ import { DashboardScreen } from "../Screens/DashboardScreen";
 import { ConfirmationModal } from "../components/ConfirmationModal";
 import { DocumentScreen } from "../Screens/DocumentScreen";
 import { ToastContainer } from "react-toastify";
+import { UploadScreen } from "../Screens/UploadScreen";
 
 const Wrapper = ({children}) => {
     const location = useLocation();
@@ -46,10 +47,12 @@ const AppRoutes = () => {
         {path: "/*", element: <Navigate replace to={"/home"}/>},
         {path: "/dashboard", element: <DashboardScreen/>},
         {path: "/document", element: <DocumentScreen/>},
+        {path: "/upload", element: <UploadScreen/>},
 
         
         {path: "/register", element: auth ? <RegisterScreen/> : <Navigate replace to={"/login"} />},
         {path: "/login", element: !auth ? <LoginScreen/> : <Navigate replace to={"/home"}/>},
+        
     ]);
     
     return routes;
