@@ -8,9 +8,15 @@ import { useNavigate } from "react-router-dom";
 import { Title } from "../../components/Title";
 import { AuthWrapper } from "../../components/AuthWrapper";
 import { handleNotifications } from "../../../utils/handleNotifications";
+import { scrollToValue } from "../../../utils/scrollToValue";
 
 const RegisterScreen = () => {
     const context = React.useContext(AppContext);
+
+    React.useEffect(() => {
+        scrollToValue(0, 350)
+    }, [])
+
     const navigate = useNavigate();
 
     const [values, setValues] = React.useState({

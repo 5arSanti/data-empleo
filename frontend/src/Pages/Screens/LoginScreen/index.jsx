@@ -13,7 +13,10 @@ import { scrollToValue } from "../../../utils/scrollToValue";
 
 const LoginScreen = () => {
     const context = React.useContext(AppContext);
-    scrollToValue();
+
+    React.useEffect(() => {
+        scrollToValue(0, 350)
+    }, [])
 
     const [values, setValues] = React.useState({
         email: "",
@@ -42,37 +45,35 @@ const LoginScreen = () => {
     }
 
     return(
-		<>
-			<div className="login-container">
-				<SubTitle
-                    textAlign="center"
-				>
-					Iniciar Sesion
-				</SubTitle>
+        <div className="login-container">
+            <SubTitle
+                textAlign="center"
+            >
+                Iniciar Sesion
+            </SubTitle>
 
-				<form className="login-form-container" onSubmit={handleSubmit}>
-					<div className="form-input-container">
-						<label htmlFor="email">Correo:</label>
-						<input
-                            type="email"
-                            placeholder="Ingrese su correo"
-                            name="email"
-                            onChange={(event) => {setValues({...values, email: event.target.value})}}
-                        />
-					</div>
-					<div className="form-input-container">
-						<label htmlFor="password">Contraseña:</label>
-						<input
-                            type="password"
-                            placeholder="Ingrese su contraseña"
-                            name="password"
-                            onChange={(event) => {setValues({...values, password: event.target.value})}}
-                        />
-					</div>
-					<button type="submit">Iniciar sesion</button>
-				</form>
-			</div>
-		</>
+            <form className="login-form-container" onSubmit={handleSubmit}>
+                <div className="form-input-container">
+                    <label htmlFor="email">Correo:</label>
+                    <input
+                        type="email"
+                        placeholder="Ingrese su correo"
+                        name="email"
+                        onChange={(event) => {setValues({...values, email: event.target.value})}}
+                    />
+                </div>
+                <div className="form-input-container">
+                    <label htmlFor="password">Contraseña:</label>
+                    <input
+                        type="password"
+                        placeholder="Ingrese su contraseña"
+                        name="password"
+                        onChange={(event) => {setValues({...values, password: event.target.value})}}
+                    />
+                </div>
+                <button type="submit">Iniciar sesion</button>
+            </form>
+        </div>
     );
 }
 
