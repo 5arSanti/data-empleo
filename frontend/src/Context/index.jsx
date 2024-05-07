@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { actualMonth, actualYear } from "../utils/dateFunctions";
 import { graphLabels } from "../utils/chartTypes";
 import { handleColorsByFilters } from "../utils/handleColors";
-import { handleLogout } from "../utils/handleLogout";
+// import { handleLogout } from "../utils/handleLogout";
 
 import { api } from "../utils/api";
 import { fetchAllData } from "../utils/handleFetchData";
@@ -140,7 +140,6 @@ const AppProvider = ({children}) => {
                 
                 auth,
                 setAuth,
-                handleLogout,
                 
                 name,
                 setName,

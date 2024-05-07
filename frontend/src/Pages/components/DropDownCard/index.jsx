@@ -20,7 +20,7 @@ const DropDownCard = () => {
                     </div>
                 ))}
             </Dropdown.Menu>
-        </Dropdown>
+        </Dropdown>  
     )
 }
 

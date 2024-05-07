@@ -3,12 +3,8 @@ import { api } from "./api";
 import { handleNotifications } from "./handleNotifications";
 import { reloadLocation } from "./realoadLocation";
 
-const apiParam = api;
-
-
 const handleLogout = () => {
-
-    axios.get(`${apiParam}/user/logout`)
+    axios.get(`${api}/user/logout`)
         .then(res => {
             const { data } = res;
 

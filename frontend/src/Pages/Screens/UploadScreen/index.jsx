@@ -9,8 +9,6 @@ const UploadScreen = () => {
 
     return (
         <AuthWrapper>
-            <DateCard/>
-
             <Title>
                 Carga de Archivos para Publicación
             </Title>

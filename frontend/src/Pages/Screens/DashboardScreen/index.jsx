@@ -8,8 +8,6 @@ const DashboardScreen = () => {
 
     return (
         <AuthWrapper>
-            <DateCard/>
-
             <Title>
                 Dashboard de DATAEMPLEO
             </Title>

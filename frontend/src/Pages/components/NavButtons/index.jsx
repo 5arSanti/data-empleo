@@ -1,8 +1,9 @@
 import React from "react";
 
-
 import { Link } from "react-router-dom";
 import { AppContext } from "../../../Context";
+
+import { handleLogout } from "../../../utils/handleLogout";
 
 import "./styles.css";
 
@@ -37,7 +38,7 @@ const NavButtons = ({className="idioma-icon-barra-superior-govco"}) => {
                     </Link>
                       <button  
                         className={`${className}`} 
-                        onClick={context.handleLogout}
+                        onClick={handleLogout}
                     >
                         Cerrar Sesión
                     </button>          

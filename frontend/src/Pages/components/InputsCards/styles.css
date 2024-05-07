@@ -48,6 +48,39 @@ textarea {
     outline: none;
 }
 
+/* Input Card 2 */
+.input2-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.input2-container label{
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--text-color);
+    padding-left: 5px;
+}
+.input2-container input{
+	background-color: transparent;
+    color: var(--lines-color);
+    padding: 15px 20px;
+    border-radius: 30px;
+
+    border: 1px solid var(--lines-color);
+    outline: none;
+
+	transition: all 0.1s ease;
+}
+.input2-container input::placeholder{
+	color: var(--lines-color);
+}
+.input2-container input:focus, .input2-container input:hover{
+    border: 1px solid var(--gov-accesibility-card);
+	box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.14);
+	-webkit-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.14);
+	-moz-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.14);
+}
 
 /* Input File */
 

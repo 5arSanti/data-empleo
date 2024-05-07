@@ -1,7 +1,11 @@
+import React from "react";
+import { AppContext } from "../../../Context";
 import { banner, iconComplete } from "../../../assets";
 import "./styles.css";
 
 const NavImagesCard = () => {
+    const context = React.useContext(AppContext);
+
     return(
         <div className="container-logo-header-govco">
             <div className="logo-header-govco" rel="noopener noreferrer" target="_blank" href="https://www.serviciodeempleo.gov.co/portada">
@@ -14,6 +18,7 @@ const NavImagesCard = () => {
                     </a>
                 </span>
             </div>
+            {context.name && <p>Bienvenido {context.name}</p> }
         </div>
     );
 }

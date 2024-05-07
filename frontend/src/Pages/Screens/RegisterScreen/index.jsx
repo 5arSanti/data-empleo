@@ -9,6 +9,9 @@ import { Title } from "../../components/Title";
 import { AuthWrapper } from "../../components/AuthWrapper";
 import { handleNotifications } from "../../../utils/handleNotifications";
 import { scrollToValue } from "../../../utils/scrollToValue";
+import { handleInputChange } from "../../../utils/handleInputChange";
+import { InputCard2 } from "../../components/InputsCards";
+import { WrapperContainer1 } from "../../components/WrapperContainers";
 
 const RegisterScreen = () => {
     const context = React.useContext(AppContext);
@@ -23,10 +26,17 @@ const RegisterScreen = () => {
         name: "",
         email: "",
         password: "",
+        confirmPassword: "",
     })
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        if (!(values.password === values.confirmPassword)) {
+            handleNotifications("error", "Las contraseñas no son iguales");
+            return;
+        }
+        
         axios.post(`${context.apiUri}/user/register`, values)
             .then(response => {
                 const {data} = response;
@@ -47,6 +57,7 @@ const RegisterScreen = () => {
 			<Title>
 				Registrar Nuevo Usuario Administrador
 			</Title>
+            
 			<div className="login-container">
 				<SubTitle
                     textAlign="center"
@@ -55,36 +66,38 @@ const RegisterScreen = () => {
 				</SubTitle>
 
 				<form className="login-form-container" onSubmit={handleSubmit}>
-                    <div className="form-input-container">
-						<label htmlFor="name">Nombre:</label>
-						<input
-                            type="text"
-                            placeholder="Ingrese su nombre"
-                            name="name"
-                            onChange={(event) => {setValues({...values, name: event.target.value})}}
-                            required
-                        />
-					</div>
-					<div className="form-input-container">
-						<label htmlFor="email">Correo:</label>
-						<input
-                            type="email"
-                            placeholder="Ingrese su correo"
-                            name="email"
-                            onChange={(event) => {setValues({...values, email: event.target.value})}}
-                            required
-                        />
-					</div>
-					<div className="form-input-container">
-						<label htmlFor="password">Contraseña:</label>
-						<input
-                            type="password"
-                            placeholder="Ingrese su contraseña"
-                            name="password"
-                            onChange={(event) => {setValues({...values, password: event.target.value})}}
-                            required
-                        />
-					</div>
+                    <InputCard2
+                        id={"name"}
+                        label={"Name:"}
+                        placeholder="Ingrese su nombre"
+                        onChange={(event) => handleInputChange("name", event, setValues)}
+                        defaultValue={values?.name}
+                    />
+                    <InputCard2
+                        type="email"
+                        id={"email"}
+                        label={"Correo:"}
+                        placeholder="Ingrese su correo"
+                        onChange={(event) => handleInputChange("email", event, setValues)}
+                        defaultValue={values?.email}
+                    />
+                    <InputCard2
+                        type="password"
+                        id={"password"}
+                        label={"Contraseña:"}
+                        placeholder="Ingrese su contraseña"
+                        onChange={(event) => handleInputChange("password", event, setValues)}
+                        defaultValue={values?.password}
+                    />
+                    <InputCard2
+                        type="password"
+                        id={"confirm-password"}
+                        label={"Confirmar Contraseña:"}
+                        placeholder="Ingrese su contraseña"
+                        onChange={(event) => handleInputChange("confirmPassword", event, setValues)}
+                        defaultValue={values?.confirmPassword}
+                    />
+                    
 					<button type="submit">Registrarse</button>
 				</form>
 			</div>

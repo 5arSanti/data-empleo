@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import "./styles.css";
 import { handleNotifications } from "../../../utils/handleNotifications";
 import { scrollToValue } from "../../../utils/scrollToValue";
+import { InputCard2 } from "../../components/InputsCards";
+import { handleInputChange } from "../../../utils/handleInputChange";
 
 
 const LoginScreen = () => {
@@ -34,14 +36,13 @@ const LoginScreen = () => {
                 const {data} = response;
 
                 if(data.Status === "Success") {
-                    navigate("/dashboard");
                     handleNotifications("success", "Sesión Iniciada Correctamente")
+                    navigate("/dashboard");
                 } else {
                     handleNotifications("error", data.Error)
                 }
             })
-            .catch(err => {
-                handleNotifications("error", err.message)})
+            .catch(err => { handleNotifications("error", err.message) })
     }
 
     return(
@@ -53,24 +54,22 @@ const LoginScreen = () => {
             </SubTitle>
 
             <form className="login-form-container" onSubmit={handleSubmit}>
-                <div className="form-input-container">
-                    <label htmlFor="email">Correo:</label>
-                    <input
-                        type="email"
-                        placeholder="Ingrese su correo"
-                        name="email"
-                        onChange={(event) => {setValues({...values, email: event.target.value})}}
-                    />
-                </div>
-                <div className="form-input-container">
-                    <label htmlFor="password">Contraseña:</label>
-                    <input
-                        type="password"
-                        placeholder="Ingrese su contraseña"
-                        name="password"
-                        onChange={(event) => {setValues({...values, password: event.target.value})}}
-                    />
-                </div>
+                <InputCard2
+                    type="email"
+                    id={"email"}
+                    label={"Correo:"}
+                    placeholder="Ingrese su correo"
+                    onChange={(event) => handleInputChange("email", event, setValues)}
+                    defaultValue={values?.email}
+                />
+                <InputCard2
+                    type="password"
+                    id={"password"}
+                    label={"Contraseña:"}
+                    placeholder="Ingrese su contraseña"
+                    onChange={(event) => handleInputChange("password", event, setValues)}
+                    defaultValue={values?.password}
+                />
                 <button type="submit">Iniciar sesion</button>
             </form>
         </div>

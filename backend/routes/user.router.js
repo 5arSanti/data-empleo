@@ -38,7 +38,6 @@ router.post("/register", (request, response) => {
 
 				return response.json({Status: "Success"});
 			});
-
 		});
 	}
 	catch (err) {
@@ -83,7 +82,8 @@ router.post("/login", (req, res) => {
 
 router.get("/logout", (request, response) => {
 	response.clearCookie("token")
-	return response.json({Status: "Success"})
+	return response.json({Status: "Success", message: "Sesion Cerrada Correctamente"})
+
 })
 
 
