@@ -14,7 +14,6 @@ router.get("/", async (request, response) => {
 
 		const result = await getQuery(query)
 
-
 		return response.status(200).json({exportGraphs: result.reverse()})
 
 	} catch (err) {

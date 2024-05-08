@@ -30,6 +30,7 @@ import { ToastContainer } from "react-toastify";
 import { UploadScreen } from "../Screens/UploadScreen";
 import { NavImagesCard } from "../components/NavImagesCard";
 import { SliderContainer } from "../components/SliderContainer";
+import { SliderDataScreen } from "../Screens/SliderDataScreen";
 
 const Wrapper = ({children}) => {
     const location = useLocation();
@@ -51,6 +52,7 @@ const AppRoutes = () => {
         {path: "/dashboard", element: <DashboardScreen/>},
         {path: "/document", element: <DocumentScreen/>},
         {path: "/upload", element: <UploadScreen/>},
+        {path: "/slider", element: <SliderDataScreen/>},
 
         
         {path: "/register", element: auth ? <RegisterScreen/> : <Navigate replace to={"/login"} />},
