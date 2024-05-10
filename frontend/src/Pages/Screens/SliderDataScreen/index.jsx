@@ -11,68 +11,21 @@ import { WrapperContainer1, WrapperContainer2 } from "../../components/WrapperCo
 import { ButtonCard } from "../../components/ButtonCard/index.jsx";
 import { DropCard } from "../../components/DropDownCards/DropCard/index.jsx";
 import { icons } from "../../../utils/icons.jsx";
+import axios from "axios";
+import { AppContext } from "../../../Context/index.jsx";
+import { handleNotifications } from "../../../utils/handleNotifications.js";
+import { reloadLocation } from "../../../utils/realoadLocation.js";
+import { SliderGrid } from "../../components/SliderScreen/SlidersGrid/index.jsx";
+import { SliderForm } from "../../components/SliderScreen/SliderForm/index.jsx";
 
 const SliderDataScreen = () => {
-    const [values, setValues] = React.useState({
-        name: null,
-        numericValue: null,
-        percentValue: null,
-    })
-
-    const buttonsOptions = [
-        {
-            id: "name",
-            label: "Nombre",
-            state: "name",
-        },
-        {
-            id: "numeric-value",
-            label: "Cantidad",
-            state: "numericValue",
-        },
-        {
-            id: "percent-value",
-            label: "Porcentaje",
-            state: "percentValue",
-        },
-    ]
-
 
     return(
         <AuthWrapper>
             <Title>Informacion del Slider</Title>
             <AllInfoGridContainer>
-                <WrapperContainer2 flexDirection="column">
-                    <SubTitle>Cartas del slider</SubTitle>
-
-                    {sliderData.map((item, index) => (
-                        <SliderCard key={index} item={item}/>
-                    ))}
-                </WrapperContainer2>
-                <form>
-                    <WrapperContainer1 flexDirection="column">
-                        <SubTitle>Editar</SubTitle>
-                        {buttonsOptions.map((item, index) => (
-                            <InputCard2
-                                key={index}
-                                className="input-container"
-                                id={item?.in}
-                                label={`${item?.label}:`}
-                                placeholder={item?.label}
-                                onChange={(event) => {handleInputChange(item?.state, event, setValues)}}
-                                defaultValue={values[item.state]}
-                            />
-                        ))}
-                        <DropCard title={"Iconos"} object={icons}/>
-                        <ButtonCard
-                            title="Guardar Información"
-                            type="submit"
-                        >
-                            Guardar Información
-                        </ButtonCard>
-                    </WrapperContainer1>
-                </form>
-
+                <SliderGrid/>
+                <SliderForm/>
             </AllInfoGridContainer>
         </AuthWrapper>
 

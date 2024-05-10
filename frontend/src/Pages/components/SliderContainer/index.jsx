@@ -2,12 +2,15 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import { sliderData } from '../../../utils/sliderData.jsx';
 import { SliderCard } from './SliderCard.jsx/index.jsx';
 
 import "./styles.css";
+import { AppContext } from '../../../Context/index.jsx';
+import React from 'react';
 
 const SliderContainer = () => {
+	const context = React.useContext(AppContext)
+
 	const settings = {
 		infinite: true,
 		speed: 1000,
@@ -40,7 +43,7 @@ const SliderContainer = () => {
 	return(
 		<div className='slider-container'>
 			<Slider {...settings}>
-				{sliderData?.map((item, index) => (
+				{context.responseData?.sliderData?.map((item, index) => (
 					<SliderCard key={index} item={item}/>
 				))}
 			</Slider>

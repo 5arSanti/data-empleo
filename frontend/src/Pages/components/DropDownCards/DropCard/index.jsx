@@ -3,7 +3,7 @@ import "./styles.css";
 import { AllInfoGridContainer } from '../../AllInfoContainer';
 import { WrapperContainer2 } from '../../WrapperContainers';
 
-const DropCard = ({title, object}) => {
+const DropCard = ({title, object, onClick}) => {
     const array = Object.keys(object) || null;
 
     return (
@@ -15,12 +15,14 @@ const DropCard = ({title, object}) => {
 
                 <Dropdown.Menu className="dropdown-card-grid-container">
                     {array?.map((item, index) => (
-                        <WrapperContainer2 key={index} padding={5}>
-                            <AllInfoGridContainer className='grid-075-125'>
-                                {object[item]}
-                                <p>{item}</p>   
-                            </AllInfoGridContainer>
-                        </WrapperContainer2>
+                        <div key={index} onClick={() => onClick(item)}>
+                            <WrapperContainer2 key={index} padding={10}>
+                                <AllInfoGridContainer className='grid-05-15'>
+                                    {object[item]}
+                                    <p>{item}</p>   
+                                </AllInfoGridContainer>
+                            </WrapperContainer2>
+                        </div>
 
                     ))}
                 </Dropdown.Menu>

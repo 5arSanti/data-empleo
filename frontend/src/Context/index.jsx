@@ -55,6 +55,7 @@ const AppProvider = ({children}) => {
         const endpoints = [
             `/graph`,
             `/graph/export?${filterParams.toString()}`,
+            `/slider`,
         ]
 
         const fetchData = async () => {
@@ -126,6 +127,16 @@ const AppProvider = ({children}) => {
         onCancel: null,
     });
 
+
+        // Valores de la Grafica
+        const [editingSliderCard, setEditingSliderCard] = React.useState(false);
+        const [sliderValues, setSliderValues] = React.useState({
+            NOMBRE: null,
+            VALOR: null,
+            PORCENTAJE: null,
+            ICONO: null,
+        })
+        console.log(sliderValues);
     
 
     return (
@@ -176,6 +187,12 @@ const AppProvider = ({children}) => {
                 //Modal de confirmación
                 openConfirmationModal,
                 setOpenConfirmationModal,
+
+                // Slider Cards
+                editingSliderCard,
+                setEditingSliderCard,
+                sliderValues,
+                setSliderValues,
             }}
         >
             {children}

@@ -10,6 +10,8 @@ const graphRouter = require("./graph/index.js")
 const graphNewRouter = require("./graph/new.router.js")
 const graphExportRouter = require("./graph/export.router.js")
 
+const sliderRouter = require("./slider")
+
 
 const routerApi = (app) => {
 	const router = express.Router();
@@ -21,6 +23,8 @@ const routerApi = (app) => {
 	router.use("/graph", graphRouter);
 	router.use("/graph/new", graphNewRouter);
 	router.use("/graph/export", graphExportRouter);
+
+	router.use("/slider", sliderRouter);
 }
 
 module.exports = routerApi;
