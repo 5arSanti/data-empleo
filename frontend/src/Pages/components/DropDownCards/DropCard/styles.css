@@ -1,8 +1,10 @@
-.dropdown-container {
-    position: absolute;
+.dropdown-card-container {
+    width: 100%;
 }
 
-.dropdown-button {
+.dropdown-card-button {
+    width: 100%;
+
     border: none;
     border-radius: 0;
     border-bottom: 2px solid var(--gov-accesibility-card);
@@ -17,20 +19,20 @@
     color: var(--white-to-black-color);
 
 }
-.dropdown-button:hover {
+.dropdown-card-button:hover {
     border-bottom: 2px solid var(--gov-accesibility-card);
     background-color: var(--gov-accesibility-card);
 
     color: var(--white-to-black-color);
 }
 
-.dropdown-grid-container {
-    width: 175%;
+.dropdown-card-grid-container {
+    width: 100%;
     box-sizing: border-box;
-    padding: 5px 5px 5px 10px;
     background-color: var(--white-to-black-color);
     border-left: 1px solid var(--gov-accesibility-card);
     border-radius: 0;
+    padding: 0;
 
 
     animation-name: dropdown;
@@ -44,12 +46,12 @@
 
 @keyframes dropdown {
     100% {
-        transform: translateY(15%);
+        transform: translateY(30%);
     }
 }
 
 
-.dropdown-anchor-container {
+.dropdown-card-anchor-container {
     font-size: 14px;
     text-decoration: none;
 
@@ -58,7 +60,7 @@
 
 }
 
-.dropdown-anchor-container a {
+.dropdown-card-anchor-container a {
     width: 100%;
     cursor: pointer;
 
@@ -72,7 +74,7 @@
 
     color: var(--black-to-white-color);
 }
-.dropdown-anchor-container:hover a {
+.dropdown-card-anchor-container:hover a, .dropdown-card-anchor-container:hover div {
     text-decoration: underline;
     color: var(--gov-accesibility-card);
     transform: translateX(10px);

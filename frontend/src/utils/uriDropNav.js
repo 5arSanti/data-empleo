@@ -1,4 +1,4 @@
-const uriDropDown = {
+const uriDropNav = {
     "Visor de empleo": "https://www.buscadordeempleo.gov.co/#/home",
     "Boletines de demanda laboral":	"https://www.serviciodeempleo.gov.co/dataempleo-spe/demanda-laboral/2023/boletines",
     "Estudios sobre grupos poblacionales": "https://www.serviciodeempleo.gov.co/dataempleo-spe/oferta-laboral/2022/sectores-economicos",
@@ -19,4 +19,4 @@ const uriDropDown = {
 
 }
 
-export { uriDropDown };
+export { uriDropNav };

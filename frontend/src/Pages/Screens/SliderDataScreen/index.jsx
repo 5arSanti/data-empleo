@@ -9,6 +9,8 @@ import { SubTitle } from "../../components/SubTitle";
 import { Title } from "../../components/Title";
 import { WrapperContainer1, WrapperContainer2 } from "../../components/WrapperContainers";
 import { ButtonCard } from "../../components/ButtonCard/index.jsx";
+import { DropCard } from "../../components/DropDownCards/DropCard/index.jsx";
+import { icons } from "../../../utils/icons.jsx";
 
 const SliderDataScreen = () => {
     const [values, setValues] = React.useState({
@@ -16,7 +18,6 @@ const SliderDataScreen = () => {
         numericValue: null,
         percentValue: null,
     })
-    console.log(values);
 
     const buttonsOptions = [
         {
@@ -62,6 +63,7 @@ const SliderDataScreen = () => {
                                 defaultValue={values[item.state]}
                             />
                         ))}
+                        <DropCard title={"Iconos"} object={icons}/>
                         <ButtonCard
                             title="Guardar Información"
                             type="submit"

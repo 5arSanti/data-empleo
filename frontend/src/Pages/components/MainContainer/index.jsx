@@ -5,7 +5,7 @@ import { DateCard } from "../DateCard";
 
 
 import "./styles.css"
-import { DropDownCard } from '../DropDownCard';
+import { DropNav } from '../DropDownCards/DropNav';
 
 
 const MainContainer = ({children}) => {
@@ -14,7 +14,7 @@ const MainContainer = ({children}) => {
 
     return(
         <div className="main-container">
-            <DropDownCard/>
+            <DropNav/>
             <DateCard/>
 
             <div className="home-container">
