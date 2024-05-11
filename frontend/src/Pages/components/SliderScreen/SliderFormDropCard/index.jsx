@@ -4,18 +4,18 @@ import { handleInputChange } from "../../../../utils/handleInputChange";
 import { icons } from "../../../../utils/icons";
 import { AllInfoGridContainer } from "../../AllInfoContainer";
 import { DropCard } from "../../DropDownCards/DropCard";
-import { WrapperContainer1 } from "../../WrapperContainers";
+import { WrapperContainer2 } from "../../WrapperContainers";
+import { FaSearch } from "react-icons/fa";
 
 const SliderFormDropCard = () => {
     const context = React.useContext(AppContext)
 
     return(
         <AllInfoGridContainer className="grid-05-15">
-            {context.sliderValues.ICONO && 
-                <WrapperContainer1 justifyContent="center" padding={15}>
-                    {icons[context.sliderValues?.ICONO]}
-                </WrapperContainer1>
-            }
+            <WrapperContainer2 justifyContent="center" padding={15}>
+                {context.sliderValues.ICONO ? icons[context.sliderValues?.ICONO] : <FaSearch/>}
+            </WrapperContainer2>
+
 
             <DropCard title={"Iconos"} object={icons} onClick={(event) => handleInputChange("ICONO", event, context.setSliderValues)}/>
             

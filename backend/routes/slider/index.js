@@ -25,12 +25,13 @@ router.post("/", async (request, response) => {
 		const fechaActual = obtenerFechaHoraHoy();
 
 		const values = {
-			name: request.body.name,
-			numericValue: request.body.numericValue,
-			percentValue: request.body.percentValue,
-			icon: request.body.icon,
-			creationDate: fechaActual,
+			NOMBRE: request.body.NOMBRE,
+			VALOR: request.body.VALOR,
+			PORCENTAJE: request.body.PORCENTAJE,
+			ICONO: request.body.ICONO,
+			FECHA_CREACION: fechaActual,
 		}
+		console.log(values);
 
 		const arrayValues = Object.values(values);
 		const filterConditions = arrayValues.some((key) => values[key] === null)
@@ -41,6 +42,7 @@ router.post("/", async (request, response) => {
 
 		connection.query(query, arrayValues, (err, results) => {
 			if(err) {
+				console.log(err)
 				return response.status(500).json({ Error: err.message })
 			}
 
@@ -50,6 +52,25 @@ router.post("/", async (request, response) => {
 		return response.status(500).json({Error: err.message});
 	}
 })
+
+router.delete("/", async (request, response) => {
+	try {
+		const id = request.body.id;
+
+		const query = `DELETE FROM slider_data WHERE id = ?`;
+
+		connection.query(query, id, (err, results) => {
+			if(err) {
+				return response.status(500).json({ Error: err.message })
+			}
+
+			return response.json({ Status: "Success" });
+		});
+	} catch (err) {
+		return response.status(500).json({Error: err.message});
+	}
+
+});
 
 
 module.exports = router;

@@ -58,6 +58,8 @@ const SliderForm = () => {
         <form onSubmit={handleNewSliderCard}>
             <WrapperContainer1 flexDirection="column">
                 <SubTitle>Editar</SubTitle>
+                
+                <SliderFormDropCard/>
                 {buttonsOptions.map((item, index) => (
                     <InputCard2
                         key={index}
@@ -69,7 +71,6 @@ const SliderForm = () => {
                         defaultValue={context.sliderValues[item?.state]}
                     />
                 ))}
-                <SliderFormDropCard/>
 
                 <ButtonCard
                     title="Guardar Información"

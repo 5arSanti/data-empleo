@@ -18,17 +18,18 @@ const InputCard = ({type="text", id, label, placeholder="placeholder", onChange,
     );
 }
 
-const InputCard2 = ({type="text", id, label, placeholder="placeholder", onChange, required=true, defaultValue="", className="input2-container"}) => {
+const InputCard2 = ({type="text", id, label, placeholder="placeholder", onChange, required=true, defaultValue="", className="input2-container", haveLabel=true}) => {
     return(
         <div className={`${className}`}>
-            <label htmlFor={id}>{label} {required && "*"}</label>
+            {haveLabel && <label htmlFor={id}>{label} {required && "*"}</label>}
+            
             <input
                 type={type}
                 placeholder={placeholder}
                 name={id}
                 id={id}
                 onChange={(event) => {onChange(event.target.value)}}
-                required
+                required={false}
                 defaultValue={defaultValue}
             />
         </div>

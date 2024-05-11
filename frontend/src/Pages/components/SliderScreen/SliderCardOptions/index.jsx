@@ -17,18 +17,18 @@ const SliderCardOptions = ({item, onEdit, onDelete}) => {
 
                 <WrapperContainer2 flexDirection="column" padding={20} justifyContent="center">
                 <ButtonCard 
-                    title="Editar Gráfico"
+                    title="Editar"
                     onClick={() => onEdit(item)}
                     padding={15}
                 >
                     <MdEdit />
                 </ButtonCard>
                 <ButtonCard
-                    title="Eliminar Gráfico"
+                    title="Eliminar"
                     onClick={() => context.setOpenConfirmationModal({
                         status: true,
                         title: "¿Esta seguro que desea eliminar esta información?",
-                        onConfirm: () => onDelete(item.id),
+                        onConfirm: () => onDelete(item),
                         onCancel: () => context.setOpenConfirmationModal({status:false}),
                     })}
                     padding={15}

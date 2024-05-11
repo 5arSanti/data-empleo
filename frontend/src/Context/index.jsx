@@ -128,15 +128,14 @@ const AppProvider = ({children}) => {
     });
 
 
-        // Valores de la Grafica
-        const [editingSliderCard, setEditingSliderCard] = React.useState(false);
-        const [sliderValues, setSliderValues] = React.useState({
-            NOMBRE: null,
-            VALOR: null,
-            PORCENTAJE: null,
-            ICONO: null,
-        })
-        console.log(sliderValues);
+    // Valores de la Grafica
+    const [editingSliderCard, setEditingSliderCard] = React.useState(false);
+    const [sliderValues, setSliderValues] = React.useState({
+        NOMBRE: null,
+        VALOR: null,
+        PORCENTAJE: null,
+        ICONO: null,
+    })
     
 
     return (

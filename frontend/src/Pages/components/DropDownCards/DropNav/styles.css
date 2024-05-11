@@ -78,3 +78,7 @@
     transform: translateX(10px);
 }
 
+.dropnav-anchor-container svg {
+    width: 15px;
+    height: 15px;
+}

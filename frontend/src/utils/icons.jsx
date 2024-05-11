@@ -22,7 +22,6 @@ const icons = {
     "Marketing": <RiMegaphoneFill/>,
     "Educación": <IoSchoolSharp/>,
     "Industria": <FaIndustry/>,
-
 }
 
 export { icons };
