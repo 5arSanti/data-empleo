@@ -1,11 +1,9 @@
 import React from "react";
-
 import PropTypes from "prop-types";
 
 import { actualMonth, actualYear } from "../utils/dateFunctions";
 import { graphLabels } from "../utils/chartTypes";
 import { handleColorsByFilters } from "../utils/handleColors";
-// import { handleLogout } from "../utils/handleLogout";
 
 import { api } from "../utils/api";
 import { fetchAllData } from "../utils/handleData/handleFetchData";
@@ -107,7 +105,7 @@ const AppProvider = ({children}) => {
     });
 
 
-    // Valores de la Grafica
+    // Slider Cards Values
     const [editingSliderCard, setEditingSliderCard] = React.useState(false);
     const [sliderValues, setSliderValues] = React.useState({
         NOMBRE: null,

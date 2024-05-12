@@ -1,24 +1,7 @@
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import "./styles.css";
 
-const InputCard = ({type="text", id, label, placeholder="placeholder", onChange, required=true, stateKey, defaultValue="", className="input-container"}) => {
-    return(
-        <div className={`${className}`}>
-            <label htmlFor={id}>{label} {required && "*"}</label>
-            <input
-                type={type}
-                placeholder={placeholder}
-                name={id}
-                id={id}
-                onChange={(event) => {onChange(event.target.value)}}
-                required
-                defaultValue={defaultValue}
-            />
-        </div>
-    );
-}
-
-const InputCard2 = ({type="text", id, label, placeholder="placeholder", onChange, required=true, defaultValue="", className="input2-container", haveLabel=true}) => {
+const InputCard = ({type="text", id, label, placeholder="placeholder", onChange, required=true, defaultValue="", className="input-container", haveLabel=true}) => {
     return(
         <div className={`${className}`}>
             {haveLabel && <label htmlFor={id}>{label} {required && "*"}</label>}
@@ -29,7 +12,7 @@ const InputCard2 = ({type="text", id, label, placeholder="placeholder", onChange
                 name={id}
                 id={id}
                 onChange={(event) => {onChange(event.target.value)}}
-                required={false}
+                required={required}
                 defaultValue={defaultValue}
             />
         </div>
@@ -99,4 +82,4 @@ const UploadFileCard = ({id, label="Cargar Archivo", onChange, selectedFile=null
 }
 
 
-export { InputCard, InputCard2, OptionInputCard, TextAreaCard, UploadFileCard };
+export { InputCard, OptionInputCard, TextAreaCard, UploadFileCard };

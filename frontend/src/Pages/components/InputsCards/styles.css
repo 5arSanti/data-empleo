@@ -49,19 +49,19 @@ textarea {
 }
 
 /* Input Card 2 */
-.input2-container{
+.input2-card-container{
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
-.input2-container label{
+.input2-card-container label{
     font-size: 12px;
     font-weight: bold;
     color: var(--text-color);
     padding-left: 5px;
 }
-.input2-container input{
+.input2-card-container input{
 	background-color: transparent;
     color: var(--lines-color);
     padding: 15px 20px;
@@ -72,10 +72,10 @@ textarea {
 
 	transition: all 0.1s ease;
 }
-.input2-container input::placeholder{
+.input2-card-container input::placeholder{
 	color: var(--lines-color);
 }
-.input2-container input:focus, .input2-container input:hover{
+.input2-card-container input:focus, .input2-container input:hover{
     border: 1px solid var(--gov-accesibility-card);
 	box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.14);
 	-webkit-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.14);

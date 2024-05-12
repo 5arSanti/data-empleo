@@ -2,8 +2,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import "./styles.css";
 import { AllInfoGridContainer } from '../../AllInfoContainer';
 import { WrapperContainer2 } from '../../WrapperContainers';
-import { InputCard2 } from '../../InputsCards';
-import { handleInputChange } from '../../../../utils/handleInputChange';
+import { InputCard } from '../../InputsCards';
 import React from 'react';
 
 const DropCard = ({title, object, onClick}) => {
@@ -21,7 +20,7 @@ const DropCard = ({title, object, onClick}) => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu className="dropdown-card-grid-container">
-                    <InputCard2
+                    <InputCard
                         id={"search-icon-input"}
                         label={"Buscar Icono"}
                         placeholder='Buscar Icono'

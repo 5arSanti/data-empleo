@@ -1,9 +1,8 @@
-
 import { Title } from "../../components/Title";
-import { HomeInfoContainer } from "../../components/HomeInfoContainer";
+import { AuthWrapper } from "../../components/AuthWrapper";
+import { HomeInfoContainer } from "../../components/ScreenHome/HomeInfoContainer";
 
 import "./styles.css"
-import { AuthWrapper } from "../../components/AuthWrapper";
 
 const Home = () => {
     return (

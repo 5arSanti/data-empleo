@@ -9,9 +9,8 @@ import { useNavigate } from "react-router-dom";
 import "./styles.css";
 import { handleNotifications } from "../../../utils/handleNotifications";
 import { scrollToValue } from "../../../utils/scrollToValue";
-import { InputCard2 } from "../../components/InputsCards";
+import { InputCard } from "../../components/InputsCards";
 import { handleInputChange } from "../../../utils/handleInputChange";
-import { handlePostData } from "../../../utils/handleData/handlePostData";
 
 
 const LoginScreen = () => {
@@ -55,21 +54,23 @@ const LoginScreen = () => {
             </SubTitle>
 
             <form className="login-form-container" onSubmit={handleSubmit}>
-                <InputCard2
+                <InputCard
                     type="email"
                     id={"email"}
                     label={"Correo:"}
                     placeholder="Ingrese su correo"
                     onChange={(event) => handleInputChange("email", event, setValues)}
                     defaultValue={values?.email}
+                    className="input2-card-container"
                 />
-                <InputCard2
+                <InputCard
                     type="password"
                     id={"password"}
                     label={"Contraseña:"}
                     placeholder="Ingrese su contraseña"
                     onChange={(event) => handleInputChange("password", event, setValues)}
                     defaultValue={values?.password}
+                    className="input2-card-container"
                 />
                 <button type="submit">Iniciar sesion</button>
             </form>
