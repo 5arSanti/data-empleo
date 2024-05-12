@@ -1,104 +1,59 @@
 import React from "react";
 import "./styles.css";
 import { AppContext } from "../../../../Context";
-import { handleNotifications } from "../../../../utils/handleNotifications";
 import { WrapperContainer1 } from "../../WrapperContainers";
 import { SubTitle } from "../../SubTitle";
 import { OptionInputCard, UploadFileCard } from "../../InputsCards";
 import { ButtonCard } from "../../ButtonCard";
+import { handleFileChange } from "../../../../utils/handleFileChange";
+import { handlePostFile } from "../../../../utils/handleData/handlePostData";
+import { handleInputChange } from "../../../../utils/handleInputChange";
+import { handleNotifications } from "../../../../utils/handleNotifications";
+import { reloadLocation } from "../../../../utils/realoadLocation";
 
 const UploadForm = () => {
     const context = React.useContext(AppContext);
 
-    const [file, setFile] = React.useState({
-        selectedFile: null,
-        name: null,
-    })
-
-    const [selectedFile, setSelectedFile] = React.useState(null);
-    const [selectedOption, setSelectedOption] = React.useState(null);
-
-	const [selectedFileName, setSelectedFileName] = React.useState(null);
-
-    const handleFileChange = (event) => {
-        let file = null;
-        file = event.target.files[0];
-
-        if (file) {
-            const allowedExtensions = ['.xlsx', '.pdf'];
-            const fileExtension = file.name.slice(((file.name.lastIndexOf(".") - 1) >>> 0) + 2);
-
-            if (allowedExtensions.includes(`.${fileExtension}`)) {
-                setFile({
-                    ...file, 
-                    selectedFile: file, 
-                    name: file.name
-                });
-            } else {
-                file = null;
-				handleNotifications("error", "Por favor, seleccione un archivo .xlsx o .pdf válido.")
-                setSelectedFile(null)
-                setSelectedFileName(null)
-            }
-        }
-    };
+    const [values, setValues] = React.useState({
+        file: null,
+        selectedOption: null,
+    });
 
     const handleFileUpload = async (event) => {
         event.preventDefault();
-		context.setLoading(true);
-		context.setData(null);
-        if (selectedFile && selectedOption) {
-            const formData = new FormData();
-            formData.append('file', selectedFile);
 
-            try {
-                const response = await fetch( `${context.apiUri}/files/upload`, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        "selectedOption": selectedOption,
-                    }
-                });
-                const data = await response.json();
-				switch (response.status) {
-					case 400: context.messageHandler("error", data.message); break;
-					case 500: context.messageHandler("error", data.message); break;
-					case 200:
-						context.messageHandler("all-ok", data.message);
-						context.setData(data.rowLog);
-					break;
-				}
-
-            }
-            catch (err) {
-				context.messageHandler("error", err.message)
-            }
-        } else {
-			context.messageHandler("error", "Por favor, seleccione un archivo o fuente válido antes de cargar.")
+        if (!(values.file && values.selectedOption)) {
+            handleNotifications("error", "Por favor, seleccione un archivo y el tipo antes de cargar.")
+            return;
         }
-		setSelectedOption(null);
-		setSelectedFile(null);
-		setSelectedFileName(null);
-		context.setLoading(false);
+
+        const formData = new FormData();
+        formData.append('file', values.file);
+
+        await handlePostFile(event, formData, "/file/upload", reloadLocation, {"selectedOption": values.selectedOption,});
     };
 
     return(
         <WrapperContainer1 padding={30}>
-            <form encType="multipart/form-data" className="upload-form-container">
+            <form encType="multipart/form-data" className="upload-form-container" onSubmit={handleFileUpload}>
                 <SubTitle>
                     Por favor seleccione un archivo
                 </SubTitle>
                 <UploadFileCard
-                    // selectedFile={}
-                    onChange={handleFileChange}
-                    description={selectedFileName}
+                    id={"file"}
+                    onChange={(event) => handleFileChange(event, ['.xlsx', '.pdf'], setValues)}
+                    description={values.file ? values.file?.name : "Archivos PDF (.pdf) o Excel (.xlsx)"}
                 />
 
+
                 <OptionInputCard
-                    id={"upload-document"}
+                    id={"document-type-options"}
                     label={"Seleccione el tipo de Documento a Cargar"}
                     array={["Doc1","Doc2","Doc3","Doc4","Doc5"]}
+                    onChange={(event) => {handleInputChange("selectedOption", event, setValues)}}
+                    defaultValue={values?.selectedOption}
                 />
+
 
                 <ButtonCard 
                     title="Guardar y Publicar Archivo"
@@ -108,7 +63,6 @@ const UploadForm = () => {
                 </ButtonCard>
             </form>
         </WrapperContainer1>
-        
     )
 }
 

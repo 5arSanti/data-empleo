@@ -19,7 +19,7 @@ const InputCard = ({type="text", id, label, placeholder="placeholder", onChange,
     );
 }
 
-const OptionInputCard = ({id, label, array=[], onChange, stateKey, defaultValue=0}) => {
+const OptionInputCard = ({id, label, array=[], onChange, defaultValue=0}) => {
     return(
         <div className="input-container">
             <label htmlFor={id}>{label} </label>
@@ -58,23 +58,23 @@ const TextAreaCard = ({id, label, placeholder="placeholder", onChange, required=
     );
 }
 
-const UploadFileCard = ({id, label="Cargar Archivo", onChange, selectedFile=null, description="Archivos PDF (.pdf) o Excel (.xlsx)"}) => {
+const UploadFileCard = ({id, label="Cargar Archivo", onChange, description}) => {
     return(
         <label htmlFor={id} className="upload-file-container">
             <input
                 id={id}
+                name={id}
                 type="file"
                 accept=".pdf, .xlsx"
                 onChange={(event) => {onChange(event)}}
                 onClick={(event) => event.target.value = null}
-                name={id}
             />
             <span>
                 <AiOutlineCloudUpload/>
             </span>
             <div className="upload-file-info-container">
                 <p>{label}</p>
-                <p>{selectedFile ? selectedFile : description}</p>
+                <p>{description}</p>
             </div>
 
         </label>
