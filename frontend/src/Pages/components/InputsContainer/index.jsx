@@ -14,6 +14,8 @@ import { AllInfoGridContainer } from "../AllInfoContainer";
 import { getMonthsUntilCurrent, yearArray } from "../../../utils/dateFunctions";
 import { handleNotifications } from "../../../utils/handleNotifications";
 import { reloadLocation } from "../../../utils/realoadLocation";
+import { handlePostData } from "../../../utils/handleData/handlePostData";
+import { handleInputChange } from "../../../utils/handleInputChange";
 
 
 const InputsContainer = () => {
@@ -28,21 +30,10 @@ const InputsContainer = () => {
         event.preventDefault();
 
         if(!context.editingGraph) {
-            axios.post(`${context.apiUri}/graph/new`, values)
-                .then(response => {
-                    const {data} = response;
-
-                    if(data.Status === "Success") {
-                        handleNotifications("success", "Guardado correctamente")
-                        reloadLocation()
-                    } else {
-                        handleNotifications("error", data.Error)
-                    }
-                })
-                .catch(err => {alert(err)})
-
-        } else if(context.editingGraph) {
-            axios.patch(`${context.apiUri}/graph/`, values)
+            handlePostData(event, values, "/graph/new");
+        } 
+        else if(context.editingGraph) {
+            axios.patch(`${context.apiUri}/graph`, values)
                 .then(response => {
                     const {data} = response;
 
@@ -75,8 +66,7 @@ const InputsContainer = () => {
                         id={"graph-title"} 
                         label={"Titulo del Grafico"} 
                         placeholder="Título"
-                        onChange={context.handleGraphValuesChange}
-                        stateKey={"title"}
+                        onChange={(event) => handleInputChange("title", event, context.setGraphValues)}
                         defaultValue={context.graphValues?.title}
                     />
 
@@ -85,16 +75,14 @@ const InputsContainer = () => {
                             id={"year"} 
                             label={"Año"} 
                             array={yearArray}
-                            onChange={context.handleGraphValuesChange}
-                            stateKey={"year"}
+                            onChange={(event) => handleInputChange("year", event, context.setGraphValues)}
                             defaultValue={context.graphValues?.year}
                         />
                         <OptionInputCard 
                             id={"month"} 
                             label={"Mes"} 
                             array={monthsArray}
-                            onChange={context.handleGraphValuesChange}
-                            stateKey={"month"}
+                            onChange={(event) => handleInputChange("month", event, context.setGraphValues)}
                             defaultValue={context.graphValues?.month}
                         />
                     </AllInfoGridContainer>
@@ -104,16 +92,14 @@ const InputsContainer = () => {
                         id={"values-type"} 
                         label={"Tipo de Datos"} 
                         array={grapLabels}
-                        onChange={context.handleGraphValuesChange}
-                        stateKey={"grapLabelsType"}
+                        onChange={(event) => handleInputChange("grapLabelsType", event, context.setGraphValues)}
                         defaultValue={context.graphValues?.grapLabelsType}
                     />
                     <OptionInputCard 
                         id={"chart-type"} 
                         label={"Tipo de Gráfico"} 
                         array={chartTypes}
-                        onChange={context.handleGraphValuesChange}
-                        stateKey={"graphType"}
+                        onChange={(event) => handleInputChange("graphType", event, context.setGraphValues)}
                         defaultValue={context.graphValues?.graphType}
                     />
 
@@ -121,8 +107,7 @@ const InputsContainer = () => {
                         id={"graph-description"} 
                         label={"Descripción"} 
                         placeholder="Descripción"
-                        onChange={context.handleGraphValuesChange}
-                        stateKey={"description"}
+                        onChange={(event) => handleInputChange("description", event, context.setGraphValues)}
                         defaultValue={context.graphValues?.description}
                     />
 

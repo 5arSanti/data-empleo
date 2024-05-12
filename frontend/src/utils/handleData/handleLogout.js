@@ -1,7 +1,7 @@
 import axios from "axios";
-import { api } from "./api";
-import { handleNotifications } from "./handleNotifications";
-import { reloadLocation } from "./realoadLocation";
+import { api } from "../api";
+import { handleNotifications } from "../handleNotifications";
+import { reloadLocation } from "../realoadLocation";
 
 const handleLogout = () => {
     axios.get(`${api}/user/logout`)

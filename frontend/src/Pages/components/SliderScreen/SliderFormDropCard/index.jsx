@@ -5,7 +5,6 @@ import { icons } from "../../../../utils/icons";
 import { AllInfoGridContainer } from "../../AllInfoContainer";
 import { DropCard } from "../../DropDownCards/DropCard";
 import { WrapperContainer2 } from "../../WrapperContainers";
-import { FaSearch } from "react-icons/fa";
 
 const SliderFormDropCard = () => {
     const context = React.useContext(AppContext)
@@ -13,7 +12,7 @@ const SliderFormDropCard = () => {
     return(
         <AllInfoGridContainer className="grid-05-15">
             <WrapperContainer2 justifyContent="center" padding={15}>
-                {context.sliderValues.ICONO ? icons[context.sliderValues?.ICONO] : <FaSearch/>}
+                {context.sliderValues.ICONO && icons[context.sliderValues?.ICONO]}
             </WrapperContainer2>
 
 

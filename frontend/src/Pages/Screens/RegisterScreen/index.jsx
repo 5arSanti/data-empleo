@@ -12,6 +12,7 @@ import { scrollToValue } from "../../../utils/scrollToValue";
 import { handleInputChange } from "../../../utils/handleInputChange";
 import { InputCard2 } from "../../components/InputsCards";
 import { WrapperContainer1 } from "../../components/WrapperContainers";
+import { handlePostData } from "../../../utils/handleData/handlePostData";
 
 const RegisterScreen = () => {
     const context = React.useContext(AppContext);
@@ -23,33 +24,15 @@ const RegisterScreen = () => {
     const navigate = useNavigate();
 
     const [values, setValues] = React.useState({
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
+        name: null,
+        email: null,
+        password: null,
+        confirmPassword: null,
     })
 
-    const handleSubmit = (event) => {
+    const handleRegister = (event) => {
         event.preventDefault();
-
-        if (!(values.password === values.confirmPassword)) {
-            handleNotifications("error", "Las contraseñas no son iguales");
-            return;
-        }
-        
-        axios.post(`${context.apiUri}/user/register`, values)
-            .then(response => {
-                const {data} = response;
-
-                if(data.Status === "Success") {
-                    navigate("/login");
-                    handleNotifications("success", "Usuario Creado Correctamente")
-                } else {
-                    handleNotifications("error", data.Error)
-                }
-            })
-            .catch(err => {
-                handleNotifications("error", err.message)})
+        handlePostData(event, values, "/user/register", () => navigate("/login"));
     }
 
     return(
@@ -65,7 +48,7 @@ const RegisterScreen = () => {
 					Registro
 				</SubTitle>
 
-				<form className="login-form-container" onSubmit={handleSubmit}>
+				<form className="login-form-container" onSubmit={handleRegister}>
                     <InputCard2
                         id={"name"}
                         label={"Name:"}

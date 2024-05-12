@@ -8,8 +8,9 @@ import { handleColorsByFilters } from "../utils/handleColors";
 // import { handleLogout } from "../utils/handleLogout";
 
 import { api } from "../utils/api";
-import { fetchAllData } from "../utils/handleFetchData";
+import { fetchAllData } from "../utils/handleData/handleFetchData";
 import { handleNotifications } from "../utils/handleNotifications";
+import { handleInputChange } from "../utils/handleInputChange";
 
 
 export const AppContext = React.createContext();
@@ -33,12 +34,12 @@ const AppProvider = ({children}) => {
     // Valores de la Grafica
     const [editingGraph, setEditingGraph] = React.useState(false);
     const [graphValues, setGraphValues] = React.useState({
-        title: "",
+        title: null,
         year: actualYear,
         month: actualMonth,
         grapLabelsType: "ofertasRegistradas",
         graphType: "bar",
-        description: "",
+        description: null,
         values: [20000, 10000, 4, 7, 8, 1],
     })
     
@@ -74,27 +75,8 @@ const AppProvider = ({children}) => {
         fetchData()
     }, [filters]);
 
-
-    const handleGraphValuesChange = (key, value) => {
-        const numericValue = parseInt(value) || value;
-
-        setGraphValues((prevValues) => ({ 
-            ...prevValues, 
-            [key]: numericValue
-         }));
-    };
-
-    const handleFiltersChange = (key, value) => {
-        const numericValue = parseInt(value) || value;
-
-        setFilters((prevValues) => ({ 
-            ...prevValues, 
-            [key]: numericValue
-         }));
-    };
-
     React.useEffect(() => {
-        handleGraphValuesChange("graphType", graphLabels[graphValues.grapLabelsType].type)
+        handleInputChange("graphType", graphLabels[graphValues.grapLabelsType].type, setGraphValues);
     }, [graphValues.grapLabelsType]);
     
 
@@ -115,9 +97,6 @@ const AppProvider = ({children}) => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
       }, []);
-
-    // Navbar Responsive
-    const [toggleNavBarResponsive, setToggleNavBarResponsive] = React.useState(false);
 
     // Modal de Confirmacion
     const [openConfirmationModal, setOpenConfirmationModal] = React.useState({
@@ -157,9 +136,6 @@ const AppProvider = ({children}) => {
                 message,
                 setMessage,
 
-                //NavBar Responsive
-                toggleNavBarResponsive,
-                setToggleNavBarResponsive,
 
                 //Tamaño de la pantalla
                 windowWidth,
@@ -178,8 +154,6 @@ const AppProvider = ({children}) => {
                 // Valores de la Grafica
                 graphValues,
                 setGraphValues,
-                handleGraphValuesChange,
-                handleFiltersChange,
                 editingGraph,
                 setEditingGraph,
 

@@ -10,6 +10,7 @@ import { SubTitle } from "../SubTitle";
 import { ButtonCard } from "../ButtonCard";
 import { AppContext } from "../../../Context";
 import { handleNotifications } from "../../../utils/handleNotifications";
+import { handleInputChange } from "../../../utils/handleInputChange";
 
 const DocumentPDFFiltersViewer = ({array, graphImages}) => {
     const context = React.useContext(AppContext)
@@ -30,16 +31,14 @@ const DocumentPDFFiltersViewer = ({array, graphImages}) => {
                     id={"export-year"} 
                     label={"Año"} 
                     array={yearArray}
-                    onChange={context.handleFiltersChange}
-                    stateKey={"AÑO"}
+                    onChange={(event) => handleInputChange("AÑO", event, context.setFilters)}
                     defaultValue={context.filters?.AÑO}
                 />
                 <OptionInputCard
                     id={"export-month"} 
                     label={"Mes"} 
                     array={monthsArray}
-                    onChange={context.handleFiltersChange}
-                    stateKey={"MES"}
+                    onChange={(event) => handleInputChange("MES", event, context.setFilters)}
                     defaultValue={context.filters?.MES}
                 />
 

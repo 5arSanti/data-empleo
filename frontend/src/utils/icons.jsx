@@ -8,6 +8,9 @@ import { FaBus } from "react-icons/fa";
 import { RiMegaphoneFill } from "react-icons/ri";
 import { IoSchoolSharp } from "react-icons/io5";
 import { FaIndustry } from "react-icons/fa6";
+import { GiGraduateCap } from "react-icons/gi";
+import { FaUserGraduate } from "react-icons/fa";
+import { MdBackpack } from "react-icons/md";
 
 const icons = {
     "Actividades artísticas": <FaPaintbrush />,
@@ -22,6 +25,9 @@ const icons = {
     "Marketing": <RiMegaphoneFill/>,
     "Educación": <IoSchoolSharp/>,
     "Industria": <FaIndustry/>,
+    "Posgrado": <GiGraduateCap/>,
+    "Universitario, tecnólogo o tecnológico": <FaUserGraduate/>,
+    "Bachillerato": <MdBackpack/>,
 }
 
 export { icons };

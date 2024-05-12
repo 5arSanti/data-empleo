@@ -11,6 +11,7 @@ import { handleNotifications } from "../../../utils/handleNotifications";
 import { scrollToValue } from "../../../utils/scrollToValue";
 import { InputCard2 } from "../../components/InputsCards";
 import { handleInputChange } from "../../../utils/handleInputChange";
+import { handlePostData } from "../../../utils/handleData/handlePostData";
 
 
 const LoginScreen = () => {
@@ -21,8 +22,8 @@ const LoginScreen = () => {
     }, [])
 
     const [values, setValues] = React.useState({
-        email: "",
-        password: "",
+        email: null,
+        password: null,
     })
 
     const navigate = useNavigate();
@@ -36,7 +37,7 @@ const LoginScreen = () => {
                 const {data} = response;
 
                 if(data.Status === "Success") {
-                    handleNotifications("success", "Sesión Iniciada Correctamente")
+                    handleNotifications("success", data.message);
                     navigate("/dashboard");
                 } else {
                     handleNotifications("error", data.Error)

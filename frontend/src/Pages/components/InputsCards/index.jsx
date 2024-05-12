@@ -10,7 +10,7 @@ const InputCard = ({type="text", id, label, placeholder="placeholder", onChange,
                 placeholder={placeholder}
                 name={id}
                 id={id}
-                onChange={(event) => {onChange(stateKey, event.target.value)}}
+                onChange={(event) => {onChange(event.target.value)}}
                 required
                 defaultValue={defaultValue}
             />
@@ -43,7 +43,7 @@ const OptionInputCard = ({id, label, array=[], onChange, stateKey, defaultValue=
             <select 
                 name={id} 
                 id={id}
-                onChange={(event) => {onChange(stateKey, event.target.value)}}
+                onChange={(event) => {onChange(event.target.value)}}
                 value={defaultValue}
             >
                 {array?.map((item, index) => (
@@ -67,7 +67,7 @@ const TextAreaCard = ({id, label, placeholder="placeholder", onChange, required=
                 placeholder={placeholder}
                 name={id}
                 id={id}
-                onChange={(event) => {onChange(stateKey, event.target.value)}}
+                onChange={(event) => {onChange(event.target.value)}}
                 required
                 defaultValue={defaultValue}
             />

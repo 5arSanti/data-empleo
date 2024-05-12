@@ -3,9 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../../Context";
 
-import { handleLogout } from "../../../utils/handleLogout";
-
 import "./styles.css";
+import { handleLogout } from "../../../utils/handleData/handleLogout";
 
 const NavButtons = ({className="idioma-icon-barra-superior-govco"}) => {
     const context = React.useContext(AppContext)

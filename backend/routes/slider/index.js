@@ -3,6 +3,7 @@ const { connection } = require("../../database");
 
 const { getQuery } = require("../../database/query");
 const { obtenerFechaHoraHoy } = require("../../DateFunctions");
+const { validateObjectValues } = require("../../Utils/validateObjectValues");
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ router.get("/", async (request, response) => {
 router.post("/", async (request, response) => {
 
 	try {
-		const query = "INSERT INTO slider_data (`NOMBRE`,`VALOR`,`PORCENTAJE`, `ICONO`, `FECHA_CREACION`) VALUES (?,?,?,?,?)";
+		const query = "INSERT INTO slider_dat (`NOMBRE`,`VALOR`,`PORCENTAJE`, `ICONO`, `FECHA_CREACION`) VALUES (?,?,?,?,?)";
 
 		const fechaActual = obtenerFechaHoraHoy();
 
@@ -31,22 +32,16 @@ router.post("/", async (request, response) => {
 			ICONO: request.body.ICONO,
 			FECHA_CREACION: fechaActual,
 		}
-		console.log(values);
 
 		const arrayValues = Object.values(values);
-		const filterConditions = arrayValues.some((key) => values[key] === null)
-
-		if (filterConditions) {
-			return response.json({ Error: "No pueden haber campos vacios" })
-		}
+		validateObjectValues(values)
 
 		connection.query(query, arrayValues, (err, results) => {
 			if(err) {
-				console.log(err)
 				return response.status(500).json({ Error: err.message })
 			}
 
-			return response.json({ Status: "Success" });
+			return response.json({ Status: "Success", message: "Datos guardados correctamente" });
 		});
 	} catch (err) {
 		return response.status(500).json({Error: err.message});
