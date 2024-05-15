@@ -38,7 +38,7 @@ const SliderForm = () => {
 
     return(
         <form onSubmit={handleNewSliderCard}>
-            <WrapperContainer1 flexDirection="column">
+            <WrapperContainer1 flexDirection="column" padding={30}>
                 <SubTitle>Slider</SubTitle>
                 
                 <SliderFormDropCard/>
