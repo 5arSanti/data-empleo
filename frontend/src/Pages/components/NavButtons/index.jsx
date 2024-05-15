@@ -35,8 +35,8 @@ const NavButtons = ({className="idioma-icon-barra-superior-govco"}) => {
                     <Link to={"/slider"} className={`${className}`}>
                         Slider
                     </Link>
-                    <Link to={"/register"} className={`${className}`}>
-                        Registro
+                    <Link to={"/users"} className={`${className}`}>
+                        Usuarios
                     </Link>
                       <button  
                         className={`${className}`} 

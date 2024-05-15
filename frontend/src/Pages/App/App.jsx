@@ -29,6 +29,7 @@ import { UploadScreen } from "../Screens/UploadScreen";
 import { NavImagesCard } from "../components/NavImagesCard";
 import { SliderDataScreen } from "../Screens/SliderDataScreen";
 import { SliderNavContainer } from "../components/SliderNavContainer";
+import { UsersScreen } from "../Screens/UsersScreen";
 
 const Wrapper = ({children}) => {
     const location = useLocation();
@@ -51,6 +52,7 @@ const AppRoutes = () => {
         {path: "/document", element: <DocumentScreen/>},
         {path: "/upload", element: <UploadScreen/>},
         {path: "/slider", element: <SliderDataScreen/>},
+        {path: "/users", element: <UsersScreen/>},
 
         
         {path: "/register", element: auth ? <RegisterScreen/> : <Navigate replace to={"/login"} />},

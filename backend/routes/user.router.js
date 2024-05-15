@@ -27,6 +27,7 @@ router.post("/register", (request, response) => {
 		validateObjectValues(request.body);
 		validatePassword(request.body.password, request.body.confirmPassword)
 
+
 		connection.query("SELECT * FROM login WHERE email = ?", [request.body.email], (err, result) => {
 			if (err) {
 				return response.json({Error: err.message})

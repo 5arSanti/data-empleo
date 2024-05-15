@@ -13,6 +13,8 @@ const AuthWrapper = ({children}) => {
     axios.defaults.withCredentials = true;
 
     React.useEffect(() => {
+        scrollToValue(0,350);
+        
         axios.get(`${context.apiUri}/user/`)
             .then(response => {
                 const {data} = response;

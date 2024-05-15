@@ -5,6 +5,7 @@ const properties = PropertiesReader('./app.properties.ini');
 
 
 const userRouter = require("./user.router.js")
+const usersRouter = require("./users")
 
 const graphRouter = require("./graph/index.js")
 const graphNewRouter = require("./graph/new.router.js")
@@ -20,6 +21,7 @@ const routerApi = (app) => {
 
 	// Routes
 	router.use("/user", userRouter);
+	router.use("/users", usersRouter);
 
 	router.use("/graph", graphRouter);
 	router.use("/graph/new", graphNewRouter);

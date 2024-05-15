@@ -11,7 +11,7 @@ let storage = multer.diskStorage({
 		const selectedOption = request.get("selectedOption");
 		const fileDate = moment().format("YYYY-MM-DD_HH-mm-ss");
 
-		let formatName =`${selectedOption}_${fileDate}_${file.fieldname}.${mimeTypes.extension(file.mimetype)}`;
+		let formatName =`${selectedOption}_${fileDate}_${file.originalname}.${mimeTypes.extension(file.mimetype)}`;
 
 		callback(null, formatName);
     }

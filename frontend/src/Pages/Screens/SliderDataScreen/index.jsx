@@ -8,7 +8,7 @@ const SliderDataScreen = () => {
 
     return(
         <AuthWrapper>
-            <Title>Informacion del Slider</Title>
+            <Title>Información del Slider</Title>
             <AllInfoGridContainer>
                 <SliderGrid/>
                 <SliderForm/>

@@ -2,7 +2,7 @@ import "./styles.css";
 
 const WrapperContainer1 = ({children, flexDirection = "row", padding = 20, gap = 15, justifyContent="start"}) => {
     return(
-        <div className="filters-wrapper1" style={{
+        <div className="filters-wrapper1 shadow-style" style={{
             flexDirection: flexDirection,
             padding: padding,
             gap: gap,

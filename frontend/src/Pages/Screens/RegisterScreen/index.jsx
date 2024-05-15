@@ -12,10 +12,6 @@ import { InputCard } from "../../components/InputsCards";
 import { handlePostData } from "../../../utils/handleData/handlePostData";
 
 const RegisterScreen = () => {
-    React.useEffect(() => {
-        scrollToValue(0, 350)
-    }, [])
-
     const navigate = useNavigate();
 
     const [values, setValues] = React.useState({
@@ -27,7 +23,7 @@ const RegisterScreen = () => {
 
     const handleRegister = (event) => {
         event.preventDefault();
-        handlePostData(event, values, "/user/register", () => navigate("/login"));
+        handlePostData(event, values, "/user/register");
     }
 
     return(
@@ -36,7 +32,7 @@ const RegisterScreen = () => {
 				Registrar Nuevo Usuario Administrador
 			</Title>
             
-			<div className="login-container">
+			<div className="login-container shadow-style">
 				<SubTitle
                     textAlign="center"
 				>

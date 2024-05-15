@@ -55,6 +55,7 @@ const AppProvider = ({children}) => {
             `/graph`,
             `/graph/export?${filterParams.toString()}`,
             `/slider`,
+            "/users",
         ]
 
         const fetchData = async () => {
@@ -113,6 +114,9 @@ const AppProvider = ({children}) => {
         PORCENTAJE: null,
         ICONO: null,
     })
+
+    // Edicion de Usuarios
+    const [users, setUsers] = React.useState(null);
     
 
     return (
@@ -164,6 +168,10 @@ const AppProvider = ({children}) => {
                 setEditingSliderCard,
                 sliderValues,
                 setSliderValues,
+
+                //Usuarios
+                users,
+                setUsers,
             }}
         >
             {children}

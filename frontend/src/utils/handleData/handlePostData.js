@@ -13,6 +13,8 @@ const handlePostData = async (event, object, endpoint, callback = reloadLocation
             method: 'POST', 
             mode:'cors',
             headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
                 ...headers
             },
             body: JSON.stringify(object)
