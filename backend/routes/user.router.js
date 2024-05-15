@@ -9,6 +9,8 @@ const PropertiesReader = require("properties-reader");
 const properties = PropertiesReader("./app.properties.ini")
 
 const { verifyUser } = require("../middlewares/verifyUser");
+const { validatePassword } = require("../Utils/validatePassword");
+const { validateObjectValues } = require("../Utils/validateObjectValues");
 
 const router = express.Router();
 
@@ -21,33 +23,46 @@ router.get("/", verifyUser, (request, response) => {
 const salt = 10;
 
 router.post("/register", (request, response) => {
-	const query = "INSERT INTO login (`name`,`email`,`password`) VALUES (?)";
-
 	try {
-		bcrypt.hash(request.body.password.toString(), salt, (err, hash) => {
-			if (err) { return response.json({Error: "Error hashing password"}); }
+		validateObjectValues(request.body);
+		validatePassword(request.body.password, request.body.confirmPassword)
 
-			const values = [
-				request.body.name,
-				request.body.email,
-				hash,
-			]
 
-			connection.query(query, [values], (err, result) => {
-				if(err) { return response.json({Error: "Error creando el usuario"}) }
+		connection.query("SELECT * FROM login WHERE email = ?", [request.body.email], (err, result) => {
+			if (err) {
+				return response.json({Error: err.message})
+			}
+			if (result.length !== 0) {
+				return response.json({Error: "Este correo ya esta registrado"})
+			}
 
-				return response.json({Status: "Success"});
+			const query = "INSERT INTO login (`name`,`email`,`password`) VALUES (?)";
+
+			bcrypt.hash(request.body.password.toString(), salt, (err, hash) => {
+				if (err) { return response.json({Error: "Error hashing password"}); }
+
+				const values = [
+					request.body.name,
+					request.body.email,
+					hash,
+				]
+
+				connection.query(query, [values], (err, result) => {
+					if(err) { return response.json({Error: "Error creando el usuario"}) }
+
+					return response.json({Status: "Success", message: "Usuario creado correctamente"});
+				});
 			});
-
 		});
 	}
 	catch (err) {
-		response.status(500).json({Error: err.message})
+		return response.json({Error: err.message})
 	}
 });
 
 router.post("/login", (req, res) => {
 	try {
+		validateObjectValues(req.body);
 		const query = "SELECT * FROM login WHERE email = ?";
 
 		connection.query(query, [req.body.email], (err, data) => {
@@ -83,7 +98,8 @@ router.post("/login", (req, res) => {
 
 router.get("/logout", (request, response) => {
 	response.clearCookie("token")
-	return response.json({Status: "Success"})
+	return response.json({Status: "Success", message: "Sesion Cerrada Correctamente"})
+
 })
 
 

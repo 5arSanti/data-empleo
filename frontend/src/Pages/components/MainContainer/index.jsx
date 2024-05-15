@@ -2,10 +2,10 @@ import { useLocation } from 'react-router-dom';
 import { removeFirstLetter } from '../../../utils/strings';
 
 import { DateCard } from "../DateCard";
-import { IoIosArrowForward } from "react-icons/io";
 
 
 import "./styles.css"
+import { DropNav } from '../DropDownCards/DropNav';
 
 
 const MainContainer = ({children}) => {
@@ -14,12 +14,10 @@ const MainContainer = ({children}) => {
 
     return(
         <div className="main-container">
-            <div className="home-container">
-                <DateCard className="top-left">
-                    <IoIosArrowForward/> {text}
-                </DateCard>
+            <DropNav/>
+            <DateCard/>
 
-                <DateCard/>
+            <div className="home-container">
                 {children}
             </div>
         </div>

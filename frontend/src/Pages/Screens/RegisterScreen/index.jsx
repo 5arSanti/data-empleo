@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 
 import { AppContext } from "../../../Context";
 
@@ -7,33 +6,24 @@ import { SubTitle } from "../../components/SubTitle";
 import { useNavigate } from "react-router-dom";
 import { Title } from "../../components/Title";
 import { AuthWrapper } from "../../components/AuthWrapper";
-import { handleNotifications } from "../../../utils/handleNotifications";
+import { scrollToValue } from "../../../utils/scrollToValue";
+import { handleInputChange } from "../../../utils/handleInputChange";
+import { InputCard } from "../../components/InputsCards";
+import { handlePostData } from "../../../utils/handleData/handlePostData";
 
 const RegisterScreen = () => {
-    const context = React.useContext(AppContext);
     const navigate = useNavigate();
 
     const [values, setValues] = React.useState({
-        name: "",
-        email: "",
-        password: "",
+        name: null,
+        email: null,
+        password: null,
+        confirmPassword: null,
     })
 
-    const handleSubmit = (event) => {
+    const handleRegister = (event) => {
         event.preventDefault();
-        axios.post(`${context.apiUri}/user/register`, values)
-            .then(response => {
-                const {data} = response;
-
-                if(data.Status === "Success") {
-                    navigate("/login");
-                    handleNotifications("success", "Usuario Creado Correctamente")
-                } else {
-                    handleNotifications("error", data.Error)
-                }
-            })
-            .catch(err => {
-                handleNotifications("error", err.message)})
+        handlePostData(event, values, "/user/register");
     }
 
     return(
@@ -41,44 +31,52 @@ const RegisterScreen = () => {
 			<Title>
 				Registrar Nuevo Usuario Administrador
 			</Title>
-			<div className="login-container">
+            
+			<div className="login-container shadow-style">
 				<SubTitle
                     textAlign="center"
 				>
 					Registro
 				</SubTitle>
 
-				<form className="login-form-container" onSubmit={handleSubmit}>
-                    <div className="form-input-container">
-						<label htmlFor="name">Nombre:</label>
-						<input
-                            type="text"
-                            placeholder="Ingrese su nombre"
-                            name="name"
-                            onChange={(event) => {setValues({...values, name: event.target.value})}}
-                            required
-                        />
-					</div>
-					<div className="form-input-container">
-						<label htmlFor="email">Correo:</label>
-						<input
-                            type="email"
-                            placeholder="Ingrese su correo"
-                            name="email"
-                            onChange={(event) => {setValues({...values, email: event.target.value})}}
-                            required
-                        />
-					</div>
-					<div className="form-input-container">
-						<label htmlFor="password">Contraseña:</label>
-						<input
-                            type="password"
-                            placeholder="Ingrese su contraseña"
-                            name="password"
-                            onChange={(event) => {setValues({...values, password: event.target.value})}}
-                            required
-                        />
-					</div>
+				<form className="login-form-container" onSubmit={handleRegister}>
+                    <InputCard
+                        id={"name"}
+                        label={"Name:"}
+                        placeholder="Ingrese su nombre"
+                        onChange={(event) => handleInputChange("name", event, setValues)}
+                        defaultValue={values?.name}
+                        className="input2-card-container"
+                    />
+                    <InputCard
+                        type="email"
+                        id={"email"}
+                        label={"Correo:"}
+                        placeholder="Ingrese su correo"
+                        onChange={(event) => handleInputChange("email", event, setValues)}
+                        defaultValue={values?.email}
+                        className="input2-card-container"
+
+                    />
+                    <InputCard
+                        type="password"
+                        id={"password"}
+                        label={"Contraseña:"}
+                        placeholder="Ingrese su contraseña"
+                        onChange={(event) => handleInputChange("password", event, setValues)}
+                        defaultValue={values?.password}
+                        className="input2-card-container"
+                    />
+                    <InputCard
+                        type="password"
+                        id={"confirm-password"}
+                        label={"Confirmar Contraseña:"}
+                        placeholder="Ingrese su contraseña"
+                        onChange={(event) => handleInputChange("confirmPassword", event, setValues)}
+                        defaultValue={values?.confirmPassword}
+                        className="input2-card-container"
+                    />
+                    
 					<button type="submit">Registrarse</button>
 				</form>
 			</div>

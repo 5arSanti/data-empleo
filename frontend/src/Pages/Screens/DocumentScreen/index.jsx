@@ -1,5 +1,5 @@
 import { AuthWrapper } from '../../components/AuthWrapper';
-import { DocumentInfoContainer } from '../../components/DocumentInfoContainer';
+import { DocumentInfoContainer } from '../../components/ScreenDocument/DocumentInfoContainer';
 
 const DocumentScreen = () => {
     return(

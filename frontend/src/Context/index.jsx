@@ -1,15 +1,14 @@
 import React from "react";
-
 import PropTypes from "prop-types";
 
 import { actualMonth, actualYear } from "../utils/dateFunctions";
 import { graphLabels } from "../utils/chartTypes";
 import { handleColorsByFilters } from "../utils/handleColors";
-import { handleLogout } from "../utils/handleLogout";
 
 import { api } from "../utils/api";
-import { fetchAllData } from "../utils/handleFetchData";
+import { fetchAllData } from "../utils/handleData/handleFetchData";
 import { handleNotifications } from "../utils/handleNotifications";
+import { handleInputChange } from "../utils/handleInputChange";
 
 
 export const AppContext = React.createContext();
@@ -33,12 +32,12 @@ const AppProvider = ({children}) => {
     // Valores de la Grafica
     const [editingGraph, setEditingGraph] = React.useState(false);
     const [graphValues, setGraphValues] = React.useState({
-        title: "",
+        title: null,
         year: actualYear,
         month: actualMonth,
         grapLabelsType: "ofertasRegistradas",
         graphType: "bar",
-        description: "",
+        description: null,
         values: [20000, 10000, 4, 7, 8, 1],
     })
     
@@ -55,6 +54,8 @@ const AppProvider = ({children}) => {
         const endpoints = [
             `/graph`,
             `/graph/export?${filterParams.toString()}`,
+            `/slider`,
+            "/users",
         ]
 
         const fetchData = async () => {
@@ -73,27 +74,8 @@ const AppProvider = ({children}) => {
         fetchData()
     }, [filters]);
 
-
-    const handleGraphValuesChange = (key, value) => {
-        const numericValue = parseInt(value) || value;
-
-        setGraphValues((prevValues) => ({ 
-            ...prevValues, 
-            [key]: numericValue
-         }));
-    };
-
-    const handleFiltersChange = (key, value) => {
-        const numericValue = parseInt(value) || value;
-
-        setFilters((prevValues) => ({ 
-            ...prevValues, 
-            [key]: numericValue
-         }));
-    };
-
     React.useEffect(() => {
-        handleGraphValuesChange("graphType", graphLabels[graphValues.grapLabelsType].type)
+        handleInputChange("graphType", graphLabels[graphValues.grapLabelsType].type, setGraphValues);
     }, [graphValues.grapLabelsType]);
     
 
@@ -115,9 +97,6 @@ const AppProvider = ({children}) => {
         return () => window.removeEventListener('resize', handleResize);
       }, []);
 
-    // Navbar Responsive
-    const [toggleNavBarResponsive, setToggleNavBarResponsive] = React.useState(false);
-
     // Modal de Confirmacion
     const [openConfirmationModal, setOpenConfirmationModal] = React.useState({
         status: false,
@@ -126,6 +105,18 @@ const AppProvider = ({children}) => {
         onCancel: null,
     });
 
+
+    // Slider Cards Values
+    const [editingSliderCard, setEditingSliderCard] = React.useState(false);
+    const [sliderValues, setSliderValues] = React.useState({
+        NOMBRE: null,
+        VALOR: null,
+        PORCENTAJE: null,
+        ICONO: null,
+    })
+
+    // Edicion de Usuarios
+    const [users, setUsers] = React.useState(null);
     
 
     return (
@@ -140,7 +131,6 @@ const AppProvider = ({children}) => {
                 
                 auth,
                 setAuth,
-                handleLogout,
                 
                 name,
                 setName,
@@ -148,9 +138,6 @@ const AppProvider = ({children}) => {
                 message,
                 setMessage,
 
-                //NavBar Responsive
-                toggleNavBarResponsive,
-                setToggleNavBarResponsive,
 
                 //Tamaño de la pantalla
                 windowWidth,
@@ -169,14 +156,22 @@ const AppProvider = ({children}) => {
                 // Valores de la Grafica
                 graphValues,
                 setGraphValues,
-                handleGraphValuesChange,
-                handleFiltersChange,
                 editingGraph,
                 setEditingGraph,
 
                 //Modal de confirmación
                 openConfirmationModal,
                 setOpenConfirmationModal,
+
+                // Slider Cards
+                editingSliderCard,
+                setEditingSliderCard,
+                sliderValues,
+                setSliderValues,
+
+                //Usuarios
+                users,
+                setUsers,
             }}
         >
             {children}

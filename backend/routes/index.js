@@ -5,10 +5,14 @@ const properties = PropertiesReader('./app.properties.ini');
 
 
 const userRouter = require("./user.router.js")
+const usersRouter = require("./users")
 
 const graphRouter = require("./graph/index.js")
 const graphNewRouter = require("./graph/new.router.js")
 const graphExportRouter = require("./graph/export.router.js")
+
+const sliderRouter = require("./slider")
+const fileRouter = require("./file")
 
 
 const routerApi = (app) => {
@@ -17,10 +21,15 @@ const routerApi = (app) => {
 
 	// Routes
 	router.use("/user", userRouter);
+	router.use("/users", usersRouter);
 
 	router.use("/graph", graphRouter);
 	router.use("/graph/new", graphNewRouter);
 	router.use("/graph/export", graphExportRouter);
+
+	router.use("/slider", sliderRouter);
+
+	router.use("/file", fileRouter);
 }
 
 module.exports = routerApi;

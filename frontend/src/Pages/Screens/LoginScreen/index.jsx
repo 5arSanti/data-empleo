@@ -9,15 +9,20 @@ import { useNavigate } from "react-router-dom";
 import "./styles.css";
 import { handleNotifications } from "../../../utils/handleNotifications";
 import { scrollToValue } from "../../../utils/scrollToValue";
+import { InputCard } from "../../components/InputsCards";
+import { handleInputChange } from "../../../utils/handleInputChange";
 
 
 const LoginScreen = () => {
     const context = React.useContext(AppContext);
-    scrollToValue();
+
+    React.useEffect(() => {
+        scrollToValue(0, 350)
+    }, [])
 
     const [values, setValues] = React.useState({
-        email: "",
-        password: "",
+        email: null,
+        password: null,
     })
 
     const navigate = useNavigate();
@@ -31,48 +36,45 @@ const LoginScreen = () => {
                 const {data} = response;
 
                 if(data.Status === "Success") {
+                    handleNotifications("success", data.message);
                     navigate("/dashboard");
-                    handleNotifications("success", "Sesión Iniciada Correctamente")
                 } else {
                     handleNotifications("error", data.Error)
                 }
             })
-            .catch(err => {
-                handleNotifications("error", err.message)})
+            .catch(err => { handleNotifications("error", err.message) })
     }
 
     return(
-		<>
-			<div className="login-container">
-				<SubTitle
-                    textAlign="center"
-				>
-					Iniciar Sesion
-				</SubTitle>
+        <div className="login-container shadow-style">
+            <SubTitle
+                textAlign="center"
+            >
+                Iniciar Sesion
+            </SubTitle>
 
-				<form className="login-form-container" onSubmit={handleSubmit}>
-					<div className="form-input-container">
-						<label htmlFor="email">Correo:</label>
-						<input
-                            type="email"
-                            placeholder="Ingrese su correo"
-                            name="email"
-                            onChange={(event) => {setValues({...values, email: event.target.value})}}
-                        />
-					</div>
-					<div className="form-input-container">
-						<label htmlFor="password">Contraseña:</label>
-						<input
-                            type="password"
-                            placeholder="Ingrese su contraseña"
-                            name="password"
-                            onChange={(event) => {setValues({...values, password: event.target.value})}}
-                        />
-					</div>
-					<button type="submit">Iniciar sesion</button>
-				</form>
-			</div>
-		</>
+            <form className="login-form-container" onSubmit={handleSubmit}>
+                <InputCard
+                    type="email"
+                    id={"email"}
+                    label={"Correo:"}
+                    placeholder="Ingrese su correo"
+                    onChange={(event) => handleInputChange("email", event, setValues)}
+                    defaultValue={values?.email}
+                    className="input2-card-container"
+                />
+                <InputCard
+                    type="password"
+                    id={"password"}
+                    label={"Contraseña:"}
+                    placeholder="Ingrese su contraseña"
+                    onChange={(event) => handleInputChange("password", event, setValues)}
+                    defaultValue={values?.password}
+                    className="input2-card-container"
+                />
+                <button type="submit">Iniciar sesion</button>
+            </form>
+        </div>
     );
 }
 
