@@ -1,5 +1,5 @@
 import { AllInfoGridContainer } from "../../AllInfoContainer";
-import { WrapperContainer2 } from "../../WrapperContainers";
+import { WrapperContainer1, WrapperContainer2 } from "../../WrapperContainers";
 import { UploadForm } from "../UploadForm";
 
 const UploadInfoContainer = () => {
@@ -7,8 +7,10 @@ const UploadInfoContainer = () => {
         <AllInfoGridContainer className="grid-1-1">
             <UploadForm/>
 
-            <WrapperContainer2>
-                <p>Placeholder</p>
+            <WrapperContainer2 alignItems="start">
+                <WrapperContainer1>
+                    
+                </WrapperContainer1>
             </WrapperContainer2>
         </AllInfoGridContainer>
     );
