@@ -10,28 +10,30 @@ import { handlePostFile } from "../../../../utils/handleData/handlePostData";
 import { handleInputChange } from "../../../../utils/handleInputChange";
 import { handleNotifications } from "../../../../utils/handleNotifications";
 import { uriDropNav } from "../../../../utils/uriDropNav";
+import { validateFiles } from "../../../../utils/validate/validateFiles";
 
 const UploadForm = () => {
     const [values, setValues] = React.useState({
         files: null,
         selectedOption: Object.keys(uriDropNav)[1],
     });
+    console.log(values.files);
 
     const handleFileUpload = async (event) => {
-        event.preventDefault();
+        try {
+            event.preventDefault();
 
-        if (!(values.files && values.selectedOption)) {
-            console.log(values.files,  values.selectedOption)
-            handleNotifications("error", "Por favor, seleccione un archivo y el tipo antes de cargar.")
-            return;
+            validateFiles(values);
+    
+            const formData = new FormData();
+            for (let i = 0; i < values.files.length; i++) {
+                formData.append('file', values.files[i]);
+            }
+    
+            await handlePostFile(event, formData, "/file/upload", console.log, {"selectedOption": values?.selectedOption,});     
+        } catch (err) {
+            return handleNotifications("error", err.message);
         }
-
-        const formData = new FormData();
-        for (let i = 0; i < values.files.length; i++) {
-            formData.append('file', values.files[i]);
-        }
-
-        await handlePostFile(event, formData, "/file/upload", console.log, {"selectedOption": values?.selectedOption,});
     };
 
     
@@ -44,7 +46,7 @@ const UploadForm = () => {
                 <UploadFileCard
                     id={"file"}
                     onChange={(event) => handleFileChange(event, ['.xlsx', '.pdf'], setValues)}
-                    filesArray={values?.files || null}
+                    filesArray={values?.files}
                 />
 
 

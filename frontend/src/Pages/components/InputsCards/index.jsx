@@ -59,6 +59,8 @@ const TextAreaCard = ({id, label, placeholder="placeholder", onChange, required=
 }
 
 const UploadFileCard = ({id, label="Cargar Archivo", onChange, filesArray}) => {
+    const array = filesArray ? [...filesArray] : null;
+
     return(
         <label htmlFor={id} className="upload-file-container">
             <input
@@ -75,7 +77,7 @@ const UploadFileCard = ({id, label="Cargar Archivo", onChange, filesArray}) => {
             </span>
             <div className="upload-file-info-container">
                 <p>{label}</p>
-                {filesArray ? [...filesArray]?.map((item, index) => (
+                {array && array?.length !== 0 ? [...filesArray]?.map((item, index) => (
                     <p className="info-text" key={index}>{`(${index + 1})`} {item.name}</p>
                 ))
                 :

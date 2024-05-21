@@ -2,15 +2,15 @@ const express = require("express");
 const router = express.Router();
 
 const upload = require("../../middlewares/multer.config");
+const { validateFiles } = require("../../Utils/validateFiles");
 
 
 router.post("/upload", upload.array("file"), async (request, response) => {
 	try {
 		const uploadedFiles = request.files;
 
-		if (!uploadedFiles || uploadedFiles.length === 0) {
-			throw new Error("Error procesando el archivo")
-		}
+		validateFiles(uploadedFiles, request.headers.selectedOption);
+
 
 		return response.json({Status: "Success", message: "Archivo guardado correctamente"})
 
