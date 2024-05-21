@@ -58,7 +58,7 @@ const TextAreaCard = ({id, label, placeholder="placeholder", onChange, required=
     );
 }
 
-const UploadFileCard = ({id, label="Cargar Archivo", onChange, description}) => {
+const UploadFileCard = ({id, label="Cargar Archivo", onChange, filesArray}) => {
     return(
         <label htmlFor={id} className="upload-file-container">
             <input
@@ -68,13 +68,19 @@ const UploadFileCard = ({id, label="Cargar Archivo", onChange, description}) => 
                 accept=".pdf, .xlsx"
                 onChange={(event) => {onChange(event)}}
                 onClick={(event) => event.target.value = null}
+                multiple
             />
             <span>
                 <AiOutlineCloudUpload/>
             </span>
             <div className="upload-file-info-container">
                 <p>{label}</p>
-                <p>{description}</p>
+                {filesArray ? [...filesArray]?.map((item, index) => (
+                    <p className="info-text" key={index}>{`(${index + 1})`} {item.name}</p>
+                ))
+                :
+                <p>Archivos PDF (.pdf) o Excel (.xlsx)</p>
+            }
             </div>
 
         </label>

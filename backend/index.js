@@ -36,7 +36,7 @@ app.use(cookieParser());
 
 
 app.get("/", (request, response) => {
-    response.send("Hola mi server backend para Data Empleo");
+	response.redirect("https://www.serviciodeempleo.gov.co")
 });
 
 routerApi(app);

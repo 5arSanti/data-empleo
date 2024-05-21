@@ -5,10 +5,13 @@ const moment = require("moment");
 //Multer config
 let storage = multer.diskStorage({
     destination: (request, file, callback) => {
-        callback(null, "./uploads");
+		const selectedOption = request.get("selectedOption");
+
+        callback(null, `./uploads/${selectedOption}`);
     },
     filename: (request, file, callback) => {
 		const selectedOption = request.get("selectedOption");
+
 		const fileDate = moment().format("YYYY-MM-DD_HH-mm-ss");
 
 		let formatName =`${selectedOption}_${fileDate}_${file.originalname}.${mimeTypes.extension(file.mimetype)}`;
@@ -18,7 +21,8 @@ let storage = multer.diskStorage({
 })
 
 let upload = multer({
-	storage: storage
+	storage: storage,
+
 });
 
 module.exports = upload;

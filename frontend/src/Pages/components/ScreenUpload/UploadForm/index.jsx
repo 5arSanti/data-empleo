@@ -9,29 +9,29 @@ import { handleFileChange } from "../../../../utils/handleFileChange";
 import { handlePostFile } from "../../../../utils/handleData/handlePostData";
 import { handleInputChange } from "../../../../utils/handleInputChange";
 import { handleNotifications } from "../../../../utils/handleNotifications";
-import { reloadLocation } from "../../../../utils/realoadLocation";
 import { uriDropNav } from "../../../../utils/uriDropNav";
 
 const UploadForm = () => {
-    const context = React.useContext(AppContext);
-
     const [values, setValues] = React.useState({
-        file: null,
-        selectedOption: Object.keys(uriDropNav)[0],
+        files: null,
+        selectedOption: Object.keys(uriDropNav)[1],
     });
 
     const handleFileUpload = async (event) => {
         event.preventDefault();
 
-        if (!(values.file && values.selectedOption)) {
+        if (!(values.files && values.selectedOption)) {
+            console.log(values.files,  values.selectedOption)
             handleNotifications("error", "Por favor, seleccione un archivo y el tipo antes de cargar.")
             return;
         }
 
         const formData = new FormData();
-        formData.append('file', values.file);
+        for (let i = 0; i < values.files.length; i++) {
+            formData.append('file', values.files[i]);
+        }
 
-        await handlePostFile(event, formData, "/file/upload", reloadLocation, {"selectedOption": values.selectedOption,});
+        await handlePostFile(event, formData, "/file/upload", console.log, {"selectedOption": values?.selectedOption,});
     };
 
     
@@ -44,14 +44,14 @@ const UploadForm = () => {
                 <UploadFileCard
                     id={"file"}
                     onChange={(event) => handleFileChange(event, ['.xlsx', '.pdf'], setValues)}
-                    description={values.file ? values.file?.name : "Archivos PDF (.pdf) o Excel (.xlsx)"}
+                    filesArray={values?.files || null}
                 />
 
 
                 <OptionInputCard
                     id={"document-type-options"}
                     label={"Seleccione el tipo de Documento a Cargar"}
-                    array={Object.keys(uriDropNav)}
+                    array={Object.keys(uriDropNav).filter(item=> item !== 'Visor de empleo')}
                     onChange={(event) => {handleInputChange("selectedOption", event, setValues)}}
                     defaultValue={values?.selectedOption}
                 />

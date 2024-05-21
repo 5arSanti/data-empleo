@@ -1,13 +1,14 @@
 const express = require("express");
-const upload = require("../../middlewares/multer.config");
-
 const router = express.Router();
 
-router.post("/upload", upload.single("file"), async (request, response) => {
-	try {
-		const uploadedFile = request.file;
+const upload = require("../../middlewares/multer.config");
 
-		if (!uploadedFile) {
+
+router.post("/upload", upload.array("file"), async (request, response) => {
+	try {
+		const uploadedFiles = request.files;
+
+		if (!uploadedFiles || uploadedFiles.length === 0) {
 			throw new Error("Error procesando el archivo")
 		}
 
