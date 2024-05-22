@@ -1,7 +1,20 @@
 const validateFiles = (file, option) => {
-    if (!(file && file.length !== 0 && option)) {
-        throw new Error("Por favor, seleccione un archivo y el tipo antes de cargar.");
+	const message = "Por favor, seleccione un archivo y el tipo.";
+
+    if (!file){
+        throw new Error(message);
     }
+    if (!(file.length !== 0)) {
+        throw new Error(message);
+    }
+    if (!option) {
+        throw new Error(message);
+    }
+    if (!(option !== "")) {
+        throw new Error(message);
+    }
+
+	return;
 }
 
 module.exports = { validateFiles };

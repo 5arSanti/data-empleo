@@ -19,7 +19,7 @@ const InputCard = ({type="text", id, label, placeholder="placeholder", onChange,
     );
 }
 
-const OptionInputCard = ({id, label, array=[], onChange, defaultValue=0}) => {
+const OptionInputCard = ({id, label, array=[], onChange, defaultValue=0, none=false}) => {
     return(
         <div className="input-container">
             <label htmlFor={id}>{label} </label>
@@ -29,6 +29,9 @@ const OptionInputCard = ({id, label, array=[], onChange, defaultValue=0}) => {
                 onChange={(event) => {onChange(event.target.value)}}
                 value={defaultValue}
             >
+                {none && 
+                    <option value="">Seleccionar</option>
+                }
                 {array?.map((item, index) => (
                     <option 
                         key={index}

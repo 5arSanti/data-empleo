@@ -9,28 +9,29 @@ import { handleFileChange } from "../../../../utils/handleFileChange";
 import { handlePostFile } from "../../../../utils/handleData/handlePostData";
 import { handleInputChange } from "../../../../utils/handleInputChange";
 import { handleNotifications } from "../../../../utils/handleNotifications";
-import { uriDropNav } from "../../../../utils/uriDropNav";
 import { validateFiles } from "../../../../utils/validate/validateFiles";
 
 const UploadForm = () => {
+    const context = React.useContext(AppContext)
+
     const [values, setValues] = React.useState({
         files: null,
-        selectedOption: Object.keys(uriDropNav)[1],
+        selectedOption: null,
     });
-    console.log(values.files);
+    console.log(values)
 
     const handleFileUpload = async (event) => {
         try {
             event.preventDefault();
 
-            validateFiles(values);
+            validateFiles(values?.files, values?.selectedOption);
     
             const formData = new FormData();
             for (let i = 0; i < values.files.length; i++) {
                 formData.append('file', values.files[i]);
             }
     
-            await handlePostFile(event, formData, "/file/upload", console.log, {"selectedOption": values?.selectedOption,});     
+            await handlePostFile(event, formData, `/file/upload/${values?.selectedOption}`, console.log, {"selectedOption": values?.selectedOption,});     
         } catch (err) {
             return handleNotifications("error", err.message);
         }
@@ -53,9 +54,10 @@ const UploadForm = () => {
                 <OptionInputCard
                     id={"document-type-options"}
                     label={"Seleccione el tipo de Documento a Cargar"}
-                    array={Object.keys(uriDropNav).filter(item=> item !== 'Visor de empleo')}
+                    array={context.responseData?.folders}
                     onChange={(event) => {handleInputChange("selectedOption", event, setValues)}}
                     defaultValue={values?.selectedOption}
+                    none={true}
                 />
 
 

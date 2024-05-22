@@ -56,6 +56,7 @@ const AppProvider = ({children}) => {
             `/graph/export?${filterParams.toString()}`,
             `/slider`,
             "/users",
+            "/file/folders",
         ]
 
         const fetchData = async () => {
