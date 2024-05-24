@@ -18,7 +18,6 @@ const UploadForm = () => {
         files: null,
         selectedOption: null,
     });
-    console.log(values)
 
     const handleFileUpload = async (event) => {
         try {

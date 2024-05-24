@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 15-05-2024 a las 12:53:33
+-- Tiempo de generación: 24-05-2024 a las 16:18:19
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -83,6 +83,7 @@ INSERT INTO `login` (`id`, `name`, `email`, `password`) VALUES
 CREATE TABLE `slider_data` (
   `id` int(11) NOT NULL,
   `NOMBRE` varchar(50) NOT NULL,
+  `SUBTITULO` varchar(200) DEFAULT NULL,
   `VALOR` int(20) NOT NULL,
   `PORCENTAJE` int(5) NOT NULL,
   `ICONO` varchar(255) NOT NULL,
@@ -93,11 +94,11 @@ CREATE TABLE `slider_data` (
 -- Volcado de datos para la tabla `slider_data`
 --
 
-INSERT INTO `slider_data` (`id`, `NOMBRE`, `VALOR`, `PORCENTAJE`, `ICONO`, `FECHA_CREACION`) VALUES
-(3, 'Industrias manufactureras', 28693, -30, 'Industrias manufactureras', '2024-05-10 17:08:57.000000'),
-(4, 'Construcción', 9435, -29, 'Construcción', '2024-05-10 17:09:20.000000'),
-(5, 'Explotación de minas y canteras', 1285, -36, 'Minas y canterasación', '2024-05-10 17:09:37.000000'),
-(8, 'Actividades artísticas', 18792, 1, 'Actividades artísticas', '2024-05-11 11:19:55.000000');
+INSERT INTO `slider_data` (`id`, `NOMBRE`, `SUBTITULO`, `VALOR`, `PORCENTAJE`, `ICONO`, `FECHA_CREACION`) VALUES
+(3, 'Industrias manufactureras', NULL, 28693, -30, 'Industrias manufactureras', '2024-05-10 17:08:57.000000'),
+(4, 'Construcción', NULL, 9435, -29, 'Construcción', '2024-05-10 17:09:20.000000'),
+(5, 'Explotación de minas y canteras', NULL, 1285, -36, 'Minas y canterasación', '2024-05-10 17:09:37.000000'),
+(8, 'Actividades artísticas', NULL, 18792, 1, 'Actividades artísticas', '2024-05-11 11:19:55.000000');
 
 --
 -- Índices para tablas volcadas
