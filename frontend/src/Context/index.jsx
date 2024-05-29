@@ -57,6 +57,7 @@ const AppProvider = ({children}) => {
             `/slider`,
             "/users",
             "/file/folders",
+            "/file/",
         ]
 
         const fetchData = async () => {

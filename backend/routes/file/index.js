@@ -8,22 +8,30 @@ const { readFolder } = require("../../Utils/files/readFolder");
 
 router.get('/', async (request, response) => {
 	try {
+		let files = {};
+
 		const folders = await readFolder();
 
-		let files = []
-
-		folders.map((item) => {
-			const data = Promise.all([readFolder(item)]);
-			files.push({[item]: data})
-			console.log(files)
+		const promises = folders.map(async (item) => {
+			const data = await readFolder(item);
+			return {[item]: data};
 		})
 
+		const resolved = await Promise.all(promises);
+
+		resolved.forEach((item) => {
+			const key = Object.keys(item)[0];
+			files[key] = item[key];
+		});
+
+		
 		return response.json({files: files})
 
 	} catch (err) {
 		return response.json({Error: err.message})
 	}
 });
+
 
 router.get('/folders', async (request, response) => {
 	try {
