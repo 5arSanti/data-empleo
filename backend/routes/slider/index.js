@@ -21,7 +21,7 @@ router.get("/", async (request, response) => {
 router.post("/", async (request, response) => {
 
 	try {
-		const query = "INSERT INTO slider_dat (`NOMBRE`,`VALOR`,`PORCENTAJE`, `ICONO`, `FECHA_CREACION`) VALUES (?,?,?,?,?)";
+		const query = "INSERT INTO slider_data (`NOMBRE`,`VALOR`,`PORCENTAJE`, `ICONO`, `FECHA_CREACION`) VALUES (?,?,?,?,?)";
 
 		const fechaActual = obtenerFechaHoraHoy();
 
