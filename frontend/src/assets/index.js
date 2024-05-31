@@ -10,15 +10,15 @@ import Montserrat from "./fonts/Montserrat/Montserrat-Regular.ttf";
 import MontserratBold from "./fonts/Montserrat/Montserrat-Bold.ttf";
 
 
-import anexoDemandaLaboral from "./Files/Anexo Estadistico de Demanda Laboral.xlsx";
-import colocacionesFebrero from "./Files/Colocaciones.xlsx";
-import ofertaLaboral from "./Files/Oferta laboral.xlsx";
+import a_anexoBuscadoresDeEmpleoAbril from "./Files/A. Anexo buscadores de empleo (Abril).xlsx"
+import a_boletinOfertaLaboralAbril2024 from "./Files/A. Boletin Oferta Laboral Abril 2024.pdf"
 
-import oferentesRegistradosSISEFebrero from "./Files/Anexo oferentes registrados SISE_febrero24.xlsx";
-import ofertaLaboralFebrero from "./Files/A. Boletin Oferta Laboral Febrero 2024.pdf";
-import ofertasEmpleoRegistradasSistema from "./Files/Anexo Ofertas de empleo registradas sistema_marzo24.xlsx";
-import demandaLaboralMarzo from "./Files/B. Boletín Demanda Laboral Marzo 2024.pdf";
-import colocacionesSISEFebrero from "./Files/Anexo colocaciones SISE_febrero24.xlsx";
+import b_anexoOfertasDeEmpleoAbril from "./Files/B. Anexo ofertas de empleo (Abril).xlsx"
+import b_anexoOfertasDeEmpleoSISEAbril from "./Files/B. Anexo ofertas de empleo SISE (Abril).xlsx"
+import b_boletinDemandaLaboralRedSISEAbril2024 from "./Files/B. Boletín Demanda Laboral (RED + SISE) Abril 2024.pdf"
+
+import c_anexoColocacionesAbril from "./Files/C. Anexo colocaciones (Abril).xlsx"
+import c_boletinColocacionesAbril2024 from "./Files/C. Boletin Colocaciones Abril 2024.pdf"
 
 
 export {
@@ -30,13 +30,13 @@ export {
     Montserrat,
     MontserratBold,
 
-    anexoDemandaLaboral,
-    colocacionesFebrero,
-    ofertaLaboral,
+    a_anexoBuscadoresDeEmpleoAbril,
+    a_boletinOfertaLaboralAbril2024,
+
+    b_anexoOfertasDeEmpleoAbril,
+    b_anexoOfertasDeEmpleoSISEAbril,
+    b_boletinDemandaLaboralRedSISEAbril2024,
     
-    ofertaLaboralFebrero,
-    demandaLaboralMarzo,
-    colocacionesSISEFebrero,
-    oferentesRegistradosSISEFebrero,
-    ofertasEmpleoRegistradasSistema,
+    c_anexoColocacionesAbril,
+    c_boletinColocacionesAbril2024,
 }

@@ -8,7 +8,7 @@ const DropNav = () => {
     const array = Object.keys(uriDropNav);
 
     return (
-        <Dropdown className="dropnav-container top-left">
+        <Dropdown>
             <Dropdown.Toggle id="dropnav-basic" className='dropnav-button'>
                 Informacion Adicional
             </Dropdown.Toggle>

@@ -7,6 +7,7 @@ import { SliderCard } from './SliderCard';
 import "./styles.css";
 import { AppContext } from '../../../Context/index.jsx';
 import React from 'react';
+import { NextArrowCard, PrevArrowCard } from './ArrowsCard/index.jsx';
 
 const SliderNavContainer = () => {
 	const context = React.useContext(AppContext)
@@ -18,6 +19,8 @@ const SliderNavContainer = () => {
 		slidesToScroll: 1,
 		autoplay: true,
 		autoplaySpeed: 4000,
+		nextArrow: <NextArrowCard />,
+		prevArrow: <PrevArrowCard />,
 		style: {
 			width: "95%",
 		},

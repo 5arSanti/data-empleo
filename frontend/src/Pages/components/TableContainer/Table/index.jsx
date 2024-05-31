@@ -4,6 +4,8 @@ import { handleDownload, handleOpenFile } from "../../../../utils/downloadFile";
 import "./styles.css";
 
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
+import { FaFilePdf } from "react-icons/fa";
+
 import { tableData } from "../../../../utils/tableData";
 
 const Table = () => {
@@ -15,20 +17,20 @@ const Table = () => {
             return(
                 <td key={cellIndex}>
                     <a>
-                        <PiMicrosoftExcelLogoFill fill={context.activeHighContrast ? "#FFFFFF" : colors[0]}/>
+                         {row.link ? <PiMicrosoftExcelLogoFill fill={context.activeHighContrast ? "#FFFFFF" : colors[0]}/> : <FaFilePdf fill={context.activeHighContrast ? "#FFFFFF" : colors[0]}/>}
                         {cell}
                     </a>
                 </td>
             )
         } else if (cellIndex === 2) {
             return(
-                <td key={cellIndex} onClick={() => handleOpenFile(row.link || row.file)}>
+                <td key={cellIndex} className="cursor-pointer" onClick={() => handleOpenFile(row.link || row.file)}>
                     {cell}
                 </td>
             )
         } else if (cellIndex === 3) {
             return(
-                <td key={cellIndex} onClick={() => handleDownload(row.file, row.array[0])}>
+                <td key={cellIndex} className="cursor-pointer" onClick={() => handleDownload(row.file, row.array[0])}>
                     {cell}
                 </td>
             )
