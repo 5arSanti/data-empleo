@@ -2,12 +2,12 @@ const fs = require("fs");
 
 const readFolder = async (folder="") => {
 	return new Promise((resolve, reject) => {
-		fs.readdir(`uploads/${folder}`, (err, files) => {
+		fs.readdir(`uploads/${folder}`, (err, file) => {
 			if (err) {
 				reject(err);
 			}
 
-			resolve(files);
+			resolve(file);
 		});
 	})
 }

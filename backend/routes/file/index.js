@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-const upload = require("../../middlewares/multer.config");
+const { upload } = require("../../middlewares/multer.config");
 
 const { validateFiles } = require("../../Utils/validateFiles");
 const { readFolder } = require("../../Utils/files/readFolder");
+const { formatFile } = require("../../Utils/files/formatFile");
 
 router.get('/', async (request, response) => {
 	try {
@@ -14,7 +15,8 @@ router.get('/', async (request, response) => {
 
 		const promises = folders.map(async (item) => {
 			const data = await readFolder(item);
-			return {[item]: data};
+			const formattedData = await formatFile(data);
+			return {[item]: formattedData};
 		})
 
 		const resolved = await Promise.all(promises);
@@ -24,7 +26,7 @@ router.get('/', async (request, response) => {
 			files[key] = item[key];
 		});
 
-		
+
 		return response.json({files: files})
 
 	} catch (err) {

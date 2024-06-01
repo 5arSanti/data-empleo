@@ -8,7 +8,7 @@ const TableContainer = ({title, values}) => {
             <Title color="#000">
                 {title}
             </Title>
-            <Table values={values || values}/>
+            <Table values={values || []}/>
         </WrapperContainer2>
     );
 }

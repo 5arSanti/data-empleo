@@ -8,14 +8,16 @@ const FoldersDataScreen = ({data}) => {
     const { category } = useParams() || "";
     const categoryData = data ? data[formatURL(category)] : [];
 
-    console.log(formatURL(category));
+    const formattedData = categoryData.map((item) => ({
+        array: [item?.name, item?.date, 'Abrir', 'Descargar'],
+        file: item,
+        link: item.fileType == 'pdf' ? null : `https://example.com/${item}`,
+      }));
   
     return (
         <AuthWrapper>
-            <TableContainer title={formatURL(category)} values={categoryData}/>
-            {categoryData?.map((item, index) => (
-                <p key={index}>{item}</p>
-            ))}
+            <TableContainer title={formatURL(category)} values={formattedData}/>
+
         </AuthWrapper>
     );
 }

@@ -11,14 +11,14 @@ const Table = ({values}) => {
     const context = React.useContext(AppContext)
     const colors = ["#e0161e", "#69CE27", "#3366cc"];
 
+    const color = context.activeHighContrast ? "#FFFFFF" : colors[0];
+
     const handleRow = (row, cell, cellIndex) => {
         if (cellIndex === 0) {
             return(
                 <td key={cellIndex}>
-                    <a>
-                         {row.link ? <PiMicrosoftExcelLogoFill fill={context.activeHighContrast ? "#FFFFFF" : colors[0]}/> : <FaFilePdf fill={context.activeHighContrast ? "#FFFFFF" : colors[0]}/>}
-                        {cell}
-                    </a>
+                    {row.link ? <PiMicrosoftExcelLogoFill fill={color}/> : <FaFilePdf fill={color}/>}
+                    {cell}
                 </td>
             )
         } else if (cellIndex === 2) {

@@ -46,7 +46,7 @@
     border-right: 1px solid var(--lines-color2);
 }
 
-.my-table a {
+.my-table tr td:nth-child(1) {
     width: 100%;
 
     text-decoration: none !important;
@@ -55,12 +55,13 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    text-align: start;
 } 
-.my-table a:hover {
+.my-table tr td:nth-child(1):hover {
     color: var(--lines-color2) !important;
 }
 
-.my-table a svg {
+.my-table tr td:nth-child(1) svg {
     width: 20px;
     height: 20px;
 }
