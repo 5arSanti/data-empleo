@@ -8,6 +8,7 @@ import { PaginationButtons } from "../PaginationButtons";
 import { TableContainer } from "../../TableContainer";
 
 import { tableData } from "../../../../utils/tableData";
+import { handleDownload, handleOpenFile } from "../../../../utils/downloadFile";
 
 
 const HomeInfoContainer = () => {
@@ -24,7 +25,7 @@ const HomeInfoContainer = () => {
             </AllInfoGridContainer>
 
             <PaginationButtons/>
-            <TableContainer title={"DataEmpleo"} values={tableData}/>
+            <TableContainer title={"DataEmpleo"} values={tableData} onOpen={handleOpenFile} onDownload={handleDownload}/>
         </AllInfoContainer>
     );
 }

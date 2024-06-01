@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const path = require("path");
+const fs = require("fs");
 
 const { upload } = require("../../middlewares/multer.config");
 
@@ -30,6 +32,26 @@ router.get('/', async (request, response) => {
 		return response.json({files: files})
 
 	} catch (err) {
+		return response.json({Error: err.message})
+	}
+});
+
+router.get('/:folder/:file/:fileName', async (request, response) => {
+	try {
+		const folderName = request.params.folder;
+		const file = request.params.file;
+		const fileName = request.params.fileName
+
+		const fileUri = path.join(__dirname, "../../uploads", folderName, file)
+
+		if (!fs.existsSync(fileUri)) {
+			return response.status(404).json({ Error: 'Archivo no encontrado' });
+		}
+
+		return response.sendFile(fileUri, `${fileName}`)
+
+	}
+	catch (err) {
 		return response.json({Error: err.message})
 	}
 });
