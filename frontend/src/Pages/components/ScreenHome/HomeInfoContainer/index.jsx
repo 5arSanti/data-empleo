@@ -7,6 +7,8 @@ import { MainTextContainer } from "../MainTextContainer";
 import { PaginationButtons } from "../PaginationButtons";
 import { TableContainer } from "../../TableContainer";
 
+import { tableData } from "../../../../utils/tableData";
+
 
 const HomeInfoContainer = () => {
     const context = React.useContext(AppContext)
@@ -22,7 +24,7 @@ const HomeInfoContainer = () => {
             </AllInfoGridContainer>
 
             <PaginationButtons/>
-            <TableContainer/>
+            <TableContainer title={"DataEmpleo"} values={tableData}/>
         </AllInfoContainer>
     );
 }

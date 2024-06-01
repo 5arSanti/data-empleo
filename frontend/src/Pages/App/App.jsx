@@ -30,11 +30,13 @@ import { NavImagesCard } from "../components/NavImagesCard";
 import { SliderDataScreen } from "../Screens/SliderDataScreen";
 import { SliderNavContainer } from "../components/SliderNavContainer";
 import { UsersScreen } from "../Screens/UsersScreen";
+import { FoldersDataScreen } from "../Screens/FoldersDataScreen";
+import { scrollToValue } from "../../utils/scrollToValue";
 
 const Wrapper = ({children}) => {
     const location = useLocation();
     React.useLayoutEffect(() => {
-        document.documentElement.scrollTo(0, 0)
+        scrollToValue();
     }, [location.pathname]);
 
     return children;
@@ -44,15 +46,19 @@ const AppRoutes = () => {
 
     const context = React.useContext(AppContext);
     const { auth } = context;
+    const { files } = context.responseData;
 
     let routes = useRoutes([
         {path: "/home", element: <Home/>},
         {path: "/*", element: <Navigate replace to={"/home"}/>},
+
         {path: "/dashboard", element: <DashboardScreen/>},
         {path: "/document", element: <DocumentScreen/>},
         {path: "/upload", element: <UploadScreen/>},
         {path: "/slider", element: <SliderDataScreen/>},
         {path: "/users", element: <UsersScreen/>},
+        {path: "/category/:category", element: <FoldersDataScreen data={files}/>},
+
 
         
         {path: "/register", element: auth ? <RegisterScreen/> : <Navigate replace to={"/login"} />},

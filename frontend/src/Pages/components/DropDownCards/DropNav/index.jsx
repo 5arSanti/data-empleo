@@ -3,9 +3,14 @@ import { uriDropNav } from '../../../../utils/uriDropNav';
 
 import "./styles.css";
 import { IoIosArrowForward } from 'react-icons/io';
+import { Link } from 'react-router-dom';
+import { AppContext } from '../../../../Context';
+import React from 'react';
 
 const DropNav = () => {
-    const array = Object.keys(uriDropNav);
+    const context = React.useContext(AppContext)
+
+    const array = context.responseData?.folders;
 
     return (
         <Dropdown>
@@ -14,9 +19,13 @@ const DropNav = () => {
             </Dropdown.Toggle>
 
             <Dropdown.Menu className="dropnav-grid-container">
+                <div className='dropnav-anchor-container'>
+                    <a href={uriDropNav["Visor de empleo"]} target="_blank" rel="noopener noreferrer"><IoIosArrowForward /> {Object.keys(uriDropNav)[0]}</a>
+                </div>
+                
                 {array?.map((item, index) => (
                     <div key={index} className='dropnav-anchor-container'>
-                        <a href={uriDropNav[item]} target="_blank" rel="noopener noreferrer"><IoIosArrowForward /> {item}</a>
+                        <Link to={`/category/${item.replace(/ /g, '_')}`}><IoIosArrowForward /> {item}</Link>
                     </div>
                 ))}
             </Dropdown.Menu>

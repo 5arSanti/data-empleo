@@ -6,9 +6,8 @@ import "./styles.css";
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { FaFilePdf } from "react-icons/fa";
 
-import { tableData } from "../../../../utils/tableData";
 
-const Table = () => {
+const Table = ({values}) => {
     const context = React.useContext(AppContext)
     const colors = ["#e0161e", "#69CE27", "#3366cc"];
 
@@ -55,7 +54,7 @@ const Table = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {tableData.map((row, index) => (
+                    {values?.map((row, index) => (
                         <tr key={index}>
                             {row?.array?.map((cell, cellIndex) => (
                                 handleRow(row, cell, cellIndex, index)
