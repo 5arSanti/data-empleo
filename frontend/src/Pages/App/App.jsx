@@ -32,6 +32,7 @@ import { SliderNavContainer } from "../components/SliderNavContainer";
 import { UsersScreen } from "../Screens/UsersScreen";
 import { FoldersDataScreen } from "../Screens/FoldersDataScreen";
 import { scrollToValue } from "../../utils/scrollToValue";
+import { ExcelPreviewScreen } from "../Screens/ExcelPreviewScreen";
 
 const Wrapper = ({children}) => {
     const location = useLocation();
@@ -45,7 +46,7 @@ const Wrapper = ({children}) => {
 const AppRoutes = () => {
 
     const context = React.useContext(AppContext);
-    const { auth } = context;
+    const { auth, previewFile } = context;
     const { files } = context.responseData;
 
     let routes = useRoutes([
@@ -58,6 +59,8 @@ const AppRoutes = () => {
         {path: "/slider", element: <SliderDataScreen/>},
         {path: "/users", element: <UsersScreen/>},
         {path: "/category/:category", element: <FoldersDataScreen data={files}/>},
+        {path: "/excel-preview", element: <ExcelPreviewScreen file={previewFile}/>},
+
 
 
         

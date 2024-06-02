@@ -119,6 +119,10 @@ const AppProvider = ({children}) => {
 
     // Edicion de Usuarios
     const [users, setUsers] = React.useState(null);
+
+    // Previsualizador de Excel
+    const [previewFile, setPreviewFile] = React.useState(null);
+
     
 
     return (
@@ -174,6 +178,10 @@ const AppProvider = ({children}) => {
                 //Usuarios
                 users,
                 setUsers,
+
+                // Excel
+                previewFile,
+                setPreviewFile,
             }}
         >
             {children}

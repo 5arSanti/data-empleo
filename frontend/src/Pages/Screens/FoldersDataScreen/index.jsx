@@ -1,14 +1,20 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { TableContainer } from "../../components/TableContainer";
 import { formatURL } from "../../../utils/strings";
 import { handleDownload, handleOpenFile } from "../../../utils/downloadFile";
 import { handleGetFile } from "../../../utils/handleData/handleGetFile";
 import { handleNotifications } from "../../../utils/handleNotifications";
+import React from "react";
+import { AppContext } from "../../../Context";
 
-const FoldersDataScreen = ({data}) => {
+const FoldersDataScreen = ({ data }) => {
+    const context = React.useContext(AppContext)
+    const navigate = useNavigate();
+
     const { category } = useParams() || "";
     const categoryData = data ? data[formatURL(category)] : [];
+
 
     const formattedData = categoryData.map((item) => ({
         array: [item?.name, item?.date, 'Abrir', 'Descargar'],
@@ -21,11 +27,13 @@ const FoldersDataScreen = ({data}) => {
         try {
             const file = await handleGetFile(item?.link)
             const url = window.URL.createObjectURL(file);
-            console.log(item?.fileType)
 
             const validateType = {
                 "pdf": () => { window.open(url, '_blank') },
-                "xlsx": () => { },
+                "xlsx": () => {
+                    context.setPreviewFile({blob: file, name: item.array[0]});
+                    navigate("/excel-preview")
+                 },
             }
             validateType[item?.fileType]();
             

@@ -2,7 +2,6 @@
     width: 100%;
     overflow-x: auto;
 	padding-bottom: 5px;
-
 }
 
 .my-table {
@@ -11,7 +10,7 @@
     box-sizing: border-box;
 
     transition: all 0.2s ease;
-    overflow-x: auto;
+    overflow: hidden;
     max-width: 100%;
 } 
 .my-table th{
