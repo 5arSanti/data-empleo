@@ -2,7 +2,7 @@ import React from "react";
 import { AppContext } from "../../../../Context";
 import { getMonthsUntilCurrent, months, yearArray } from "../../../../utils/dateFunctions";
 import { AllInfoGridContainer } from "../../AllInfoContainer";
-import { WrapperContainer2 } from "../../WrapperContainers";
+import { WrapperContainer1 } from "../../WrapperContainers";
 import { SubTitle } from "../../SubTitle";
 import { OptionInputCard } from "../../InputsCards";
 import { handleInputChange } from "../../../../utils/handleInputChange";
@@ -21,9 +21,9 @@ const DocumentPDFFiltersViewer = ({array, graphImages}) => {
 
     return(
         <AllInfoGridContainer className="grid-125-075">
-            <WrapperContainer2
+            <WrapperContainer1
                 flexDirection="column"
-                padding={0}
+                padding={30}
                 justifyContent="center"
             >
                 <SubTitle>Crear documento (En Desarrollo)</SubTitle>
@@ -55,7 +55,7 @@ const DocumentPDFFiltersViewer = ({array, graphImages}) => {
                 </PDFDownloadLink>
                 <ButtonCard>Publicar Documento</ButtonCard>
 
-            </WrapperContainer2>
+            </WrapperContainer1>
             
             <PDFViewer style={{width: "100%", height: "100%", minHeight: 500}}>
                 <MyExportPDFDocument array={array} graphs={graphImages || []} year={year} month={month}/>

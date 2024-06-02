@@ -4,31 +4,32 @@ import { handleDownload, handleOpenFile } from "../../../../utils/downloadFile";
 import "./styles.css";
 
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
-import { tableData } from "../../../../utils/tableData";
+import { FaFilePdf } from "react-icons/fa";
 
-const Table = () => {
+
+const Table = ({values, onOpen, onDownload, onExcel}) => {
     const context = React.useContext(AppContext)
     const colors = ["#e0161e", "#69CE27", "#3366cc"];
+
+    const color = context.activeHighContrast ? "#FFFFFF" : colors[0];
 
     const handleRow = (row, cell, cellIndex) => {
         if (cellIndex === 0) {
             return(
                 <td key={cellIndex}>
-                    <a>
-                        <PiMicrosoftExcelLogoFill fill={context.activeHighContrast ? "#FFFFFF" : colors[0]}/>
-                        {cell}
-                    </a>
+                    {row.fileType == "xlsx" ? <PiMicrosoftExcelLogoFill fill={color}/> : <FaFilePdf fill={color}/>}
+                    {cell}
                 </td>
             )
         } else if (cellIndex === 2) {
             return(
-                <td key={cellIndex} onClick={() => handleOpenFile(row.link || row.file)}>
+                <td key={cellIndex} className="cursor-pointer" onClick={() => onOpen(row, onExcel)}>
                     {cell}
                 </td>
             )
         } else if (cellIndex === 3) {
             return(
-                <td key={cellIndex} onClick={() => handleDownload(row.file, row.array[0])}>
+                <td key={cellIndex} className="cursor-pointer" onClick={() => onDownload(row)}>
                     {cell}
                 </td>
             )
@@ -53,7 +54,7 @@ const Table = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {tableData.map((row, index) => (
+                    {values?.map((row, index) => (
                         <tr key={index}>
                             {row?.array?.map((cell, cellIndex) => (
                                 handleRow(row, cell, cellIndex, index)

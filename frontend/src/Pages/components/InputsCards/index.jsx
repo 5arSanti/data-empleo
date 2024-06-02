@@ -19,7 +19,7 @@ const InputCard = ({type="text", id, label, placeholder="placeholder", onChange,
     );
 }
 
-const OptionInputCard = ({id, label, array=[], onChange, defaultValue=0}) => {
+const OptionInputCard = ({id, label, array=[], onChange, defaultValue=0, none=false}) => {
     return(
         <div className="input-container">
             <label htmlFor={id}>{label} </label>
@@ -29,6 +29,9 @@ const OptionInputCard = ({id, label, array=[], onChange, defaultValue=0}) => {
                 onChange={(event) => {onChange(event.target.value)}}
                 value={defaultValue}
             >
+                {none && 
+                    <option value="">Seleccionar</option>
+                }
                 {array?.map((item, index) => (
                     <option 
                         key={index}
@@ -58,7 +61,9 @@ const TextAreaCard = ({id, label, placeholder="placeholder", onChange, required=
     );
 }
 
-const UploadFileCard = ({id, label="Cargar Archivo", onChange, description}) => {
+const UploadFileCard = ({id, label="Cargar Archivo", onChange, filesArray}) => {
+    const array = filesArray ? [...filesArray] : null;
+
     return(
         <label htmlFor={id} className="upload-file-container">
             <input
@@ -68,13 +73,19 @@ const UploadFileCard = ({id, label="Cargar Archivo", onChange, description}) => 
                 accept=".pdf, .xlsx"
                 onChange={(event) => {onChange(event)}}
                 onClick={(event) => event.target.value = null}
+                multiple
             />
             <span>
                 <AiOutlineCloudUpload/>
             </span>
             <div className="upload-file-info-container">
                 <p>{label}</p>
-                <p>{description}</p>
+                {array && array?.length !== 0 ? [...filesArray]?.map((item, index) => (
+                    <p className="info-text" key={index}>{`(${index + 1})`} {item.name}</p>
+                ))
+                :
+                <p>Archivos PDF (.pdf) o Excel (.xlsx)</p>
+            }
             </div>
 
         </label>

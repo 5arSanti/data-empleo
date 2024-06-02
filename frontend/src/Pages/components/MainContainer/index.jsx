@@ -14,8 +14,10 @@ const MainContainer = ({children}) => {
 
     return(
         <div className="main-container">
-            <DropNav/>
-            <DateCard/>
+            <div className="drop-date-container">
+                <DropNav/>
+                <DateCard/>
+            </div>
 
             <div className="home-container">
                 {children}

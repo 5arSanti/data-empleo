@@ -4,13 +4,13 @@ import { HomeInfoContainer } from "../../components/ScreenHome/HomeInfoContainer
 
 import "./styles.css"
 
-const Home = () => {
+const Home = ({data}) => {
     return (
         <AuthWrapper>
             <Title>
                 DATAEMPLEO
             </Title>
-            <HomeInfoContainer/>
+            <HomeInfoContainer data={data}/>
         </AuthWrapper>
     );
 }

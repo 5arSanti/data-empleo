@@ -2,19 +2,24 @@ import { handleInputChange } from "./handleInputChange";
 import { handleNotifications } from "./handleNotifications";
 
 const handleFileChange = (event, extensions, setState) => {
-    let file = event.target.files[0];
+    let files = [...event.target.files];
 
-    if (file) {
-        const fileExtension = file.name.slice(((file.name.lastIndexOf(".") - 1) >>> 0) + 2);
-
-        if (extensions.includes(`.${fileExtension}`)) {
-            handleInputChange("file", event.target.files[0], setState);
-        } else {
-            file = null;
-            handleInputChange("file", null, setState);
-            handleNotifications("error", "Por favor, seleccione un archivo .xlsx o .pdf válido.")
-        }
+    if (!files) {
+        return handleNotifications("error", "Por favor, seleccione un archivo");
     }
+
+    files.map((item) => {
+        const fileExtension = item.name.slice(((item.name.lastIndexOf(".") - 1) >>> 0) + 2);
+
+        if (!extensions.includes(`.${fileExtension}`)) {
+            files = null;
+            handleInputChange("files", null, setState);
+            event.target.value = null;
+            return handleNotifications("error", `Por favor, seleccione un archivo .xlsx o .pdf válido. ${item.name}`)
+        }
+    })
+
+    handleInputChange("files", event.target.files, setState);
 };
 
 export { handleFileChange };

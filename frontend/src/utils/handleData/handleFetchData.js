@@ -5,7 +5,6 @@ const fetchData = async (endpoint) => {
         const response = await fetch(`${api}/${endpoint}`);
 
         if (!(response.status == 200)) {
-            console.log("error");
             throw new Error(`Error fetching ${endpoint}: ${response.statusText}`);
         }
     

@@ -2,17 +2,15 @@
     width: 100%;
     overflow-x: auto;
 	padding-bottom: 5px;
-
 }
 
 .my-table {
     width: 100%;
-    border-collapse: collapse;
 
     box-sizing: border-box;
 
     transition: all 0.2s ease;
-    overflow-x: auto;
+    overflow: hidden;
     max-width: 100%;
 } 
 .my-table th{
@@ -21,14 +19,15 @@
 }
 .my-table th:nth-child(1) {
     min-width: 700px;
+    text-align: left;
 }
 .my-table th, .my-table td {
-    border-bottom: 1px solid var(--lines-color2);
     padding: 12px 20px;
-    text-align: left;
+    box-sizing: border-box;
 
     border-left: 1px solid transparent;
     border-right: 1px solid transparent;
+    border-bottom: 1px solid var(--lines-color2);
 
     transition: all 0.2s ease;
 
@@ -37,16 +36,16 @@
     color: var(--text-color);
 }
 
-.my-table tr:hover a, .my-table tr:hover{
+.my-table tr:hover{
     color: var(--lines-color2);
 }
 .my-table tr:hover td{
-    cursor: pointer;
+    /* cursor: pointer; */
     border-left: 1px solid var(--lines-color2);
     border-right: 1px solid var(--lines-color2);
 }
 
-.my-table a {
+.my-table tr td:nth-child(1) {
     width: 100%;
 
     text-decoration: none !important;
@@ -55,13 +54,22 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    text-align: start;
 } 
-.my-table a:hover {
-    text-decoration: underline !important;
+.my-table tr td:nth-child(1):hover {
     color: var(--lines-color2) !important;
 }
 
-.my-table a svg {
+.my-table tr td:nth-child(1) svg {
     width: 20px;
     height: 20px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+.cursor-pointer:hover {
+    text-decoration: underline;
+    background-color: var(--lines-color2);
+    color: var(--white-to-black-color);
 }

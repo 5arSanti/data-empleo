@@ -9,29 +9,31 @@ import { handleFileChange } from "../../../../utils/handleFileChange";
 import { handlePostFile } from "../../../../utils/handleData/handlePostData";
 import { handleInputChange } from "../../../../utils/handleInputChange";
 import { handleNotifications } from "../../../../utils/handleNotifications";
-import { reloadLocation } from "../../../../utils/realoadLocation";
-import { uriDropNav } from "../../../../utils/uriDropNav";
+import { validateFiles } from "../../../../utils/validate/validateFiles";
 
 const UploadForm = () => {
-    const context = React.useContext(AppContext);
+    const context = React.useContext(AppContext)
 
     const [values, setValues] = React.useState({
-        file: null,
-        selectedOption: Object.keys(uriDropNav)[0],
+        files: null,
+        selectedOption: null,
     });
 
     const handleFileUpload = async (event) => {
-        event.preventDefault();
+        try {
+            event.preventDefault();
 
-        if (!(values.file && values.selectedOption)) {
-            handleNotifications("error", "Por favor, seleccione un archivo y el tipo antes de cargar.")
-            return;
+            validateFiles(values?.files, values?.selectedOption);
+    
+            const formData = new FormData();
+            for (let i = 0; i < values.files.length; i++) {
+                formData.append('file', values.files[i]);
+            }
+    
+            await handlePostFile(event, formData, `/file/upload/${values?.selectedOption}`, console.log, {"selectedOption": values?.selectedOption,});     
+        } catch (err) {
+            return handleNotifications("error", err.message);
         }
-
-        const formData = new FormData();
-        formData.append('file', values.file);
-
-        await handlePostFile(event, formData, "/file/upload", reloadLocation, {"selectedOption": values.selectedOption,});
     };
 
     
@@ -44,16 +46,17 @@ const UploadForm = () => {
                 <UploadFileCard
                     id={"file"}
                     onChange={(event) => handleFileChange(event, ['.xlsx', '.pdf'], setValues)}
-                    description={values.file ? values.file?.name : "Archivos PDF (.pdf) o Excel (.xlsx)"}
+                    filesArray={values?.files}
                 />
 
 
                 <OptionInputCard
                     id={"document-type-options"}
                     label={"Seleccione el tipo de Documento a Cargar"}
-                    array={Object.keys(uriDropNav)}
+                    array={context.responseData?.folders}
                     onChange={(event) => {handleInputChange("selectedOption", event, setValues)}}
                     defaultValue={values?.selectedOption}
+                    none={true}
                 />
 
 
