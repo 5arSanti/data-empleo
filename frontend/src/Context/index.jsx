@@ -9,6 +9,7 @@ import { api } from "../utils/api";
 import { fetchAllData } from "../utils/handleData/handleFetchData";
 import { handleNotifications } from "../utils/handleNotifications";
 import { handleInputChange } from "../utils/handleInputChange";
+import { useNavigate } from "react-router-dom";
 
 
 export const AppContext = React.createContext();
@@ -121,6 +122,7 @@ const AppProvider = ({children}) => {
     const [users, setUsers] = React.useState(null);
 
     // Previsualizador de Excel
+    // const navigate = useNavigate();
     const [previewFile, setPreviewFile] = React.useState(null);
 
     

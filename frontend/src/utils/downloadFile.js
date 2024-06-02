@@ -1,3 +1,4 @@
+import { handleGetFile } from "./handleData/handleGetFile";
 import { handleNotifications } from "./handleNotifications";
 
 const handleDownload = (url, name) => {
@@ -14,4 +15,33 @@ const handleOpenFile = (uri) => {
     window.open(uri, '_blank');
 }
 
-export { handleDownload, handleOpenFile }
+const handleDownloadFile = async (item) => {
+    try {
+        const file = await handleGetFile(item.link)
+        const url = window.URL.createObjectURL(file);
+    
+        handleDownload(url, item.array[0])
+    } 
+    catch (err) {
+        handleNotifications("error", err.message);
+    }
+}
+
+const handleOpen = async (item, onExcel) => {
+    try {
+        const file = await handleGetFile(item?.link)
+        const url = window.URL.createObjectURL(file);
+
+        const validateType = {
+            "pdf": () => { handleOpenFile(url) },
+            "xlsx": () => { onExcel(file, item) },
+        }
+        validateType[item?.fileType]();
+        
+    } 
+    catch (err) {
+        handleNotifications("error", err.message);
+    }
+}
+
+export { handleDownload, handleOpenFile, handleDownloadFile, handleOpen }

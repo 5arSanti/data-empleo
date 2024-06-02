@@ -7,7 +7,7 @@ import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { FaFilePdf } from "react-icons/fa";
 
 
-const Table = ({values, onOpen, onDownload}) => {
+const Table = ({values, onOpen, onDownload, onExcel}) => {
     const context = React.useContext(AppContext)
     const colors = ["#e0161e", "#69CE27", "#3366cc"];
 
@@ -23,7 +23,7 @@ const Table = ({values, onOpen, onDownload}) => {
             )
         } else if (cellIndex === 2) {
             return(
-                <td key={cellIndex} className="cursor-pointer" onClick={() => onOpen(row)}>
+                <td key={cellIndex} className="cursor-pointer" onClick={() => onOpen(row, onExcel)}>
                     {cell}
                 </td>
             )
