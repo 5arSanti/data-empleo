@@ -38,11 +38,9 @@ router.get('/', async (request, response) => {
 
 router.get('/:folder/:file/:fileName', async (request, response) => {
 	try {
-		const folderName = request.params.folder;
-		const file = request.params.file;
-		const fileName = request.params.fileName
+		const { folder, file, fileName } = request.params;
 
-		const fileUri = path.join(__dirname, "../../uploads", folderName, file)
+		const fileUri = path.join(__dirname, "../../uploads", folder, file)
 
 		if (!fs.existsSync(fileUri)) {
 			return response.status(404).json({ Error: 'Archivo no encontrado' });
