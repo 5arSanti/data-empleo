@@ -1,8 +1,8 @@
 import "./styles.css";
 
-const TextCard = ({children}) => {
+const TextCard = ({children, textAlign="start", width="100%"}) => {
     return(
-        <p className="text-card">{children}</p>
+        <p style={{textAlign: textAlign, width: width}} className="text-card">{children}</p>
     );
 }
 

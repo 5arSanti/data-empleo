@@ -2,6 +2,7 @@ import React from "react";
 import { AppContext } from "../../../Context";
 import { banner, iconComplete } from "../../../assets";
 import "./styles.css";
+import { TextCard } from "../TextComponents";
 
 const NavImagesCard = () => {
     const context = React.useContext(AppContext);
@@ -18,7 +19,7 @@ const NavImagesCard = () => {
                     </a>
                 </span>
             </div>
-            {context.name && <p>Bienvenido {context.name}</p> }
+            {context.name && <TextCard textAlign="end" width="auto">Bienvenido {context.name}</TextCard> }
         </div>
     );
 }

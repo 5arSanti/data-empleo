@@ -23,7 +23,7 @@ const DropNav = () => {
                     <a href={uriDropNav["Visor de empleo"]} target="_blank" rel="noopener noreferrer"><IoIosArrowForward /> {Object.keys(uriDropNav)[0]}</a>
                 </div>
                 
-                {array?.map((item, index) => (
+                {array?.filter(item => item != "Home").map((item, index) => (
                     <div key={index} className='dropnav-anchor-container'>
                         <Link to={`/category/${item.replace(/ /g, '_')}`}><IoIosArrowForward /> {item}</Link>
                     </div>
