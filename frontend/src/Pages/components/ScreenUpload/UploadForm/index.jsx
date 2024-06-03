@@ -10,6 +10,7 @@ import { handlePostFile } from "../../../../utils/handleData/handlePostData";
 import { handleInputChange } from "../../../../utils/handleInputChange";
 import { handleNotifications } from "../../../../utils/handleNotifications";
 import { validateFiles } from "../../../../utils/validate/validateFiles";
+import { reloadLocation } from "../../../../utils/realoadLocation";
 
 const UploadForm = () => {
     const context = React.useContext(AppContext)
@@ -21,6 +22,8 @@ const UploadForm = () => {
 
     const handleFileUpload = async (event) => {
         try {
+            context.setLoading(true);
+            
             event.preventDefault();
 
             validateFiles(values?.files, values?.selectedOption);
@@ -30,9 +33,11 @@ const UploadForm = () => {
                 formData.append('file', values.files[i]);
             }
     
-            await handlePostFile(event, formData, `/file/upload/${values?.selectedOption}`, console.log, {"selectedOption": values?.selectedOption,});     
+            await handlePostFile(event, formData, `/file/upload/${values?.selectedOption}`, reloadLocation(), {"selectedOption": values?.selectedOption,});     
         } catch (err) {
             return handleNotifications("error", err.message);
+        } finally {
+            context.setLoading(false);
         }
     };
 

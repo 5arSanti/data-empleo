@@ -1,40 +1,31 @@
 import React from "react";
+import SyncLoader from "react-spinners/SyncLoader";
+
 import { AppContext } from "../../../Context";
 
 import "./styles.css";
 
-const LoadingCardBig = () => {
-    const context = React.useContext(AppContext)
+const override = {
+	borderColor: "red",
+};
 
-    if(context.loading){
+const LoadingCard = () => {
+	const context = React.useContext(AppContext);
+
+    if (context.loading) {
         return(
-            <div className="loading-card-big-container animation">
-
-                <div className="primary-container">
-                    <p className="animation2"></p>
-                    <p className="animation2"></p>
-                    <p className="animation2"></p>
-                </div>
-                <div className="secondary-container">
-                    <p className="animation2"></p>
-                    <p className="animation2"></p>
-                </div>
+            <div className="loading-container">
+                <SyncLoader
+                    color={context.activeHighContrast ? "#FFFFFF": "#E0161E"}
+                    loading={context.loading}
+                    cssOverride={override}
+                    size={15}
+                    speedMultiplier={0.5}
+                />
             </div>
         );
     }
+
 }
 
-const LoadingCardSmall = () => {
-    const context = React.useContext(AppContext)
-
-    if(context.loading){
-        return(
-            <div className="loading-card-small-container animation">
-                <p className="animation2"></p>
-                <p className="animation2"></p>
-            </div>
-        );
-    }
-}
-
-export { LoadingCardBig, LoadingCardSmall };
+export { LoadingCard };

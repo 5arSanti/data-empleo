@@ -8,17 +8,23 @@ import { handleNotifications } from "../../../utils/handleNotifications";
 import { WrapperContainer2 } from "../../components/WrapperContainers";
 import { handleDownloadFile } from "../../../utils/downloadFile";
 import { ExcelIncorrectAndDownload } from "../../components/ScreenExcelPreview/ExcelIncorrectAndDownloadCard";
+import { AppContext } from "../../../Context";
 
 
 const ExcelPreviewScreen = ({ file }) => {
+    const context = React.useContext(AppContext)
     const [data, setData] = React.useState([]);
 
     const loadData = async () => {
         try {
+            context.setLoading(true);
+
             const fileData = await readExcelFile(file?.blob);
             setData(fileData);
         } catch (err) {
             handleNotifications("error", `Error leyendo el archivo: ${err.message}`)
+        } finally {
+            context.setLoading(false);
         }
     };
 

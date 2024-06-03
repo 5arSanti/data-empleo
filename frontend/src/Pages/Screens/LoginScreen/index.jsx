@@ -29,6 +29,7 @@ const LoginScreen = () => {
     axios.defaults.withCredentials = true;
     
     const handleSubmit = (event) => {
+        context.setLoading(true);
         event.preventDefault();
 
         axios.post(`${context.apiUri}/user/login`, values)
@@ -41,8 +42,11 @@ const LoginScreen = () => {
                 } else {
                     handleNotifications("error", data.Error)
                 }
+                
+                return;
             })
             .catch(err => { handleNotifications("error", err.message) })
+            .finally(() => { context.setLoading(false); });
     }
 
     return(

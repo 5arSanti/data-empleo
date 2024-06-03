@@ -15,8 +15,11 @@ const DocumentInfoContainer = () => {
     const [graphImages, setGraphImages] = React.useState(null);
     React.useEffect(() => {
         if(graphsArray) {
+            context.setLoading(true);
+
             setTimeout(() => {
                 setGraphImages(saveImages(graphsArray))
+                context.setLoading(false);
             }, 1000)
         }
     }, [graphsArray, context.filters])

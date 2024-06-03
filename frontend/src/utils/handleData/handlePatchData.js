@@ -3,7 +3,7 @@ import { api } from "../api";
 import { handleNotifications } from "../handleNotifications";
 import { reloadLocation } from "../realoadLocation";
 
-const handlePatchData = (event, object, endpoint) => {
+const handlePatchData = async (event, object, endpoint) => {
     event.preventDefault()
 
     axios.patch(`${api}${endpoint}`, object)

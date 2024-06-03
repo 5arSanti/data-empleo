@@ -24,6 +24,7 @@ const DashboardInputsContainer = () => {
     const values = {...context.graphValues}
 
     const handleSubmit = (event) => {
+        context.setLoading(true);
         event.preventDefault();
 
         if(!context.editingGraph) {
@@ -43,6 +44,7 @@ const DashboardInputsContainer = () => {
                 })
                 .catch(err => {handleNotifications("error", err)})
         }
+        context.setLoading(false);
     }
 
     

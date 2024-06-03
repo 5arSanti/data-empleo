@@ -32,10 +32,13 @@ const UsersForm = () => {
     ]
 
     const handleEditUsers = async (event) => {
+        context.seLoading(true);
         event.preventDefault()
         const data = {...context.users}
 
-        handlePatchData(event, data, "/users");
+        await handlePatchData(event, data, "/users");
+        
+        context.seLoading(false);
     }
 
     return(

@@ -7,6 +7,7 @@ import { AppContext } from "../../../../Context";
 import { handleInputChange } from "../../../../utils/handleInputChange";
 import { SliderFormDropCard } from "../SliderFormDropCard";
 import { handlePostData } from "../../../../utils/handleData/handlePostData";
+import { handleNotifications } from "../../../../utils/handleNotifications";
 
 const SliderForm = () => {
     const context = React.useContext(AppContext);
@@ -30,10 +31,13 @@ const SliderForm = () => {
     ]
 
     const handleNewSliderCard = async (event) => {
+        context.setLoading(true);
         event.preventDefault()
         const data = {...context.sliderValues}
 
-        handlePostData(event, data, "/slider");
+        await handlePostData(event, data, "/slider");
+        
+        context.setLoading(false);
     }
 
     return(

@@ -33,6 +33,7 @@ import { UsersScreen } from "../Screens/UsersScreen";
 import { FoldersDataScreen } from "../Screens/FoldersDataScreen";
 import { scrollToValue } from "../../utils/scrollToValue";
 import { ExcelPreviewScreen } from "../Screens/ExcelPreviewScreen";
+import { LoadingCard } from "../components/LoadingCard";
 
 const Wrapper = ({children}) => {
     const location = useLocation();
@@ -80,6 +81,7 @@ const App = () => {
                 <Wrapper>
                     <GovNavbar/>
                     <AccesibilityCard/>
+                    <LoadingCard/>
                     <ConfirmationModal/>
                     <MainContainer>
                         <NavImagesCard/>

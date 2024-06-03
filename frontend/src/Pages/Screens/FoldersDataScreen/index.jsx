@@ -9,16 +9,18 @@ import { formatTableArray } from "../../../utils/formatTableArray";
 
 const FoldersDataScreen = ({ data }) => {
     const context = React.useContext(AppContext)
+    
     const navigate = useNavigate();
 
     const { category } = useParams() || "";
+    
     const categoryData = data ? data[formatURL(category)] : [];
 
     const formattedData = formatTableArray(categoryData);
 
     const handleExcelFile = (file, item) => {
         context.setPreviewFile({blob: file, name: item.array[0], item: item});
-        navigate("/excel-preview")
+        navigate("/excel-preview");
     } 
 
   

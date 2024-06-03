@@ -53,7 +53,6 @@ const DocumentPDFFiltersViewer = ({array, graphImages}) => {
                         }}>Descargar Documento</ButtonCard>
                     )}
                 </PDFDownloadLink>
-                <ButtonCard>Publicar Documento</ButtonCard>
 
             </WrapperContainer1>
             
