@@ -20,7 +20,7 @@ router.post("/", (request, response) => {
 			graphType: request.body.graphType,
 			description: request.body.description,
 			date: fechaActual,
-			values: "placeholder",
+			values: "[{}]",
 		}
 
 		validateObjectValues(graphValues)
