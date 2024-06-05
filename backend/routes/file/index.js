@@ -8,7 +8,9 @@ const { upload } = require("../../middlewares/multer.config");
 const { validateFiles } = require("../../Utils/validateFiles");
 const { readFolder } = require("../../Utils/files/readFolder");
 const { formatFile } = require("../../Utils/files/formatFile");
+const { deleteFile } = require("../../Utils/files/deleteFile");
 
+// GET File
 router.get('/', async (request, response) => {
 	try {
 		let files = {};
@@ -36,6 +38,26 @@ router.get('/', async (request, response) => {
 	}
 });
 
+
+// DELETE File
+router.delete('/:folder/:file', async (request, response) => {
+	try {
+		const { folder, file } = request.params;
+
+		const pathToFile = `uploads/${folder}/${file}`;
+
+		await deleteFile(pathToFile);
+
+		console.log("sale");
+		return response.json({Status: "Success", message: "Archivo eliminado correctamente"})
+
+	} catch (err) {
+		return response.json({Error: err.message})
+	}
+});
+
+
+// GET File/folder/file/fileName
 router.get('/:folder/:file/:fileName', async (request, response) => {
 	try {
 		const { folder, file, fileName } = request.params;
@@ -55,6 +77,7 @@ router.get('/:folder/:file/:fileName', async (request, response) => {
 });
 
 
+// GET file/folders
 router.get('/folders', async (request, response) => {
 	try {
 		const folders = await readFolder();
@@ -66,6 +89,7 @@ router.get('/folders', async (request, response) => {
 	}
 });
 
+// POST file/upload/selectedOption
 router.post("/upload/:selectedOption", upload.array("file"), async (request, response) => {
 	try {
 		const uploadedFiles = request.files;

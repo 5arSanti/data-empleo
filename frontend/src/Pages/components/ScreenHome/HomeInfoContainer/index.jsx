@@ -8,15 +8,15 @@ import { PaginationButtons } from "../PaginationButtons";
 import { TableContainer } from "../../TableContainer";
 
 import { handleDownloadFile, handleOpen } from "../../../../utils/downloadFile";
-import { formatTableArray } from "../../../../utils/formatTableArray";
 import { useNavigate } from "react-router-dom";
+import { formatTableData } from "../../../../utils/formatTableData";
 
 
 const HomeInfoContainer = ({data}) => {
     const context = React.useContext(AppContext)
     const navigate = useNavigate()
 
-    const formattedData = formatTableArray(data);
+    const formattedData = formatTableData(data, "Home")
 
     const array = context.graphValues;
 
@@ -40,6 +40,7 @@ const HomeInfoContainer = ({data}) => {
                 onOpen={handleOpen}
                 onExcel={handleExcelFile}
                 onDownload={handleDownloadFile}
+                onDelete={context.deleteFile}
             />
 
         </AllInfoContainer>

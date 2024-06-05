@@ -2,13 +2,13 @@ import { Title } from "../Title";
 import { WrapperContainer2 } from "../WrapperContainers";
 import { Table } from "./Table";
 
-const TableContainer = ({title, values, onOpen, onDownload, onExcel}) => {
+const TableContainer = ({title, values, onOpen, onDownload, onExcel, onDelete}) => {
     return(
         <WrapperContainer2 flexDirection="column" gap={5} padding={0}>
             <Title color="#000">
                 {title}
             </Title>
-            <Table values={values || []} onOpen={onOpen} onDownload={onDownload} onExcel={onExcel}/>
+            <Table values={values || []} onOpen={onOpen} onDownload={onDownload} onExcel={onExcel} onDelete={onDelete}/>
         </WrapperContainer2>
     );
 }

@@ -51,7 +51,7 @@ const AppRoutes = () => {
     const { files } = context.responseData;
 
     let routes = useRoutes([
-        {path: "/home", element: <Home data={files?.["Home"]}/>},
+        {path: "/home", element: <Home data={files}/>},
 
         {path: "/*", element: <Navigate replace to={"/home"}/>},
 

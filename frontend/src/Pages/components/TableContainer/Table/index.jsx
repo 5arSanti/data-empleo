@@ -1,13 +1,15 @@
 import React from "react";
+
 import { AppContext } from "../../../../Context";
-import { handleDownload, handleOpenFile } from "../../../../utils/downloadFile";
 import "./styles.css";
 
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { FaFilePdf } from "react-icons/fa";
+import { IsAuthWrapper } from "../../AuthWrapper";
+import { DeleteButtonCard } from "../../EditDeleteCard/DeleteButtonCard";
 
 
-const Table = ({values, onOpen, onDownload, onExcel}) => {
+const Table = ({values, onOpen, onDownload, onExcel, onDelete}) => {
     const context = React.useContext(AppContext)
     const colors = ["#e0161e", "#69CE27", "#3366cc"];
 
@@ -51,6 +53,7 @@ const Table = ({values, onOpen, onDownload, onExcel}) => {
                         <th>Fecha de Publicación</th>
                         <th>Acción</th>
                         <th>Descargar</th>
+                        <IsAuthWrapper><th>Eliminar</th></IsAuthWrapper>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,6 +62,11 @@ const Table = ({values, onOpen, onDownload, onExcel}) => {
                             {row?.array?.map((cell, cellIndex) => (
                                 handleRow(row, cell, cellIndex, index)
                             ))}
+                            <IsAuthWrapper>
+                                <td>
+                                    <DeleteButtonCard item={row} onDelete={onDelete} padding={0} border={false}/>
+                                </td>
+                            </IsAuthWrapper>
                         </tr>
                     ))}
                 </tbody>

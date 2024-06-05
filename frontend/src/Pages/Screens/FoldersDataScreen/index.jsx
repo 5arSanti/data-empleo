@@ -6,6 +6,7 @@ import { formatURL } from "../../../utils/strings";
 import { handleDownloadFile, handleOpen } from "../../../utils/downloadFile";
 import { AppContext } from "../../../Context";
 import { formatTableArray } from "../../../utils/formatTableArray";
+import { formatTableData } from "../../../utils/formatTableData";
 
 const FoldersDataScreen = ({ data }) => {
     const context = React.useContext(AppContext)
@@ -13,13 +14,15 @@ const FoldersDataScreen = ({ data }) => {
     const navigate = useNavigate();
 
     const { category } = useParams() || "";
-    
-    const categoryData = data ? data[formatURL(category)] : [];
 
-    const formattedData = formatTableArray(categoryData);
+    const formattedData = formatTableData(data, category);
 
     const handleExcelFile = (file, item) => {
-        context.setPreviewFile({blob: file, name: item.array[0], item: item});
+        context.setPreviewFile({
+            blob: file, 
+            name: item.array[0], 
+            item: item,
+        });
         navigate("/excel-preview");
     } 
 
@@ -30,8 +33,8 @@ const FoldersDataScreen = ({ data }) => {
             values={formattedData}
             onOpen={handleOpen}
             onExcel={handleExcelFile}
-            // onExcel={() => window.open("/excel-preview", '_blank', 'rel=noopener noreferrer')}
             onDownload={handleDownloadFile}
+            onDelete={context.deleteFile}
         />
     );
 }

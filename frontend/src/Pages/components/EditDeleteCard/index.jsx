@@ -4,6 +4,7 @@ import { ButtonCard } from "../ButtonCard";
 import { WrapperContainer2 } from "../WrapperContainers";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdEdit } from "react-icons/md";
+import { DeleteButtonCard } from "./DeleteButtonCard";
 
 const EditDeleteCard = ({item, onEdit, onDelete}) => {
     const context = React.useContext(AppContext);
@@ -17,18 +18,7 @@ const EditDeleteCard = ({item, onEdit, onDelete}) => {
             >
                 <MdEdit />
             </ButtonCard>
-            <ButtonCard
-                title="Eliminar"
-                onClick={() => context.setOpenConfirmationModal({
-                    status: true,
-                    title: "¿Esta seguro que desea eliminar esta información?",
-                    onConfirm: () => onDelete(item),
-                    onCancel: () => context.setOpenConfirmationModal({status:false}),
-                })}
-                padding={15}
-            >
-                <RiDeleteBin6Line  />
-            </ButtonCard>
+            <DeleteButtonCard item={item} onDelete={onDelete}/>
         </WrapperContainer2>
     );
 }

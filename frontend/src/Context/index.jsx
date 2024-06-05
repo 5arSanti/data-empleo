@@ -9,6 +9,7 @@ import { api } from "../utils/api";
 import { fetchAllData } from "../utils/handleData/handleFetchData";
 import { handleNotifications } from "../utils/handleNotifications";
 import { handleInputChange } from "../utils/handleInputChange";
+import { handleDeleteFile } from "../utils/handleData/handleFiles";
 
 
 export const AppContext = React.createContext();
@@ -123,6 +124,15 @@ const AppProvider = ({children}) => {
     // Previsualizador de Excel
     const [previewFile, setPreviewFile] = React.useState(null);
 
+    // Archivos de las tablas
+    const deleteFile = async (item) => {
+        setLoading(true)
+
+        await handleDeleteFile(`${item?.folder}/${item?.file}`)
+
+        setLoading(false);
+    }
+
     
 
     return (
@@ -182,6 +192,9 @@ const AppProvider = ({children}) => {
                 // Excel
                 previewFile,
                 setPreviewFile,
+
+                //Archivos de las tablas
+                deleteFile,
             }}
         >
             {children}
