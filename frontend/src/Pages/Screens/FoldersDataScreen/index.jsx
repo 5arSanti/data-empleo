@@ -30,6 +30,7 @@ const FoldersDataScreen = ({ data }) => {
             values={formattedData}
             onOpen={handleOpen}
             onExcel={handleExcelFile}
+            // onExcel={() => window.open("/excel-preview", '_blank', 'rel=noopener noreferrer')}
             onDownload={handleDownloadFile}
         />
     );

@@ -20,7 +20,7 @@ const DropNav = () => {
 
             <Dropdown.Menu className="dropnav-grid-container">
                 <div className='dropnav-anchor-container'>
-                    <a href={uriDropNav["Visor de empleo"]} target="_blank" rel="noopener noreferrer"><IoIosArrowForward /> {Object.keys(uriDropNav)[0]}</a>
+                    <a href={uriDropNav["Buscador de Empleo"]} target="_blank" rel="noopener noreferrer"><IoIosArrowForward /> {Object.keys(uriDropNav)[0]}</a>
                 </div>
                 
                 {array?.filter(item => item != "Home").map((item, index) => (
