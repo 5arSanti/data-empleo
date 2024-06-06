@@ -48,7 +48,6 @@ router.delete('/:folder/:file', async (request, response) => {
 
 		await deleteFile(pathToFile);
 
-		console.log("sale");
 		return response.json({Status: "Success", message: "Archivo eliminado correctamente"})
 
 	} catch (err) {
