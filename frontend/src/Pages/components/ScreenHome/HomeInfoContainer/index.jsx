@@ -16,7 +16,7 @@ const HomeInfoContainer = ({data}) => {
     const context = React.useContext(AppContext)
     const navigate = useNavigate()
 
-    const formattedData = formatTableData(data, "Home")
+    const formattedData = formatTableData(data, "Home");
 
     const array = context.graphValues;
 

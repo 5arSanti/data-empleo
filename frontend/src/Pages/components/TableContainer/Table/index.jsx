@@ -9,7 +9,7 @@ import { IsAuthWrapper } from "../../AuthWrapper";
 import { DeleteButtonCard } from "../../EditDeleteCard/DeleteButtonCard";
 
 
-const Table = ({values, onOpen, onDownload, onExcel, onDelete}) => {
+const Table = ({values=[], onOpen, onDownload, onExcel, onDelete}) => {
     const context = React.useContext(AppContext)
     const colors = ["#e0161e", "#69CE27", "#3366cc"];
 

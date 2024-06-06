@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+import { AppContext } from "../../../Context";
+
 import { TableContainer } from "../../components/TableContainer";
 import { formatURL } from "../../../utils/strings";
 import { handleDownloadFile, handleOpen } from "../../../utils/downloadFile";
-import { AppContext } from "../../../Context";
-import { formatTableArray } from "../../../utils/formatTableArray";
 import { formatTableData } from "../../../utils/formatTableData";
 
 const FoldersDataScreen = ({ data }) => {
@@ -17,12 +17,9 @@ const FoldersDataScreen = ({ data }) => {
 
     const formattedData = formatTableData(data, category);
 
+
     const handleExcelFile = (file, item) => {
-        context.setPreviewFile({
-            blob: file, 
-            name: item.array[0], 
-            item: item,
-        });
+        context.setPreviewFile({ blob: file, name: item.array[0], item: item });
         navigate("/excel-preview");
     } 
 

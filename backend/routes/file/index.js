@@ -18,9 +18,11 @@ router.get('/', async (request, response) => {
 		const folders = await readFolder();
 
 		const promises = folders.map(async (item) => {
-			const data = await readFolder(item);
-			const formattedData = await formatFile(data);
-			return {[item]: formattedData};
+			const files = await readFolder(item);
+			const formattedFile = await formatFile(files);
+
+			return {[item]: formattedFile};
+
 		})
 
 		const resolved = await Promise.all(promises);
@@ -29,7 +31,6 @@ router.get('/', async (request, response) => {
 			const key = Object.keys(item)[0];
 			files[key] = item[key];
 		});
-
 
 		return response.json({files: files})
 
@@ -88,12 +89,15 @@ router.get('/folders', async (request, response) => {
 	}
 });
 
+
 // POST file/upload/selectedOption
-router.post("/upload/:selectedOption", upload.array("file"), async (request, response) => {
+router.post("/upload", upload.array("file"), async (request, response) => {
 	try {
 		const uploadedFiles = request.files;
 
-		validateFiles(uploadedFiles, request.params.selectedOption);
+		const { selectedOption } = request.body;
+
+		validateFiles(uploadedFiles, selectedOption);
 
 		return response.json({Status: "Success", message: "Archivo guardado correctamente"})
 

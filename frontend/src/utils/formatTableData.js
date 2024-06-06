@@ -6,7 +6,7 @@ const formatTableData = (data, category) => {
     
     const categoryData = data ? data[folderName] : [];
 
-    const formattedData = formatTableArray(categoryData, folderName);
+    const formattedData = formatTableArray(categoryData);
 
     return formattedData;
 }
