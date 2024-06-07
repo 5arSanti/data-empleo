@@ -1,3 +1,5 @@
+import { handleNotifications } from "./handleNotifications";
+
 const generateYearRange = (startYear, endYear) => {
     const years = [];
     for (let year = startYear; year <= endYear; year++) {
@@ -28,9 +30,9 @@ const getMonthsUntilCurrent = (year) => {
         }
         return monthsArray;
     } 
-    // Si el año pasado es posterior al año actual
+    
     else {
-        console.log("lol")
+        handleNotifications("error", "Error configurando meses");
     }
 }
 

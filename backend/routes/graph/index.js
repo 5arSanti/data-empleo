@@ -8,9 +8,9 @@ const router = express.Router();
 
 const pageSize = 6;
 
-router.get("/:page", async (request, response) => {
+router.get("/", async (request, response) => {
 	try {
-        const page = parseInt(request.params.page, 10) || 1;
+        const page = parseInt(request.query.page, 10) || 1;
         const offset = (page - 1) * pageSize;
 
 		const query = `

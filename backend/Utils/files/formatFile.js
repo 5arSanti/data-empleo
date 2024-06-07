@@ -21,7 +21,7 @@ const formatFile = async (data) => {
 			const [ date, time ] = formatDateFile(fileDate)
 
 			const file = {
-				name: iconv.decode(originalName, "utf-8"),
+				name: iconv.decode(Buffer.from(originalName, 'binary'), 'utf-8'),
 				date: date,
 				time: time,
 				fullName: item,

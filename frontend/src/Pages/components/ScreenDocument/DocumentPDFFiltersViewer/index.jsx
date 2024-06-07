@@ -16,9 +16,9 @@ import { YearAndMonthFilterCard } from "../../YearAndMonthFilterCard";
 const DocumentPDFFiltersViewer = ({array, graphImages}) => {
     const context = React.useContext(AppContext)
 
-    const monthsArray = Object.keys(getMonthsUntilCurrent(context.filters?.AÑO));
-    const year = context.filters?.AÑO;
-    const month = context.filters?.MES;
+    const monthsArray = Object.keys(getMonthsUntilCurrent(context.filters?.year));
+    const year = context.filters?.year;
+    const month = context.filters?.month;
 
     return(
         <AllInfoGridContainer className="grid-125-075">
@@ -29,19 +29,10 @@ const DocumentPDFFiltersViewer = ({array, graphImages}) => {
             >
                 <SubTitle>Crear documento (En Desarrollo)</SubTitle>
 
-                <OptionInputCard
-                    id={"export-year"} 
-                    label={"Año"} 
-                    array={yearArray}
-                    onChange={(event) => handleInputChange("AÑO", event, context.setFilters)}
-                    defaultValue={context.filters?.AÑO}
-                />
-                <OptionInputCard
-                    id={"export-month"} 
-                    label={"Mes"} 
-                    array={monthsArray}
-                    onChange={(event) => handleInputChange("MES", event, context.setFilters)}
-                    defaultValue={context.filters?.MES}
+                <YearAndMonthFilterCard
+                    state={context.filters}
+                    setState={context.setFilters}
+                    id={"export"}
                 />
 
                 <PDFDownloadLink document={<MyExportPDFDocument array={array} graphs={graphImages || []} year={year} month={month}/>} fileName={`Boletin-Demanda-${months[month]}-${year}`}>

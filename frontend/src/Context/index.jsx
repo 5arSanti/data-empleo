@@ -43,42 +43,41 @@ const AppProvider = ({children}) => {
     })
     
     const [filters, setFilters] = React.useState({
-        "AÑO": actualYear,
-        "MES": actualMonth,
+        "year": actualYear,
+        "month": actualMonth,
     })
 
     // RESPONSE:
     const [responseData, setResponseData] = React.useState({});
 
+    const fetchData = async (endpoints) => {
+        try {
+            setLoading(true);
+            const data = await fetchAllData(endpoints);
+            setResponseData((prevData) => ({
+                ...prevData,
+                ...data
+            }));
+        } 
+        catch (err) {
+            handleNotifications("error", err.message)
+        } 
+        finally {
+            setLoading(false);
+        }
+    }
+
+
     React.useEffect(() => {
-        const filterParams = new URLSearchParams(filters);
         const endpoints = [
             `/slider`,
-            `/graph/export?${filterParams.toString()}`,
             "/users",
             "/file/folders",
             "/file/",
         ]
 
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                const data = await fetchAllData(endpoints);
-                setResponseData((prevData) => ({
-                    ...prevData,
-                    ...data
-                }));
-            } 
-            catch (err) {
-                handleNotifications("error", err.message)
-            } 
-            finally {
-                setLoading(false);
-            }
-        }
-        fetchData()
+        fetchData(endpoints)
     }, [filters]);
-    console.log(responseData);
 
     React.useEffect(() => {
         handleInputChange("graphType", graphLabels[graphValues.grapLabelsType].type, setGraphValues);
@@ -89,29 +88,15 @@ const AppProvider = ({children}) => {
     const [currentGraphsPage, setCurrentGraphsPage] = React.useState(1);
 
     React.useEffect(() => {
+        const filterParams = new URLSearchParams(filters);
+
         const endpoints = [
-            `/graph/${currentGraphsPage}`,
+            `graph?page=${currentGraphsPage}`,
+            `graph/export?${filterParams.toString()}`,
         ]
 
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                const data = await fetchAllData(endpoints);
-                setResponseData((prevData) => ({
-                    ...prevData,
-                    ...data
-                }));
-
-            } 
-            catch (err) {
-                handleNotifications("error", err.message)
-            } 
-            finally {
-                setLoading(false);
-            }
-        }
-        // fetchData()
-    }, [currentGraphsPage]);
+        fetchData(endpoints);
+    }, [currentGraphsPage, filters]);
 
 
     //CAMBIO DE COLORES
