@@ -33,7 +33,7 @@ const HomeInfoContainer = ({data}) => {
                 <GraphContainer array={array}/>
             </AllInfoGridContainer>
 
-            <PaginationButtons/>
+            {/* <PaginationButtons/> */}
             <TableContainer 
                 title={"DataEmpleo"} 
                 values={formattedData}

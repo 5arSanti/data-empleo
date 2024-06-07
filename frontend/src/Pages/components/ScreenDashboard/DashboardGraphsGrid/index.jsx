@@ -47,7 +47,7 @@ const DashboardGraphsGrid = () => {
     }
 
     return(
-        <WrapperContainer1 flexDirection="column" gap={20}>
+        <WrapperContainer2 flexDirection="column" gap={20} padding={0}>
             <SubTitle>Últimas Gráficas Creadas</SubTitle>
             
             <WrapperContainer2 flexDirection="column" gap={15} padding={0}>
@@ -60,7 +60,7 @@ const DashboardGraphsGrid = () => {
                     />
                 ))}
             </WrapperContainer2>
-        </WrapperContainer1>
+        </WrapperContainer2>
     );
 }
 

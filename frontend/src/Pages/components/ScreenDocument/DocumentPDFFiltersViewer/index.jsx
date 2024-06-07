@@ -10,6 +10,7 @@ import { MyExportPDFDocument } from "../MyExportPDFDocument";
 import { ButtonCard } from "../../ButtonCard";
 import { handleNotifications } from "../../../../utils/handleNotifications";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import { YearAndMonthFilterCard } from "../../YearAndMonthFilterCard";
 
 
 const DocumentPDFFiltersViewer = ({array, graphImages}) => {
@@ -27,6 +28,7 @@ const DocumentPDFFiltersViewer = ({array, graphImages}) => {
                 justifyContent="center"
             >
                 <SubTitle>Crear documento (En Desarrollo)</SubTitle>
+
                 <OptionInputCard
                     id={"export-year"} 
                     label={"Año"} 

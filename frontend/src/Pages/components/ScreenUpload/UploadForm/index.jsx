@@ -11,8 +11,8 @@ import { handlePostFile } from "../../../../utils/handleData/handlePostData";
 import { handleInputChange } from "../../../../utils/handleInputChange";
 import { handleNotifications } from "../../../../utils/handleNotifications";
 import { validateFiles } from "../../../../utils/validate/validateFiles";
-import { AllInfoGridContainer } from "../../AllInfoContainer";
-import { actualMonth, actualYear, monthsArray, yearArray } from "../../../../utils/dateFunctions";
+import { actualMonth, actualYear } from "../../../../utils/dateFunctions";
+import { YearAndMonthFilterCard } from "../../YearAndMonthFilterCard";
 
 import "./styles.css";
 
@@ -67,22 +67,11 @@ const UploadForm = () => {
                     filesArray={values?.files}
                 />
 
-                <AllInfoGridContainer className="grid-1-1">
-                    <OptionInputCard
-                        id={"upload-year"} 
-                        label={"Año"} 
-                        array={yearArray}
-                        onChange={(event) => handleInputChange("year", event, setValues)}
-                        defaultValue={values?.year}
-                    />
-                    <OptionInputCard
-                        id={"upload-month"} 
-                        label={"Mes"} 
-                        array={monthsArray}
-                        onChange={(event) => handleInputChange("month", event, setValues)}
-                        defaultValue={values?.month}
-                    />
-                </AllInfoGridContainer>
+                <YearAndMonthFilterCard
+                    state={values}
+                    setState={setValues}
+                    id={"upload"}
+                />
 
                 <OptionInputCard
                     id={"document-type-options"}
@@ -92,8 +81,6 @@ const UploadForm = () => {
                     defaultValue={values?.selectedOption}
                     none={true}
                 />
-
-
 
 
                 <ButtonCard 
