@@ -51,7 +51,7 @@ const DashboardGraphsGrid = () => {
             <SubTitle>Últimas Gráficas Creadas</SubTitle>
             
             <WrapperContainer2 flexDirection="column" gap={15} padding={0}>
-                {context.responseData?.graphs?.map((item, index) => (
+                {context.responseData?.graphsData?.graphs?.map((item, index) => (
                     <GraphsCard
                         key={index}
                         item={item}

@@ -53,9 +53,8 @@ const AppProvider = ({children}) => {
     React.useEffect(() => {
         const filterParams = new URLSearchParams(filters);
         const endpoints = [
-            `/graph`,
-            `/graph/export?${filterParams.toString()}`,
             `/slider`,
+            `/graph/export?${filterParams.toString()}`,
             "/users",
             "/file/folders",
             "/file/",
@@ -65,7 +64,10 @@ const AppProvider = ({children}) => {
             try {
                 setLoading(true);
                 const data = await fetchAllData(endpoints);
-                setResponseData(data);
+                setResponseData((prevData) => ({
+                    ...prevData,
+                    ...data
+                }));
             } 
             catch (err) {
                 handleNotifications("error", err.message)
@@ -76,11 +78,41 @@ const AppProvider = ({children}) => {
         }
         fetchData()
     }, [filters]);
+    console.log(responseData);
 
     React.useEffect(() => {
         handleInputChange("graphType", graphLabels[graphValues.grapLabelsType].type, setGraphValues);
     }, [graphValues.grapLabelsType]);
     
+    
+    // Graficas y paginacion
+    const [currentGraphsPage, setCurrentGraphsPage] = React.useState(1);
+
+    React.useEffect(() => {
+        const endpoints = [
+            `/graph/${currentGraphsPage}`,
+        ]
+
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                const data = await fetchAllData(endpoints);
+                setResponseData((prevData) => ({
+                    ...prevData,
+                    ...data
+                }));
+
+            } 
+            catch (err) {
+                handleNotifications("error", err.message)
+            } 
+            finally {
+                setLoading(false);
+            }
+        }
+        // fetchData()
+    }, [currentGraphsPage]);
+
 
     //CAMBIO DE COLORES
     const [activeHighContrast, setActiveHighContrast] = React.useState(false);
@@ -195,6 +227,10 @@ const AppProvider = ({children}) => {
 
                 //Archivos de las tablas
                 deleteFile,
+
+                // Paginacion de graficas
+                currentGraphsPage,
+                setCurrentGraphsPage
             }}
         >
             {children}

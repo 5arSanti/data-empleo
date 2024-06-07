@@ -6,12 +6,31 @@ const { getQuery } = require("../../database/query");
 
 const router = express.Router();
 
-router.get("/", async (request, response) => {
+const pageSize = 6;
+
+router.get("/:page", async (request, response) => {
 	try {
-		const query = "SELECT * FROM graficas ORDER BY FECHA_CREACION DESC LIMIT 6";
+        const page = parseInt(request.params.page, 10) || 1;
+        const offset = (page - 1) * pageSize;
+
+		const query = `
+			SELECT * FROM graficas
+			ORDER BY FECHA_CREACION
+			DESC LIMIT ${pageSize} OFFSET ${offset};
+		`;
+
 		const graphs = await getQuery(query)
 
-		return response.status(200).json({graphs: graphs})
+		const totalGraphs = await getQuery("SELECT COUNT(*) AS totalGraphs FROM graficas");
+
+        const totalPages = Math.ceil(totalGraphs[0].totalGraphs / pageSize);
+
+
+		return response.status(200).json({graphsData: {
+			graphs: graphs,
+			totalPages: totalPages,
+			currentPage: page,
+		}})
 	} catch (err) {
 		return response.status(500).json({Error: err.message});
 	}
