@@ -26,7 +26,7 @@ Font.register({ family: 'Montserrat', fonts: [
 const styles = StyleSheet.create({
     graphContainer: {
         width: "100%",
-        paddingHorizontal: 40,
+        paddingHorizontal: 50,
     },
     graphsImages: {
         width: "auto"

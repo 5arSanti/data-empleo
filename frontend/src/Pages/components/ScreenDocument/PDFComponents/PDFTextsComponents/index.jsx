@@ -23,9 +23,23 @@ const PDFThirdtitle = ({children}) => {
     );
 }
 
-const PDFText = ({children}) => {
+const PDFHeaderText = ({children}) => {
     return(
-        <Text style={styles.text}>
+        <Text style={styles.headerText}>
+            {children}
+        </Text>
+    );
+}
+
+const PDFText = ({children, bold=false, fontSize=10, maxWidth="auto", textAlign="start"}) => {
+    return(
+        <Text style={{
+            ...styles.text,
+            fontWeight: bold ? "bold" : "normal",
+            fontSize: fontSize,
+            maxWidth: maxWidth,
+            textAlign: textAlign
+        }}>
             {children}
         </Text>
     );
@@ -56,12 +70,16 @@ const styles = StyleSheet.create({
         fontSize: 10,
         fontWeight: "bold",
     },
+    headerText: {
+        textAlign: "start",
+        fontSize: 18,
+        fontWeight: "bold",
+    },
     text: {
-        fontSize: 10,
         textAlign: 'justify',
 
         marginBottom: 10
     },
 });
 
-export { PDFTitle, PDFSubtitle, PDFThirdtitle, PDFText };
+export { PDFTitle, PDFSubtitle, PDFThirdtitle, PDFText, PDFHeaderText };

@@ -8,43 +8,36 @@ import { PDFGraph } from '../PDFComponents/PDFGraph';
 import { PDFWrapper } from '../PDFComponents/PDFWrapper';
 import { actualMonth, actualYear, months } from '../../../../utils/dateFunctions';
 import { graphLabels } from '../../../../utils/chartTypes';
+import { PDFGlosary } from '../PDFComponents/PDFGlosary';
+import { PDFGraphInfo } from '../PDFComponents/PDFGraphInfoCard';
 
 const MyExportPDFDocument = ({graphs=[], array=[], year=actualYear, month=actualMonth}) => {
 
     return(
         <Document>
             <Page size="A4" style={styles.body}>
-                <PDFHeader/>
+                <PDFHeader month={month} year={year}/>
 
                 <PDFWrapper>
-                    <PDFTitle>Demanda laboral - Boletín {months[month]} del {year}</PDFTitle>
-
-                    <PDFText>En este informe se describe el comportamiento de la demanda laboral nacional para el mes de septiembre del año 2023. Las descripciones se realizan sobre distintas dimensiones: sector, ocupación, educación, experiencia y salarios. La fuente de las estadísticas reportadas en este informe procede de la base de datos de las ofertas de empleo1 registradas por los empleadores a través de todos los prestadores autorizados de la red del Servicio Público de Empleo (SPE), información que es administrada por la Unidad del SPE.</PDFText>
-                    
-                    <PDFTitle>{months[month]} {year}</PDFTitle>
+                    <PDFTitle>Oferta laboral {months[month]} del {year}</PDFTitle>
 
                     <PDFText>
-                        Específicamente para el mes de {months[month]} del año {year}, se registraron 219.013 ofertas de empleo a nivel nacional, lo que representó una disminución de 12,9 puntos porcentuales (pp) frente al mismo mes del año 2022 (251.323) y un aumento del 17,1 pp frente a los niveles prepandemia, si se compara con {months[month - 1]} del año {year - 1}. 
+                        Este boletín describe el comportamiento de los buscadores de empleo del país para 
+                        el mes de {months[month]} del año {year}. El documento se divide en la descripción de los 
+                        buscadores de empleo registrados en el mes de referencia, y se presentan por las 
+                        23 principales ciudades, áreas del conocimiento, nivel educativo y nivel de 
+                        experiencia. La fuente de los datos de este boletín proviene de la base de datos de 
+                        los buscadores de empleo registrados en el Sistema de Información del Servicio 
+                        de Empleo SISE.
                     </PDFText>
                 </PDFWrapper>
 
                 {array?.map((item, index) => (
-                    <PDFWrapper key={index}>
-                        <PDFThirdtitle>{graphLabels[item.TIPO_DATOS].name}</PDFThirdtitle>
-    
-                        <PDFText>
-                            {item.DESCRIPCION}
-                        </PDFText>
-    
-                        
-                        <PDFGraph
-                            title={`${item.TITULO_GRAFICA} - ${months[item.MES]} del ${item.AÑO}`}
-                            graph={graphs[index]}
-                        />
-                    </PDFWrapper>
+                    <PDFGraphInfo key={index} item={item} index={index} graphs={graphs}/>
                 ))}
-                <PDFTitle>Grupo de Estudio del Mercado Laboral</PDFTitle>
-                <PDFTitle>Subdirección de Administración y Seguimiento</PDFTitle>
+
+                <PDFGlosary/>
+
                 <PDFFooter/>
             </Page>
         </Document> 
@@ -65,8 +58,8 @@ const styles = StyleSheet.create({
 
         position: "relative",
 
-        paddingTop: 90,
-        paddingHorizontal: 75, 
+        paddingTop: 100,
+        paddingHorizontal: 90, 
         paddingBottom: 110,
 
         fontFamily: "Montserrat"
