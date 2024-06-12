@@ -15,7 +15,7 @@ const SliderNavContainer = () => {
 	const settings = {
 		infinite: true,
 		speed: 1000,
-		slidesToShow: 3,
+		slidesToShow: 4,
 		slidesToScroll: 1,
 		autoplay: true,
 		autoplaySpeed: 4000,

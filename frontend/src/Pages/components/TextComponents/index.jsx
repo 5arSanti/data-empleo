@@ -2,7 +2,13 @@ import "./styles.css";
 
 const TextCard = ({children, textAlign="start", width="100%", className=""}) => {
     return(
-        <p style={{textAlign: textAlign, width: width}} className={`text-card ${className}`}>{children}</p>
+        <p 
+            style={{
+                textAlign: textAlign, 
+                width: width
+                
+            }} 
+            className={`text-card ${className}`}>{children}</p>
     );
 }
 

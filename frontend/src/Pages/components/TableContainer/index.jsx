@@ -7,6 +7,7 @@ import { Title } from "../Title";
 import { WrapperContainer2 } from "../WrapperContainers";
 import { Table } from "./Table";
 import { YearAndMonthFilterCard } from "../YearAndMonthFilterCard";
+import { TextCard } from "../TextComponents";
 
 const TableContainer = ({title, values=[], onOpen, onDownload, onExcel, onDelete}) => {
     const [filters, setFilters] = React.useState({
@@ -25,11 +26,18 @@ const TableContainer = ({title, values=[], onOpen, onDownload, onExcel, onDelete
                 {title}
             </Title>
 
-            <YearAndMonthFilterCard
-                state={filters}
-                setState={setFilters}
-                id={"files-table"}
-            />
+            <AllInfoGridContainer className="grid-1-1-1">
+                <div></div>
+                <WrapperContainer2 flexDirection="row" alignItems="flex-end" padding={10}>
+                    <TextCard className="bold" textAlign="end">Filtros:</TextCard>
+                </WrapperContainer2>
+                <YearAndMonthFilterCard
+                    state={filters}
+                    setState={setFilters}
+                    id={"files-table"}
+                />
+            </AllInfoGridContainer>
+
 
             <Table values={filteredData || []} onOpen={onOpen} onDownload={onDownload} onExcel={onExcel} onDelete={onDelete}/>
         </WrapperContainer2>
