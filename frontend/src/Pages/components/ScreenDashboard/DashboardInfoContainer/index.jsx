@@ -16,14 +16,15 @@ const DashboardInfoContainer = () => {
     const context = React.useContext(AppContext)
     const navigate = useNavigate();    
 
-    const array = context.graphValues;
+    const graph = context.graphValues;
 
     return(
         <WrapperContainer2 flexDirection="column" gap={20} padding={0}>
             <AllInfoGridContainer className="grid-075-125">
                 <DashboardInputsContainer/>
-                
-                <GraphContainer array={array}/>
+                {graph &&
+                    <GraphContainer graph={graph}/>
+                }
             </AllInfoGridContainer>
 
             <ButtonCard

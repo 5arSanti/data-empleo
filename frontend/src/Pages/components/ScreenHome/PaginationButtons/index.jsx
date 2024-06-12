@@ -3,13 +3,22 @@ import { IoIosArrowBack } from "react-icons/io";
 
 import "./styles.css";
 
-const PaginationButtons = () => {
+const PaginationButtons = ({state, setState, length}) => {
+
+    const handleNextGraph = () => {
+        setState((prevIndex) => (prevIndex + 1) % length);
+    };
+
+    const handlePreviousGraph = () => {
+        setState((prevIndex) => (prevIndex - 1 + length) % length);
+    };
+
     return(
         <div className="pagination-buttons-container">
-            <button>
+            <button title="Gráfica anterior" onClick={handlePreviousGraph}>
                 <IoIosArrowBack/>
             </button>
-            <button>
+            <button title="Siguiente gráfica" onClick={handleNextGraph}>
                 <MdNavigateNext/>
             </button>
         </div>

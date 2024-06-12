@@ -22,7 +22,7 @@ const TableContainer = ({title, values=[], onOpen, onDownload, onExcel, onDelete
 
 
     return(
-        <WrapperContainer2 flexDirection="column" gap={10} padding={0}>
+        <WrapperContainer2 flexDirection="column" gap={5} padding={0}>
             <Title color="#000">
                 {title}
             </Title>

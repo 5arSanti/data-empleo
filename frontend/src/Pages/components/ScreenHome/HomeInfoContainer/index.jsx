@@ -8,27 +8,34 @@ import { PaginationButtons } from "../PaginationButtons";
 import { TableContainer } from "../../TableContainer";
 
 import { handleDownloadFile, handleOpen } from "../../../../utils/downloadFile";
-import { useNavigate } from "react-router-dom";
 import { formatTableData } from "../../../../utils/formatTableData";
+import { graphExportConfig } from "../../../../utils/graphConfig";
+import { WrapperContainer2 } from "../../WrapperContainers";
 
 
 const HomeInfoContainer = ({data}) => {
     const context = React.useContext(AppContext)
-    const navigate = useNavigate()
+
+    const [graphIndex, setGraphIndex] = React.useState(0);
 
     const formattedData = formatTableData(data, "Home");
 
-    const array = context.graphValues;
+    const { graphs } = context.responseData?.graphsData || [];
+    const graph = graphs ? graphs[graphIndex] : context.graphValues;
 
     return(
-        <AllInfoContainer>
+        <WrapperContainer2 flexDirection="column" padding={0} gap={5}>
             <AllInfoGridContainer>
-                <MainTextContainer item={array}/>
-                
-                <GraphContainer array={array}/>
+                {graphs &&
+                    <>
+                        <MainTextContainer item={graph}/>
+                        <GraphContainer graph={graph} onConfig={graphExportConfig}/>
+                    </>
+                }
             </AllInfoGridContainer>
 
-            {/* <PaginationButtons/> */}
+            <PaginationButtons state={graphIndex} setState={setGraphIndex} length={graphs?.length}/>
+
             <TableContainer 
                 title={"DataEmpleo"} 
                 values={formattedData}
@@ -38,7 +45,7 @@ const HomeInfoContainer = ({data}) => {
                 onDelete={context.deleteFile}
             />
 
-        </AllInfoContainer>
+        </WrapperContainer2>
     );
 }
 
