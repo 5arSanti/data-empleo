@@ -6,6 +6,7 @@ import { DocumentPDFFiltersViewer } from "../DocumentPDFFiltersViewer";
 import { SubTitle } from "../../SubTitle";
 import { AllInfoGridContainer } from "../../AllInfoContainer";
 import { DocumentGraphsGrid } from "../DocumentGraphsGrid";
+import { VerifyLength } from "../../VerifyLengthWrapper";
 
 const DocumentInfoContainer = () => {
     const context = React.useContext(AppContext)
@@ -14,12 +15,14 @@ const DocumentInfoContainer = () => {
 
     const [graphImages, setGraphImages] = React.useState(null);
     React.useEffect(() => {
+        context.setLoading(true);
         if(graphsArray) {
             setTimeout(() => {
                 setGraphImages(saveImages(graphsArray))
-            }, 1000)
+                context.setLoading(false);
+            }, 2000)
         }
-    }, [graphsArray, context.filters])
+    }, [graphsArray])
 
 
     return(
@@ -34,14 +37,17 @@ const DocumentInfoContainer = () => {
             
 
             <WrapperContainer2 flexDirection="column" padding={0}>
-                <SubTitle>Graficas:</SubTitle>
-                
-                <AllInfoGridContainer className="grid-1-1">
-                    {graphsArray?.map((item, index) => (
-                        <DocumentGraphsGrid item={item} index={index} key={index}/>
-                    ))}
-                </AllInfoGridContainer>
+                <SubTitle>Vista previa de las gráficas:</SubTitle>
+                <VerifyLength array={graphsArray}>
+                    <AllInfoGridContainer className="grid-1-1">
+                        {graphsArray?.map((item, index) => (
+                            <DocumentGraphsGrid item={item} index={index} key={index}/>
+                        ))}
+                    </AllInfoGridContainer>
+                </VerifyLength>
+
             </WrapperContainer2>
+
         </WrapperContainer2>
     );
 }

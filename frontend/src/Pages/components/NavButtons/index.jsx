@@ -12,9 +12,15 @@ const NavButtons = ({className="idioma-icon-barra-superior-govco"}) => {
     const handleNavButtons = () => {
         if(!context.auth) {
             return(
-                <Link to={"/login"} className={`${className}`}>
-                    Iniciar Sesión
-                </Link>        
+                <>
+                    <Link to={"/home"} className={`${className}`}>
+                        Home
+                    </Link>
+                    <Link to={"/login"} className={`${className}`}>
+                        Iniciar Sesión
+                    </Link>     
+                </>
+   
             );
         } else {
             return(

@@ -9,7 +9,8 @@ import { api } from "../utils/api";
 import { fetchAllData } from "../utils/handleData/handleFetchData";
 import { handleNotifications } from "../utils/handleNotifications";
 import { handleInputChange } from "../utils/handleInputChange";
-import { useNavigate } from "react-router-dom";
+import { handleDeleteFile } from "../utils/handleData/handleFiles";
+import { readExcelFile } from "../utils/readExcelFile";
 
 
 export const AppContext = React.createContext();
@@ -43,44 +44,61 @@ const AppProvider = ({children}) => {
     })
     
     const [filters, setFilters] = React.useState({
-        "AÑO": actualYear,
-        "MES": actualMonth,
+        "year": actualYear,
+        "month": actualMonth,
     })
 
     // RESPONSE:
     const [responseData, setResponseData] = React.useState({});
 
+    const fetchData = async (endpoints) => {
+        try {
+            setLoading(true);
+            const data = await fetchAllData(endpoints);
+            setResponseData((prevData) => ({
+                ...prevData,
+                ...data
+            }));
+        } 
+        catch (err) {
+            handleNotifications("error", err.message)
+        } 
+        finally {
+            setLoading(false);
+        }
+    }
+
+
     React.useEffect(() => {
-        const filterParams = new URLSearchParams(filters);
         const endpoints = [
-            `/graph`,
-            `/graph/export?${filterParams.toString()}`,
             `/slider`,
             "/users",
             "/file/folders",
             "/file/",
         ]
 
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                const data = await fetchAllData(endpoints);
-                setResponseData(data);
-            } 
-            catch (err) {
-                handleNotifications("error", err.message)
-            } 
-            finally {
-                setLoading(false);
-            }
-        }
-        fetchData()
+        fetchData(endpoints)
     }, [filters]);
 
     React.useEffect(() => {
         handleInputChange("graphType", graphLabels[graphValues.grapLabelsType].type, setGraphValues);
     }, [graphValues.grapLabelsType]);
     
+    
+    // Graficas y paginacion
+    const [currentGraphsPage, setCurrentGraphsPage] = React.useState(1);
+
+    React.useEffect(() => {
+        const filterParams = new URLSearchParams(filters);
+
+        const endpoints = [
+            `graph?page=${currentGraphsPage}`,
+            `graph/export?${filterParams.toString()}`,
+        ]
+
+        fetchData(endpoints);
+    }, [currentGraphsPage, filters]);
+
 
     //CAMBIO DE COLORES
     const [activeHighContrast, setActiveHighContrast] = React.useState(false);
@@ -122,8 +140,37 @@ const AppProvider = ({children}) => {
     const [users, setUsers] = React.useState(null);
 
     // Previsualizador de Excel
-    // const navigate = useNavigate();
     const [previewFile, setPreviewFile] = React.useState(null);
+    const handleExcelFile = async (file, item) => {
+        try {
+            setLoading(true);
+            const excelJSON = await readExcelFile(file);            
+
+            const fileInfo = [{
+                fileJSON: excelJSON,
+                name: item.array[0],
+                item: item
+            }]
+
+            localStorage.setItem("excel-json", JSON.stringify(fileInfo))
+            
+            window.open('#/excel-preview', '_blank');
+        } 
+        catch (err) {
+            handleNotifications("error", err.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    // Archivos de las tablas
+    const deleteFile = async (item) => {
+        setLoading(true)
+
+        await handleDeleteFile(`${item?.folder}/${item?.file}`)
+
+        setLoading(false);
+    }
 
     
 
@@ -184,6 +231,14 @@ const AppProvider = ({children}) => {
                 // Excel
                 previewFile,
                 setPreviewFile,
+                handleExcelFile,
+
+                //Archivos de las tablas
+                deleteFile,
+
+                // Paginacion de graficas
+                currentGraphsPage,
+                setCurrentGraphsPage
             }}
         >
             {children}

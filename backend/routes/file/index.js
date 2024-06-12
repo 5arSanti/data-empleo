@@ -8,7 +8,9 @@ const { upload } = require("../../middlewares/multer.config");
 const { validateFiles } = require("../../Utils/validateFiles");
 const { readFolder } = require("../../Utils/files/readFolder");
 const { formatFile } = require("../../Utils/files/formatFile");
+const { deleteFile } = require("../../Utils/files/deleteFile");
 
+// GET File
 router.get('/', async (request, response) => {
 	try {
 		let files = {};
@@ -16,9 +18,11 @@ router.get('/', async (request, response) => {
 		const folders = await readFolder();
 
 		const promises = folders.map(async (item) => {
-			const data = await readFolder(item);
-			const formattedData = await formatFile(data);
-			return {[item]: formattedData};
+			const files = await readFolder(item);
+			const formattedFile = await formatFile(files);
+
+			return {[item]: formattedFile};
+
 		})
 
 		const resolved = await Promise.all(promises);
@@ -28,7 +32,6 @@ router.get('/', async (request, response) => {
 			files[key] = item[key];
 		});
 
-
 		return response.json({files: files})
 
 	} catch (err) {
@@ -36,6 +39,25 @@ router.get('/', async (request, response) => {
 	}
 });
 
+
+// DELETE File
+router.delete('/:folder/:file', async (request, response) => {
+	try {
+		const { folder, file } = request.params;
+
+		const pathToFile = `uploads/${folder}/${file}`;
+
+		await deleteFile(pathToFile);
+
+		return response.json({Status: "Success", message: "Archivo eliminado correctamente"})
+
+	} catch (err) {
+		return response.json({Error: err.message})
+	}
+});
+
+
+// GET File/folder/file/fileName
 router.get('/:folder/:file/:fileName', async (request, response) => {
 	try {
 		const { folder, file, fileName } = request.params;
@@ -55,6 +77,7 @@ router.get('/:folder/:file/:fileName', async (request, response) => {
 });
 
 
+// GET file/folders
 router.get('/folders', async (request, response) => {
 	try {
 		const folders = await readFolder();
@@ -66,11 +89,15 @@ router.get('/folders', async (request, response) => {
 	}
 });
 
-router.post("/upload/:selectedOption", upload.array("file"), async (request, response) => {
+
+// POST file/upload/selectedOption
+router.post("/upload", upload.array("file"), async (request, response) => {
 	try {
 		const uploadedFiles = request.files;
 
-		validateFiles(uploadedFiles, request.params.selectedOption);
+		const { selectedOption } = request.body;
+
+		validateFiles(uploadedFiles, selectedOption);
 
 		return response.json({Status: "Success", message: "Archivo guardado correctamente"})
 

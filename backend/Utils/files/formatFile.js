@@ -12,21 +12,26 @@ const formatFile = async (data) => {
 			const parts = item.split(`${splitValue}`);
 
 			const selectedOption = parts[0];
-			const originalNameWithExtension = parts.slice(2).join('_');
+			const originalNameWithExtension = parts.slice(-1).join('_');
+
 			const originalName = originalNameWithExtension.split('.')[0];
 			const fileType = originalNameWithExtension.split('.')[2]
 
-			const fileDate = parts[1];
+			const fileDate = parts[3];
 			const [ date, time ] = formatDateFile(fileDate)
 
-			return {
-				name: iconv.decode(originalName, "utf-8"),
+			const file = {
+				name: iconv.decode(Buffer.from(originalName, 'binary'), 'utf-8'),
 				date: date,
 				time: time,
 				fullName: item,
 				fileType: fileType,
+				selectedYear: parts[1],
+				selectedMonth: parts[2],
 				selectedOption: selectedOption,
 			};
+
+			return file;
 		})
 
 		return formattedData;

@@ -8,22 +8,17 @@ import { PaginationButtons } from "../PaginationButtons";
 import { TableContainer } from "../../TableContainer";
 
 import { handleDownloadFile, handleOpen } from "../../../../utils/downloadFile";
-import { formatTableArray } from "../../../../utils/formatTableArray";
 import { useNavigate } from "react-router-dom";
+import { formatTableData } from "../../../../utils/formatTableData";
 
 
 const HomeInfoContainer = ({data}) => {
     const context = React.useContext(AppContext)
     const navigate = useNavigate()
 
-    const formattedData = formatTableArray(data);
+    const formattedData = formatTableData(data, "Home");
 
     const array = context.graphValues;
-
-    const handleExcelFile = (file, item) => {
-        context.setPreviewFile({blob: file, name: item.array[0], item: item});
-        navigate("/excel-preview")
-    } 
 
     return(
         <AllInfoContainer>
@@ -33,13 +28,14 @@ const HomeInfoContainer = ({data}) => {
                 <GraphContainer array={array}/>
             </AllInfoGridContainer>
 
-            <PaginationButtons/>
+            {/* <PaginationButtons/> */}
             <TableContainer 
                 title={"DataEmpleo"} 
                 values={formattedData}
                 onOpen={handleOpen}
-                onExcel={handleExcelFile}
+                onExcel={context.handleExcelFile}
                 onDownload={handleDownloadFile}
+                onDelete={context.deleteFile}
             />
 
         </AllInfoContainer>

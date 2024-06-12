@@ -130,3 +130,11 @@ dist
 .pnp.*
 
 
+
+*.properties.env
+*.env
+*.properties.ini
+*.ini
+
+backend\app.properties.ini
+frontend\app.properties.env

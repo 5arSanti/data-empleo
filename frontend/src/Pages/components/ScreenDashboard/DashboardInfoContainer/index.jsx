@@ -9,6 +9,8 @@ import { ButtonCard } from "../../ButtonCard";
 import { graphValuesConfig } from "../../../../utils/graphConfig";
 import { DashboardGraphsGrid } from "../DashboardGraphsGrid";
 import { DashboardInputsContainer } from "../DashboardInputsContainer";
+import { DashboardGraphsPagination } from "../DashboardGraphsPagination";
+import { WrapperContainer2 } from "../../WrapperContainers";
 
 const DashboardInfoContainer = () => {
     const context = React.useContext(AppContext)
@@ -17,7 +19,7 @@ const DashboardInfoContainer = () => {
     const array = context.graphValues;
 
     return(
-        <AllInfoContainer>
+        <WrapperContainer2 flexDirection="column" gap={20} padding={0}>
             <AllInfoGridContainer className="grid-075-125">
                 <DashboardInputsContainer/>
                 
@@ -32,8 +34,9 @@ const DashboardInfoContainer = () => {
             </ButtonCard>
 
             <DashboardGraphsGrid/>
+            <DashboardGraphsPagination/>
             
-        </AllInfoContainer>
+        </WrapperContainer2>
     );
 }
 

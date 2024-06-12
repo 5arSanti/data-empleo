@@ -1,6 +1,5 @@
 .graph-card-container {
     width: 100%;
-    border: 1px solid var(--lines-color);
 
     padding: 10px 20px;
     box-sizing: border-box;
@@ -43,7 +42,7 @@
 .gap-15 { gap: 15px !important; }
 .gap-20 { gap: 20px !important; }
 
-.center {
+.center, .center p {
     justify-content: center !important;
     align-items: center !important;
     text-align: center !important;

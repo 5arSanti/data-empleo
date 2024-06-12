@@ -26,7 +26,7 @@
 .slider-card svg {
     width: 50px;
     height: 50px;
-    fill: var(--black-to-white-color);
+    fill: var(--lines-color2);
 }
 
 .slider-info-container {
@@ -42,6 +42,7 @@
 }
 .slider-info-container p:nth-child(1){
     font-weight: bold;
+    color: var(--black-to-white-color);
 }
 .slider-info-container p:nth-child(3){
     font-weight: bold;

@@ -1,8 +1,13 @@
 import { StyleSheet, View } from "@react-pdf/renderer";
 
-const PDFWrapper = ({children, stylesProp}) => {
+const PDFWrapper = ({children, justifyContent="center", wrap=true}) => {
     return(
-        <View styles={{...stylesProp, ...styles.wrapper}}>
+        <View styles={{
+            ...styles.wrapper, 
+            justifyContent: justifyContent
+        }}
+            wrap={wrap}
+        >
             {children}
         </View>
     );
@@ -14,7 +19,6 @@ const styles = StyleSheet.create({
 
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         gap: 0,
     },
 });

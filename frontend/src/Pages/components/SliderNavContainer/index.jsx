@@ -8,6 +8,7 @@ import "./styles.css";
 import { AppContext } from '../../../Context/index.jsx';
 import React from 'react';
 import { NextArrowCard, PrevArrowCard } from './ArrowsCard/index.jsx';
+import { VerifyLength } from '../VerifyLengthWrapper/index.jsx';
 
 const SliderNavContainer = () => {
 	const context = React.useContext(AppContext)
@@ -15,7 +16,7 @@ const SliderNavContainer = () => {
 	const settings = {
 		infinite: true,
 		speed: 1000,
-		slidesToShow: 3,
+		slidesToShow: 4,
 		slidesToScroll: 1,
 		autoplay: true,
 		autoplaySpeed: 4000,
@@ -45,11 +46,13 @@ const SliderNavContainer = () => {
 
 	return(
 		<div className='slider-container'>
-			<Slider {...settings}>
-				{context.responseData?.sliderData?.map((item, index) => (
-					<SliderCard key={index} item={item}/>
-				))}
-			</Slider>
+			<VerifyLength array={context.responseData?.sliderData}>
+				<Slider {...settings}>
+					{context.responseData?.sliderData?.map((item, index) => (
+						<SliderCard key={index} item={item}/>
+					))}
+				</Slider>
+			</VerifyLength>
 		</div>
 
 	);

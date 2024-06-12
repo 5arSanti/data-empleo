@@ -7,11 +7,11 @@ const UploadInfoContainer = () => {
         <AllInfoGridContainer className="grid-1-1">
             <UploadForm/>
 
-            <WrapperContainer2 alignItems="start">
+            {/* <WrapperContainer2 alignItems="start">
                 <WrapperContainer1>
                     
                 </WrapperContainer1>
-            </WrapperContainer2>
+            </WrapperContainer2> */}
         </AllInfoGridContainer>
     );
 }

@@ -1,4 +1,4 @@
-import { handleGetFile } from "./handleData/handleGetFile";
+import { handleGetFile } from "./handleData/handleFiles";
 import { handleNotifications } from "./handleNotifications";
 
 const handleDownload = (url, name) => {

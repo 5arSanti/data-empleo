@@ -13,6 +13,7 @@ import { InputCard, OptionInputCard, TextAreaCard } from "../../InputsCards";
 import { AllInfoGridContainer } from "../../AllInfoContainer";
 import { handleInputChange } from "../../../../utils/handleInputChange";
 import { ButtonCard } from "../../ButtonCard";
+import { YearAndMonthFilterCard } from "../../YearAndMonthFilterCard";
 
 
 const DashboardInputsContainer = () => {
@@ -24,6 +25,7 @@ const DashboardInputsContainer = () => {
     const values = {...context.graphValues}
 
     const handleSubmit = (event) => {
+        context.setLoading(true);
         event.preventDefault();
 
         if(!context.editingGraph) {
@@ -43,6 +45,7 @@ const DashboardInputsContainer = () => {
                 })
                 .catch(err => {handleNotifications("error", err)})
         }
+        context.setLoading(false);
     }
 
     
@@ -66,22 +69,11 @@ const DashboardInputsContainer = () => {
                     defaultValue={context.graphValues?.title}
                 />
 
-                <AllInfoGridContainer className="grid-1-1">
-                    <OptionInputCard 
-                        id={"year"} 
-                        label={"Año"} 
-                        array={yearArray}
-                        onChange={(event) => handleInputChange("year", event, context.setGraphValues)}
-                        defaultValue={context.graphValues?.year}
-                    />
-                    <OptionInputCard 
-                        id={"month"} 
-                        label={"Mes"} 
-                        array={monthsArray}
-                        onChange={(event) => handleInputChange("month", event, context.setGraphValues)}
-                        defaultValue={context.graphValues?.month}
-                    />
-                </AllInfoGridContainer>
+                <YearAndMonthFilterCard
+                    state={context.graphValues}
+                    setState={context.setGraphValues}
+                    id={"graph-values"}
+                />
 
 
                 <OptionInputCard 

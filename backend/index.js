@@ -17,14 +17,14 @@ const whiteList = [
 
     //QA Y PROD
     "http://10.140.0.16:15205",
-	"https://buscadordeempleo.gov.co/",
+	"https://ambientesdepruebas.serviciodeempleo.gov.co",
 ];
 const options = {
     origin: (origin, callback) => {
         if(whiteList.includes(origin) || !origin) {
             callback(null, true);
         } else {
-            callback(new Error("No permitido"));
+            callback(new Error("Acceso denegado"));
         }
     },
 	methods: ["POST", "GET", "DELETE", "PATCH"],

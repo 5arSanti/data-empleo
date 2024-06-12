@@ -3,16 +3,15 @@ import React from "react";
 import { AppContext } from "../../../Context";
 
 import { SubTitle } from "../../components/SubTitle";
-import { useNavigate } from "react-router-dom";
 import { Title } from "../../components/Title";
 import { AuthWrapper } from "../../components/AuthWrapper";
-import { scrollToValue } from "../../../utils/scrollToValue";
 import { handleInputChange } from "../../../utils/handleInputChange";
 import { InputCard } from "../../components/InputsCards";
 import { handlePostData } from "../../../utils/handleData/handlePostData";
+import { handleNotifications } from "../../../utils/handleNotifications";
 
 const RegisterScreen = () => {
-    const navigate = useNavigate();
+    const context = React.useContext(AppContext);
 
     const [values, setValues] = React.useState({
         name: null,
@@ -21,9 +20,13 @@ const RegisterScreen = () => {
         confirmPassword: null,
     })
 
-    const handleRegister = (event) => {
+    const handleRegister = async (event) => {
         event.preventDefault();
-        handlePostData(event, values, "/user/register");
+
+        context.setLoading(true);
+        await handlePostData(event, values, "/user/register");
+        
+        context.setLoading(false);
     }
 
     return(
@@ -77,7 +80,7 @@ const RegisterScreen = () => {
                         className="input2-card-container"
                     />
                     
-					<button type="submit">Registrarse</button>
+					<button type="submit">Guardar Usuario</button>
 				</form>
 			</div>
 		</AuthWrapper>

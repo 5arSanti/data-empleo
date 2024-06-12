@@ -1,7 +1,11 @@
 import React from "react";
+
+import { Link } from "react-router-dom";
+
 import { AppContext } from "../../../Context";
 import { banner, iconComplete } from "../../../assets";
 import "./styles.css";
+import { TextCard } from "../TextComponents";
 
 const NavImagesCard = () => {
     const context = React.useContext(AppContext);
@@ -13,12 +17,12 @@ const NavImagesCard = () => {
                     <a rel="noopener noreferrer" target="_blank" href="https://www.serviciodeempleo.gov.co/portada">
                         <img src={iconComplete} alt="" />
                     </a>
-                    <a rel="noopener noreferrer" href="http://localhost:5173">
+                    <Link to={"/home"}>
                         <img src={banner} alt="" />
-                    </a>
+                    </Link>
                 </span>
             </div>
-            {context.name && <p>Bienvenido {context.name}</p> }
+            {context.name && <TextCard textAlign="end" width="auto">Bienvenido {context.name}</TextCard> }
         </div>
     );
 }

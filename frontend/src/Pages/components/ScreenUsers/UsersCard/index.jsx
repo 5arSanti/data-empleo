@@ -14,6 +14,11 @@ const UsersCard = ({item}) => {
         handleNotifications("info", `Editando al usuario ${item.name}`)
         context.setUsers(item);
     }
+    const handleDeleteUser = async () => {
+        context.setLoading(true);
+        await handleDeleteData(item, "/users")
+        context.setLoading(false);
+    }
 
     return(
         <WrapperContainer1 padding={0}>
@@ -24,7 +29,7 @@ const UsersCard = ({item}) => {
                     <TextCard><SpanCard>ID: </SpanCard> {item?.id}</TextCard>
                 </WrapperContainer2>
 
-                <EditDeleteCard item={item} onDelete={() => handleDeleteData(item, "/users")} onEdit={() => handleEditUser(item)}/>
+                <EditDeleteCard item={item} onDelete={handleDeleteUser} onEdit={() => handleEditUser(item)}/>
             </AllInfoGridContainer>
         </WrapperContainer1>
     );

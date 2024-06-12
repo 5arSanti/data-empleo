@@ -3,7 +3,7 @@ import { handleNotifications } from "../handleNotifications";
 import { reloadLocation } from "../realoadLocation";
 import { api } from "../api";
 
-const handleDeleteData = (item, endpoint) => {
+const handleDeleteData = async (item, endpoint) => {
     axios.delete(`${api}${endpoint}`, {
             data: { id: item.id }
         })

@@ -38,7 +38,7 @@ const handlePostData = async (event, object, endpoint, callback = reloadLocation
 };
 
 
-const handlePostFile = async (event, object, endpoint, callback = reloadLocation, headers={}) => {
+const handlePostFile = async (event, object, endpoint, callback = reloadLocation) => {
     event.preventDefault();
 
     try {
@@ -47,9 +47,7 @@ const handlePostFile = async (event, object, endpoint, callback = reloadLocation
         const options = {
             method: 'POST', 
             mode:'cors',
-            headers: {
-                ...headers
-            },
+
             body: object
         };
       

@@ -9,7 +9,7 @@ const saveImages = (array) => {
         }
     });
 
-    return images; // Devolver el array de URLs de imagen
+    return images;
 }
 
 export { saveImages };
