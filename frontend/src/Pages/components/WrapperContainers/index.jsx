@@ -1,13 +1,13 @@
 import "./styles.css";
 
-const WrapperContainer1 = ({children, flexDirection = "row", padding = 20, gap = 15, justifyContent="start"}) => {
+const WrapperContainer1 = ({children, flexDirection = "row", padding = 20, gap = 15, justifyContent="start", alignItems="center"}) => {
     return(
         <div className="filters-wrapper1 shadow-style" style={{
             flexDirection: flexDirection,
             padding: padding,
             gap: gap,
             justifyContent: justifyContent, 
-            alignItems: "center"
+            alignItems: alignItems,
         }}>
             {children}
         </div>

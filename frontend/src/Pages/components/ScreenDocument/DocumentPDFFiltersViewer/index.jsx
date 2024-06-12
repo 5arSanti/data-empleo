@@ -1,22 +1,20 @@
 import React from "react";
 import { AppContext } from "../../../../Context";
-import { getMonthsUntilCurrent, months, yearArray } from "../../../../utils/dateFunctions";
+import { getMonthsUntilCurrent, months } from "../../../../utils/dateFunctions";
 import { AllInfoGridContainer } from "../../AllInfoContainer";
-import { WrapperContainer1 } from "../../WrapperContainers";
+import { WrapperContainer1, WrapperContainer2 } from "../../WrapperContainers";
 import { SubTitle } from "../../SubTitle";
-import { OptionInputCard } from "../../InputsCards";
-import { handleInputChange } from "../../../../utils/handleInputChange";
 import { MyExportPDFDocument } from "../MyExportPDFDocument";
 import { ButtonCard } from "../../ButtonCard";
 import { handleNotifications } from "../../../../utils/handleNotifications";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { YearAndMonthFilterCard } from "../../YearAndMonthFilterCard";
+import { DocumentPreview } from "../DocumentPreview";
 
 
 const DocumentPDFFiltersViewer = ({array, graphImages}) => {
-    const context = React.useContext(AppContext)
+    const context = React.useContext(AppContext);
 
-    const monthsArray = Object.keys(getMonthsUntilCurrent(context.filters?.year));
     const year = context.filters?.year;
     const month = context.filters?.month;
 
@@ -24,10 +22,10 @@ const DocumentPDFFiltersViewer = ({array, graphImages}) => {
         <AllInfoGridContainer className="grid-125-075">
             <WrapperContainer1
                 flexDirection="column"
-                padding={30}
+                padding={40}
                 justifyContent="center"
             >
-                <SubTitle>Crear documento (En Desarrollo)</SubTitle>
+                <SubTitle>Crear boletín</SubTitle>
 
                 <YearAndMonthFilterCard
                     state={context.filters}
@@ -35,23 +33,26 @@ const DocumentPDFFiltersViewer = ({array, graphImages}) => {
                     id={"export"}
                 />
 
-                <PDFDownloadLink document={<MyExportPDFDocument array={array} graphs={graphImages || []} year={year} month={month}/>} fileName={`Boletin-Demanda-${months[month]}-${year}`}>
+                <PDFDownloadLink document={<MyExportPDFDocument array={array} graphs={graphImages || []} year={year} month={month}/>} fileName={`Boletin Oferta Laboral ${months[month]} ${year}`}>
                     {({loading}) => ((loading) ? 
                         <ButtonCard onClick={() => {
                             handleNotifications("info", "El documento esta siendo Procesado")
-                        }}>Cargando Documento</ButtonCard>
+                        }}>Cargando boletín</ButtonCard>
                         : 
                         <ButtonCard onClick={() => {
                             handleNotifications("success", "Documento descargado correctamente")
-                        }}>Descargar Documento</ButtonCard>
+                        }}>Descargar boletín</ButtonCard>
                     )}
                 </PDFDownloadLink>
 
             </WrapperContainer1>
             
-            <PDFViewer style={{width: "100%", height: "100%", minHeight: 500}}>
-                <MyExportPDFDocument array={array} graphs={graphImages || []} year={year} month={month}/>
-            </PDFViewer>
+            <DocumentPreview
+                array={array}
+                graphImages={graphImages}
+                year={year}
+                month={month}
+            />
         </AllInfoGridContainer>
     );
 }

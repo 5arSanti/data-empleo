@@ -4,7 +4,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { ButtonCard } from "../../ButtonCard";
 import { AppContext } from "../../../../Context";
 
-const DeleteButtonCard = ({item, onDelete, padding=15, border}) => {
+const DeleteButtonCard = ({item, onDelete, padding=15, border=true}) => {
     const context = React.useContext(AppContext)
 
     return(

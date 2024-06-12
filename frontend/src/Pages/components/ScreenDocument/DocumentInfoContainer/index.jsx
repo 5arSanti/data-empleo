@@ -14,15 +14,14 @@ const DocumentInfoContainer = () => {
 
     const [graphImages, setGraphImages] = React.useState(null);
     React.useEffect(() => {
+        context.setLoading(true);
         if(graphsArray) {
-            context.setLoading(true);
-
             setTimeout(() => {
                 setGraphImages(saveImages(graphsArray))
                 context.setLoading(false);
-            }, 1000)
+            }, 2000)
         }
-    }, [graphsArray, context.filters])
+    }, [graphsArray])
 
 
     return(
@@ -37,7 +36,7 @@ const DocumentInfoContainer = () => {
             
 
             <WrapperContainer2 flexDirection="column" padding={0}>
-                <SubTitle>Graficas:</SubTitle>
+                <SubTitle>Vista previa de las gráficas:</SubTitle>
                 
                 <AllInfoGridContainer className="grid-1-1">
                     {graphsArray?.map((item, index) => (
@@ -45,6 +44,7 @@ const DocumentInfoContainer = () => {
                     ))}
                 </AllInfoGridContainer>
             </WrapperContainer2>
+
         </WrapperContainer2>
     );
 }
