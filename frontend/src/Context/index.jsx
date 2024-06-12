@@ -10,6 +10,7 @@ import { fetchAllData } from "../utils/handleData/handleFetchData";
 import { handleNotifications } from "../utils/handleNotifications";
 import { handleInputChange } from "../utils/handleInputChange";
 import { handleDeleteFile } from "../utils/handleData/handleFiles";
+import { readExcelFile } from "../utils/readExcelFile";
 
 
 export const AppContext = React.createContext();
@@ -140,6 +141,27 @@ const AppProvider = ({children}) => {
 
     // Previsualizador de Excel
     const [previewFile, setPreviewFile] = React.useState(null);
+    const handleExcelFile = async (file, item) => {
+        try {
+            setLoading(true);
+            const excelJSON = await readExcelFile(file);            
+
+            const fileInfo = [{
+                fileJSON: excelJSON,
+                name: item.array[0],
+                item: item
+            }]
+
+            localStorage.setItem("excel-json", JSON.stringify(fileInfo))
+            
+            window.open('#/excel-preview', '_blank');
+        } 
+        catch (err) {
+            handleNotifications("error", err.message);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     // Archivos de las tablas
     const deleteFile = async (item) => {
@@ -209,6 +231,7 @@ const AppProvider = ({children}) => {
                 // Excel
                 previewFile,
                 setPreviewFile,
+                handleExcelFile,
 
                 //Archivos de las tablas
                 deleteFile,

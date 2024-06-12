@@ -47,7 +47,7 @@ const Wrapper = ({children}) => {
 const AppRoutes = () => {
 
     const context = React.useContext(AppContext);
-    const { auth, previewFile } = context;
+    const { auth } = context;
     const { files } = context.responseData;
 
     let routes = useRoutes([
@@ -61,7 +61,7 @@ const AppRoutes = () => {
         {path: "/slider", element: <SliderDataScreen/>},
         {path: "/users", element: <UsersScreen/>},
         {path: "/category/:category", element: <FoldersDataScreen data={files}/>},
-        {path: "/excel-preview", element: <ExcelPreviewScreen file={previewFile}/>},
+        {path: "/excel-preview", element: <ExcelPreviewScreen/>},
 
 
 

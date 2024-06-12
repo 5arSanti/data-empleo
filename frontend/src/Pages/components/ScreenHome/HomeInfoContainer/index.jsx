@@ -20,11 +20,6 @@ const HomeInfoContainer = ({data}) => {
 
     const array = context.graphValues;
 
-    const handleExcelFile = (file, item) => {
-        context.setPreviewFile({blob: file, name: item.array[0], item: item});
-        navigate("/excel-preview")
-    } 
-
     return(
         <AllInfoContainer>
             <AllInfoGridContainer>
@@ -38,7 +33,7 @@ const HomeInfoContainer = ({data}) => {
                 title={"DataEmpleo"} 
                 values={formattedData}
                 onOpen={handleOpen}
-                onExcel={handleExcelFile}
+                onExcel={context.handleExcelFile}
                 onDownload={handleDownloadFile}
                 onDelete={context.deleteFile}
             />
