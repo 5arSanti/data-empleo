@@ -7,6 +7,7 @@ import { SubTitle } from "../../SubTitle/index.jsx";
 import { SliderCardOptions } from "../SliderCardOptions/index.jsx";
 import { handleNotifications } from "../../../../utils/handleNotifications.js";
 import { reloadLocation } from "../../../../utils/realoadLocation.js";
+import { VerifyLength } from "../../VerifyLengthWrapper/index.jsx";
 
 const SliderGrid = () => {
     const context = React.useContext(AppContext);
@@ -41,9 +42,11 @@ const SliderGrid = () => {
         <WrapperContainer2 flexDirection="column">
             <SubTitle>Cartas del slider</SubTitle>
 
-            {context.responseData?.sliderData?.map((item, index) => (
-                <SliderCardOptions key={index} item={item} onDelete={() => handleSliderCardDelete(item)} onEdit={() => handleSliderCardEdit(item)}/>
-            ))}
+            <VerifyLength array={context.responseData?.sliderData}>
+                {context.responseData?.sliderData?.map((item, index) => (
+                    <SliderCardOptions key={index} item={item} onDelete={() => handleSliderCardDelete(item)} onEdit={() => handleSliderCardEdit(item)}/>
+                ))}
+            </VerifyLength>
         </WrapperContainer2>
     );
 }

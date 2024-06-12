@@ -6,6 +6,7 @@ import { WrapperContainer1, WrapperContainer2 } from "../../WrapperContainers";
 import { SubTitle } from "../../SubTitle";
 import { GraphsCard } from "./GraphsCard";
 import { AppContext } from "../../../../Context";
+import { VerifyLength } from "../../VerifyLengthWrapper";
 
 
 const DashboardGraphsGrid = () => {
@@ -50,16 +51,18 @@ const DashboardGraphsGrid = () => {
         <WrapperContainer2 flexDirection="column" gap={20} padding={0}>
             <SubTitle>Últimas Gráficas Creadas</SubTitle>
             
-            <WrapperContainer2 flexDirection="column" gap={15} padding={0}>
-                {context.responseData?.graphsData?.graphs?.map((item, index) => (
-                    <GraphsCard
-                        key={index}
-                        item={item}
-                        onEdit={handleGraphEdit}
-                        onDelete={handleGraphDelete}
-                    />
-                ))}
-            </WrapperContainer2>
+            <VerifyLength array={context.responseData?.graphsData?.graphs}>
+                <WrapperContainer2 flexDirection="column" gap={15} padding={0}>
+                    {context.responseData?.graphsData?.graphs?.map((item, index) => (
+                        <GraphsCard
+                            key={index}
+                            item={item}
+                            onEdit={handleGraphEdit}
+                            onDelete={handleGraphDelete}
+                        />
+                    ))}
+                </WrapperContainer2>
+            </VerifyLength>
         </WrapperContainer2>
     );
 }

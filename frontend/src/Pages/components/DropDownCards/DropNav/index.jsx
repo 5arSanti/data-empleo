@@ -6,6 +6,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../../../../Context';
 import React from 'react';
+import { VerifyLength } from '../../VerifyLengthWrapper';
 
 const DropNav = () => {
     const context = React.useContext(AppContext)
@@ -23,11 +24,13 @@ const DropNav = () => {
                     <a href={uriDropNav["Buscador de Empleo"]} target="_blank" rel="noopener noreferrer"><IoIosArrowForward /> {Object.keys(uriDropNav)[0]}</a>
                 </div>
                 
-                {array?.filter(item => item != "Home").map((item, index) => (
-                    <div key={index} className='dropnav-anchor-container'>
-                        <Link to={`/category/${item.replace(/ /g, '_')}`}><IoIosArrowForward /> {item}</Link>
-                    </div>
-                ))}
+                <VerifyLength array={array}>
+                    {array?.filter(item => item != "Home").map((item, index) => (
+                        <div key={index} className='dropnav-anchor-container'>
+                            <Link to={`/category/${item.replace(/ /g, '_')}`}><IoIosArrowForward /> {item}</Link>
+                        </div>
+                    ))}
+                </VerifyLength>
             </Dropdown.Menu>
         </Dropdown>  
     )

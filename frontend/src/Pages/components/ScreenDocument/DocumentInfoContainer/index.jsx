@@ -6,6 +6,7 @@ import { DocumentPDFFiltersViewer } from "../DocumentPDFFiltersViewer";
 import { SubTitle } from "../../SubTitle";
 import { AllInfoGridContainer } from "../../AllInfoContainer";
 import { DocumentGraphsGrid } from "../DocumentGraphsGrid";
+import { VerifyLength } from "../../VerifyLengthWrapper";
 
 const DocumentInfoContainer = () => {
     const context = React.useContext(AppContext)
@@ -37,12 +38,14 @@ const DocumentInfoContainer = () => {
 
             <WrapperContainer2 flexDirection="column" padding={0}>
                 <SubTitle>Vista previa de las gráficas:</SubTitle>
-                
-                <AllInfoGridContainer className="grid-1-1">
-                    {graphsArray?.map((item, index) => (
-                        <DocumentGraphsGrid item={item} index={index} key={index}/>
-                    ))}
-                </AllInfoGridContainer>
+                <VerifyLength array={graphsArray}>
+                    <AllInfoGridContainer className="grid-1-1">
+                        {graphsArray?.map((item, index) => (
+                            <DocumentGraphsGrid item={item} index={index} key={index}/>
+                        ))}
+                    </AllInfoGridContainer>
+                </VerifyLength>
+
             </WrapperContainer2>
 
         </WrapperContainer2>

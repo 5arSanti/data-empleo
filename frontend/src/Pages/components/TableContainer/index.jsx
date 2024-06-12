@@ -8,6 +8,7 @@ import { WrapperContainer2 } from "../WrapperContainers";
 import { Table } from "./Table";
 import { YearAndMonthFilterCard } from "../YearAndMonthFilterCard";
 import { TextCard } from "../TextComponents";
+import { VerifyLength } from "../VerifyLengthWrapper";
 
 const TableContainer = ({title, values=[], onOpen, onDownload, onExcel, onDelete}) => {
     const [filters, setFilters] = React.useState({
@@ -39,7 +40,9 @@ const TableContainer = ({title, values=[], onOpen, onDownload, onExcel, onDelete
             </AllInfoGridContainer>
 
 
-            <Table values={filteredData || []} onOpen={onOpen} onDownload={onDownload} onExcel={onExcel} onDelete={onDelete}/>
+            <VerifyLength array={filteredData}>
+                <Table values={filteredData || []} onOpen={onOpen} onDownload={onDownload} onExcel={onExcel} onDelete={onDelete}/>
+            </VerifyLength>
         </WrapperContainer2>
     );
 }
