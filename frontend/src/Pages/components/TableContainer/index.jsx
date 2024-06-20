@@ -6,7 +6,7 @@ import { Table } from "./Table";
 import { YearAndMonthFilterCard } from "../YearAndMonthFilterCard";
 import { TextCard } from "../TextComponents";
 import { VerifyLength } from "../VerifyLengthWrapper";
-import { SubTitle } from "../SubTitle";
+import { Title } from "../Title";
 
 const TableContainer = ({title, values=[], onOpen, onDownload, onExcel, onDelete}) => {
     const [filters, setFilters] = React.useState({
@@ -21,7 +21,7 @@ const TableContainer = ({title, values=[], onOpen, onDownload, onExcel, onDelete
 
     return(
         <WrapperContainer2 flexDirection="column" gap={5} padding={0}>
-            <SubTitle>{title}</SubTitle>
+            <Title>{title}</Title>
 
             <AllInfoGridContainer className="grid-1-1-1">
                 <div></div>
