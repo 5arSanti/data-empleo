@@ -6,6 +6,7 @@ import { DateCard } from "../DateCard";
 
 import "./styles.css"
 import { DropNav } from '../DropDownCards/DropNav';
+import { WrapperContainer2 } from '../WrapperContainers';
 
 
 const MainContainer = ({children}) => {
@@ -15,12 +16,15 @@ const MainContainer = ({children}) => {
     return(
         <div className="main-container">
             <div className="drop-date-container">
-                <DropNav/>
+                {/* <DropNav/> */}
+
                 <DateCard/>
             </div>
 
             <div className="home-container">
-                {children}
+                <WrapperContainer2 padding={0} flexDirection='column' gap={40}>
+                    {children}
+                </WrapperContainer2>
             </div>
         </div>
     );

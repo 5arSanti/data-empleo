@@ -1,7 +1,9 @@
 .text-card {
     width: 100%;
     color: var(--text-color);
-    text-align: start;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .span-card {
     font-weight: bold;

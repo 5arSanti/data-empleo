@@ -43,13 +43,12 @@ const AuthWrapper = ({children}) => {
 const IsAuthWrapper = ({children}) => {
     const context = React.useContext(AppContext);
 
-    const { auth } = context;
-
+    const { auth } = context || false;
     if (auth) {
         return (children);
-    } else {
-        return;
     }
+
+    return;
 }
 
 export { AuthWrapper, IsAuthWrapper }

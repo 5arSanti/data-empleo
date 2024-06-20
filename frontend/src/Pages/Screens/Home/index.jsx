@@ -4,6 +4,7 @@ import { HomeInfoContainer } from "../../components/ScreenHome/HomeInfoContainer
 
 import "./styles.css"
 import { WrapperContainer2 } from "../../components/WrapperContainers";
+import { SliderLinksContainer } from "../../components/SliderLinksContainer";
 
 const Home = ({data}) => {
     return (
@@ -14,6 +15,8 @@ const Home = ({data}) => {
                 </Title>
                 <HomeInfoContainer data={data}/>
             </WrapperContainer2>
+
+            <SliderLinksContainer/>
         </AuthWrapper>
     );
 }

@@ -15,7 +15,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+
+    padding: 0 40px;
 }
 
 .home-container {
@@ -38,7 +39,9 @@
 @media (max-width: 500px) {
     .drop-date-container {
         flex-direction: column-reverse;
-        /* justify-content: center; */
         gap: 20px;
+    }
+    .drop-date-container p {
+        text-align: center !important;
     }
 }
