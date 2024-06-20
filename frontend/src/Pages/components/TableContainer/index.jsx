@@ -37,7 +37,7 @@ const TableContainer = ({title, values=[], onOpen, onDownload, onExcel, onDelete
 
 
             <VerifyLength array={filteredData}>
-                <Table values={filteredData || []} onOpen={onOpen} onDownload={onDownload} onExcel={onExcel} onDelete={onDelete}/>
+                <Table values={filteredData} onOpen={onOpen} onDownload={onDownload} onExcel={onExcel} onDelete={onDelete}/>
             </VerifyLength>
         </WrapperContainer2>
     );
