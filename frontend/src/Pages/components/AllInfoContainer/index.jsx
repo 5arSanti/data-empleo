@@ -8,9 +8,11 @@ const AllInfoContainer = ({children}) => {
     );
 }
 
-const AllInfoGridContainer = ({children, className="grid-075-125"}) => {
+const AllInfoGridContainer = ({children, className="grid-075-125", gap=20}) => {
     return(
-        <div className={`all-info-grid-container ${className}`}>
+        <div className={`all-info-grid-container ${className}`} style={{
+            gap: gap
+        }}>
             {children}
         </div>
     );
