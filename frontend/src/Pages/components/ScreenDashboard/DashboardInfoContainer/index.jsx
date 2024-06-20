@@ -27,13 +27,6 @@ const DashboardInfoContainer = () => {
                 }
             </AllInfoGridContainer>
 
-            <ButtonCard
-                title="Ir a generar un nuevo boletin"
-                onClick={() => navigate("/document")}
-            >
-                Generar Boletin
-            </ButtonCard>
-
             <DashboardGraphsGrid/>
             <DashboardGraphsPagination/>
             

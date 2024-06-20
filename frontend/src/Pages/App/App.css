@@ -63,11 +63,7 @@ html {
     scroll-behavior: smooth;
 }
 
-h1 {
-    font-family: "Montserrat-SemiBold" !important;
-}
-
-p, span, div {
+p, span, div, h2, h1 {
     font-family: "Montserrat-Regular" !important;
     margin: 0;
 }
