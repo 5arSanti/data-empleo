@@ -50,7 +50,7 @@ const LoginScreen = () => {
     }
 
     return(
-        <div className="login-container shadow-style">
+        <div className="login-container shadow-style border-left-style">
             <SubTitle
                 textAlign="center"
             >

@@ -35,7 +35,6 @@ import { scrollToValue } from "../../utils/scrollToValue";
 import { ExcelPreviewScreen } from "../Screens/ExcelPreviewScreen";
 import { LoadingCard } from "../components/LoadingCard";
 import { SliderLinksContainer } from "../components/SliderLinksContainer";
-import { IsAuthWrapper } from "../components/AuthWrapper";
 
 const Wrapper = ({children}) => {
     const location = useLocation();

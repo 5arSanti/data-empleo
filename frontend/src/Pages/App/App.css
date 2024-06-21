@@ -95,10 +95,12 @@ svg {
     height: 30px;
 }
 
-.shadow-style {
+.border-left-style {
     border: none !important;
     border-left: 1px solid var(--gov-accesibility-card) !important;
+}
 
+.shadow-style {
     transition: all 0.15s ease !important;
 }
 .shadow-style:hover {
