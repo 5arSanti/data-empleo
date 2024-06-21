@@ -1,8 +1,8 @@
-import moment from "moment";
+import { months } from "./dateFunctions";
 
 const formatTableArray = (array) => {
     const formattedData = array?.map((item) => ({
-        array: [item?.name, moment(item?.date).format("DD/MM/YYYY"), 'Abrir', 'Descargar'],
+        array: [item?.name, `${months[item?.selectedMonth]} del ${item?.selectedYear}`, 'Abrir', 'Descargar'],
         file: item?.fullName,
         link: `file/${item?.selectedOption}/${item?.fullName}/${item?.name}`,
         fileType: item?.fileType, 

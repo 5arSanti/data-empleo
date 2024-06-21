@@ -1,14 +1,12 @@
 import React from "react";
-import { actualMonth, actualYear, monthsArray, yearArray } from "../../../utils/dateFunctions";
-import { handleInputChange } from "../../../utils/handleInputChange";
+import { actualMonth, actualYear } from "../../../utils/dateFunctions";
 import { AllInfoGridContainer } from "../AllInfoContainer";
-import { OptionInputCard } from "../InputsCards";
-import { Title } from "../Title";
 import { WrapperContainer2 } from "../WrapperContainers";
 import { Table } from "./Table";
 import { YearAndMonthFilterCard } from "../YearAndMonthFilterCard";
 import { TextCard } from "../TextComponents";
 import { VerifyLength } from "../VerifyLengthWrapper";
+import { Title } from "../Title";
 
 const TableContainer = ({title, values=[], onOpen, onDownload, onExcel, onDelete}) => {
     const [filters, setFilters] = React.useState({
@@ -22,10 +20,8 @@ const TableContainer = ({title, values=[], onOpen, onDownload, onExcel, onDelete
 
 
     return(
-        <WrapperContainer2 flexDirection="column" gap={10} padding={0}>
-            <Title color="#000">
-                {title}
-            </Title>
+        <WrapperContainer2 flexDirection="column" gap={5} padding={0}>
+            <Title>{title}</Title>
 
             <AllInfoGridContainer className="grid-1-1-1">
                 <div></div>
@@ -41,7 +37,7 @@ const TableContainer = ({title, values=[], onOpen, onDownload, onExcel, onDelete
 
 
             <VerifyLength array={filteredData}>
-                <Table values={filteredData || []} onOpen={onOpen} onDownload={onDownload} onExcel={onExcel} onDelete={onDelete}/>
+                <Table values={filteredData} onOpen={onOpen} onDownload={onDownload} onExcel={onExcel} onDelete={onDelete}/>
             </VerifyLength>
         </WrapperContainer2>
     );

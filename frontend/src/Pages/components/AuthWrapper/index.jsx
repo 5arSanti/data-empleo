@@ -13,7 +13,7 @@ const AuthWrapper = ({children}) => {
     axios.defaults.withCredentials = true;
 
     React.useEffect(() => {
-        scrollToValue(0,350);
+        scrollToValue();
         
         axios.get(`${context.apiUri}/user/`)
             .then(response => {
@@ -31,25 +31,20 @@ const AuthWrapper = ({children}) => {
                 handleNotifications("error", err)
                 navigate("/home");
             })
-    }, []) 
+    }, []);
 
-    return (
-        <>
-            {children}
-        </>
-    );
+    return (children);
 }
 
 const IsAuthWrapper = ({children}) => {
     const context = React.useContext(AppContext);
 
-    const { auth } = context;
-
+    const { auth } = context || false;
     if (auth) {
         return (children);
-    } else {
-        return;
     }
+
+    return;
 }
 
 export { AuthWrapper, IsAuthWrapper }

@@ -7,6 +7,7 @@ import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { FaFilePdf } from "react-icons/fa";
 import { IsAuthWrapper } from "../../AuthWrapper";
 import { DeleteButtonCard } from "../../EditDeleteCard/DeleteButtonCard";
+import { ScrollableWrapper } from "../../ScrollableWrapper";
 
 
 const Table = ({values=[], onOpen, onDownload, onExcel, onDelete}) => {
@@ -46,31 +47,34 @@ const Table = ({values=[], onOpen, onDownload, onExcel, onDelete}) => {
 
     return (
         <div className="table-container">
-            <table className="my-table">
-                <thead>
-                    <tr>
-                        <th>Documento</th>
-                        <th>Fecha de Publicación</th>
-                        <th>Acción</th>
-                        <th>Descargar</th>
-                        <IsAuthWrapper><th>Eliminar</th></IsAuthWrapper>
-                    </tr>
-                </thead>
-                <tbody>
-                    {values?.map((row, index) => (
-                        <tr key={index}>
-                            {row?.array?.map((cell, cellIndex) => (
-                                handleRow(row, cell, cellIndex, index)
-                            ))}
-                            <IsAuthWrapper>
-                                <td>
-                                    <DeleteButtonCard item={row} onDelete={onDelete} padding={0} border={false}/>
-                                </td>
-                            </IsAuthWrapper>
+            <ScrollableWrapper maxHeight={650} pad alignItems="flex-start">
+                <table className="my-table">
+                    <thead>
+                        <tr>
+                            <th>Documento</th>
+                            <th>Fecha de Publicación</th>
+                            <th>Acción</th>
+                            <th>Descargar</th>
+                            <IsAuthWrapper><th>Eliminar</th></IsAuthWrapper>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {values?.map((row, index) => (
+                            <tr key={index}>
+                                {row?.array?.map((cell, cellIndex) => (
+                                    handleRow(row, cell, cellIndex, index)
+                                ))}
+                                <IsAuthWrapper>
+                                    <td>
+                                        <DeleteButtonCard item={row} onDelete={onDelete} padding={0} border={false}/>
+                                    </td>
+                                </IsAuthWrapper>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </ScrollableWrapper>
+
         </div>
 
     );

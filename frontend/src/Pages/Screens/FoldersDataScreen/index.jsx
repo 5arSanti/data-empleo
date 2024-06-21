@@ -6,6 +6,7 @@ import { formatURL } from "../../../utils/strings";
 import { handleDownloadFile, handleOpen } from "../../../utils/downloadFile";
 import { formatTableData } from "../../../utils/formatTableData";
 import { AppContext } from "../../../Context";
+import { SliderLinksContainer } from "../../components/SliderLinksContainer";
 
 const FoldersDataScreen = ({ data }) => {
     const context = React.useContext(AppContext)
@@ -16,14 +17,19 @@ const FoldersDataScreen = ({ data }) => {
 
   
     return (
-        <TableContainer 
-            title={formatURL(category)} 
-            values={formattedData}
-            onOpen={handleOpen}
-            onExcel={context.handleExcelFile}
-            onDownload={handleDownloadFile}
-            onDelete={context.deleteFile}
-        />
+        <>
+            <TableContainer 
+                title={formatURL(category)} 
+                values={formattedData}
+                onOpen={handleOpen}
+                onExcel={context.handleExcelFile}
+                onDownload={handleDownloadFile}
+                onDelete={context.deleteFile}
+            />
+            
+            <SliderLinksContainer/>
+        </>
+
     );
 }
 
