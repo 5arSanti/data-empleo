@@ -51,6 +51,15 @@
 }
 
 
+.grid-1-auto {
+    grid-template-columns: 1fr auto ; 
+}
+.grid-075-025{
+    display: grid;
+    grid-template-columns: 0.75fr 0.25fr; 
+}
+
+
 @media(max-width: 1150px) {
     .all-info-grid-container {
         grid-template-columns: 1fr !important;
