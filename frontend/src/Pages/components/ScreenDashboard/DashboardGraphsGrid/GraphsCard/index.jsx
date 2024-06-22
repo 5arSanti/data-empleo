@@ -1,28 +1,21 @@
-import React from "react";
-
-import { AppContext } from "../../../../../Context";
-
 import { ScrollableWrapper } from "../../../ScrollableWrapper";
 import { months } from "../../../../../utils/dateFunctions";
-import { ButtonCard } from "../../../ButtonCard";
 
 import { GoGraph } from "react-icons/go";
-import { MdBarChart, MdEdit } from "react-icons/md";
+import { MdBarChart } from "react-icons/md";
 import { BiSolidDoughnutChart } from "react-icons/bi";
 import { FaChartPie } from "react-icons/fa";
 import { PiChartPolarFill } from "react-icons/pi";
 import { AiOutlineRadarChart } from "react-icons/ai";
-import { RiDeleteBin6Line } from "react-icons/ri";
 
 import "./styles.css"
 import moment from "moment";
 import { SpanCard, TextCard } from "../../../TextComponents";
 import { WrapperContainer1 } from "../../../WrapperContainers";
+import { EditDeleteCard } from "../../../EditDeleteCard";
 
 
 const GraphsCard = ({item={}, onEdit, onDelete}) => {
-    const context = React.useContext(AppContext)
-
     const graphSvg = {
         bar: <MdBarChart />,
         doughnut: <BiSolidDoughnutChart />,
@@ -70,25 +63,7 @@ const GraphsCard = ({item={}, onEdit, onDelete}) => {
                 </div>
 
                 <div className="flex-column center gap-20">
-                    <ButtonCard 
-                        title="Editar Gráfico"
-                        onClick={() => onEdit(item)}
-                        padding={15}
-                    >
-                        <MdEdit />
-                    </ButtonCard>
-                    <ButtonCard
-                        title="Eliminar Gráfico"
-                        onClick={() => context.setOpenConfirmationModal({
-                            status: true,
-                            title: "¿Esta seguro que desea elminar este Gráfico?",
-                            onConfirm: () => onDelete(item.id),
-                            onCancel: () => context.setOpenConfirmationModal({status:false}),
-                        })}
-                        padding={15}
-                    >
-                        <RiDeleteBin6Line  />
-                    </ButtonCard>
+                    <EditDeleteCard item={item} onEdit={onEdit} onDelete={onDelete}/>
                 </div>
             </div>
         </WrapperContainer1>

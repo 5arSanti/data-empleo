@@ -15,10 +15,8 @@ import { scrollToValue } from "../../../../utils/scrollToValue";
 
 import "./styles.css";
 
-const DashboardGraphsPagination = () => {
+const DashboardGraphsPagination = ({graphsData={}}) => {
     const context = React.useContext(AppContext);
-
-    const { graphsData } = context.responseData || null;
 
     const paginateTo = (type="") => {
         scrollToValue(0, 1300)

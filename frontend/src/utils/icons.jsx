@@ -9,10 +9,11 @@ import { RiMegaphoneFill, RiPagesLine  } from "react-icons/ri";
 import { IoSchoolSharp } from "react-icons/io5";
 import { FaIndustry } from "react-icons/fa6";
 import { GiGraduateCap } from "react-icons/gi";
-import { FaUserGraduate, FaRegCalendarCheck } from "react-icons/fa";
+import { FaUserGraduate, FaRegCalendarCheck, FaMapMarkerAlt } from "react-icons/fa";
 import { MdBackpack } from "react-icons/md";
 import { MdOutlineUploadFile } from "react-icons/md";
 import { BsCloudCheck } from "react-icons/bs";
+import { VscServerProcess } from "react-icons/vsc";
 
 const icons = {
     "Actividades artísticas": <FaPaintbrush />,
@@ -33,7 +34,9 @@ const icons = {
     "Documento":  <MdOutlineUploadFile/>,
     "Calendario": <FaRegCalendarCheck/>,
     "Pagina": <RiPagesLine/>,
-    "Check": <BsCloudCheck/>
+    "Check": <BsCloudCheck/>,
+    "Ubicacion": <FaMapMarkerAlt/>,
+    "Proceso": <VscServerProcess/>
 }
 
 export { icons };

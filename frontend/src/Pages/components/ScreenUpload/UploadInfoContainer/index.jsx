@@ -1,10 +1,7 @@
 import React from "react";
-import Slider from "react-slick";
 
 import { icons } from "../../../../utils/icons";
-import { SubTitle } from "../../SubTitle";
-import { TextCard } from "../../TextComponents";
-import { WrapperContainer2, WrapperContainer3 } from "../../WrapperContainers";
+import { WrapperContainer2 } from "../../WrapperContainers";
 import { UploadForm } from "../UploadForm";
 import { AppContext } from "../../../../Context";
 import { SliderInstructionsContainer } from "../../SliderInstructionsContainer";

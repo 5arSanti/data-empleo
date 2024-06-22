@@ -35,6 +35,7 @@ import { scrollToValue } from "../../utils/scrollToValue";
 import { ExcelPreviewScreen } from "../Screens/ExcelPreviewScreen";
 import { LoadingCard } from "../components/LoadingCard";
 import { SliderLinksContainer } from "../components/SliderLinksContainer";
+import { ProcessCSVScreen } from "../Screens/ProcessCSVScreen";
 
 const Wrapper = ({children}) => {
     const location = useLocation();
@@ -59,6 +60,7 @@ const AppRoutes = () => {
         {path: "/dashboard", element: <DashboardScreen/>},
         {path: "/document", element: <DocumentScreen/>},
         {path: "/upload", element: <UploadScreen/>},
+        {path: "/process-csv", element: <ProcessCSVScreen/>},
         {path: "/slider", element: <SliderDataScreen/>},
         {path: "/users", element: <UsersScreen/>},
         {path: "/category/:category", element: <FoldersDataScreen data={files}/>},

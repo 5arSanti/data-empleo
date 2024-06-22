@@ -1,13 +1,16 @@
 import React from "react";
+import Slider from "react-slick";
+
 import { AppContext } from "../../../Context";
 import { VerifyLength } from "../VerifyLengthWrapper";
-import Slider from "react-slick";
 import { InstructionCard } from "./InstructionCard";
 
 const SliderInstructionsContainer = ({array}) => {
-    const context = React.useState(AppContext)
+    const context = React.useContext(AppContext)
 
     const data = array || [];
+
+    const width = context.windowWidth <= 1050 ? "100%" : "50%";
     
     const settings = {
 		infinite: true,
@@ -19,12 +22,12 @@ const SliderInstructionsContainer = ({array}) => {
 		autoplaySpeed: 5000,
         arrows: false,
         dots: true,
-		style: { width: context.windowWidth <= 1050 ? "100%" : "55%", },
+		style: { width: width },
 	};
 
     return(
         <VerifyLength array={data}>
-            <Slider {...settings}>
+            <Slider {...settings} >
                 {data?.map((item, index) => (
                     <InstructionCard key={index} item={item} index={index}/>
                 ))}

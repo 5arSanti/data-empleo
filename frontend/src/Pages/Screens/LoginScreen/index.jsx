@@ -17,8 +17,8 @@ const LoginScreen = () => {
     const context = React.useContext(AppContext);
 
     React.useEffect(() => {
-        scrollToValue(0, 350)
-    }, [])
+        scrollToValue()
+    }, []);
 
     const [values, setValues] = React.useState({
         email: null,

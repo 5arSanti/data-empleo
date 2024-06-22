@@ -6,6 +6,19 @@
     cursor: pointer;
 
     transition: all 0.2s ease;
+
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid var(--gov-accesibility-card);
+    background-color: var(--light-gray-color);
+
+    color: var(--text-color);
+}
+.slider-link-button:hover {
+    border-bottom: 2px solid var(--gov-accesibility-card);
+    background-color: var(--gov-accesibility-card);
+
+    color: var(--white-to-black-color);
 }
 
 .slider-link-button p {

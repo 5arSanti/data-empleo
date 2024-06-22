@@ -1,5 +1,15 @@
 const validateFiles = (file, option) => {
-	const message = "Por favor, seleccione un archivo y el tipo.";
+    try {
+        validateFile(file);
+        validateFileOption(option);
+        return;
+    } catch (err) {
+        throw new Error(err.message);
+    }
+}
+
+const validateFile = (file) => {
+    const message = "Por favor, seleccione un archivo";
 
     if (!file){
         throw new Error(message);
@@ -7,14 +17,19 @@ const validateFiles = (file, option) => {
     if (!(file.length !== 0)) {
         throw new Error(message);
     }
+    return;
+}
+
+const validateFileOption = (option) => {
+    const message = "Por favor, seleccione el lugar de publicación.";
+
     if (!option) {
         throw new Error(message);
     }
     if (!(option !== "")) {
         throw new Error(message);
     }
-
-	return;
+    return;
 }
 
-export { validateFiles };
+export { validateFiles, validateFile, validateFileOption };

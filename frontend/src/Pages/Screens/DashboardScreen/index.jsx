@@ -4,7 +4,6 @@ import { DashboardInfoContainer } from "../../components/ScreenDashboard/Dashboa
 
 
 const DashboardScreen = () => {
-
     return (
         <AuthWrapper>
             <Title>

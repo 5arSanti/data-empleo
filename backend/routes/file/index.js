@@ -3,9 +3,9 @@ const router = express.Router();
 const path = require("path");
 const fs = require("fs");
 
-const { upload } = require("../../middlewares/multer.config");
+const { upload, process } = require("../../middlewares/multer.config");
 
-const { validateFiles } = require("../../Utils/validateFiles");
+const { validateFiles, validateFile } = require("../../Utils/validateFiles");
 const { readFolder } = require("../../Utils/files/readFolder");
 const { formatFile } = require("../../Utils/files/formatFile");
 const { deleteFile } = require("../../Utils/files/deleteFile");
@@ -90,7 +90,7 @@ router.get('/folders', async (request, response) => {
 });
 
 
-// POST file/upload/selectedOption
+// POST file/upload
 router.post("/upload", upload.array("file"), async (request, response) => {
 	try {
 		const uploadedFiles = request.files;
@@ -98,6 +98,21 @@ router.post("/upload", upload.array("file"), async (request, response) => {
 		const { selectedOption } = request.body;
 
 		validateFiles(uploadedFiles, selectedOption);
+
+		return response.json({Status: "Success", message: "Archivo guardado correctamente"})
+
+	}
+	catch (err) {
+		return response.status(500).json({Error: err.message});
+	}
+})
+
+// POST file/process
+router.post("/process", process.single("process-file"), async (request, response) => {
+	try {
+		const uploadedFile = request.file;
+
+		validateFile(uploadedFile);
 
 		return response.json({Status: "Success", message: "Archivo guardado correctamente"})
 

@@ -9,7 +9,7 @@ import { HomeSlider } from "../HomeSlider";
 
 
 const HomeInfoContainer = ({data}) => {
-    const context = React.useContext(AppContext)
+    const context = React.useContext(AppContext);
 
     const formattedData = formatTableData(data, "Home");
 

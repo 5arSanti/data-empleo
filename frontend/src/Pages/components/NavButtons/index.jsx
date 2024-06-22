@@ -19,14 +19,14 @@ const NavButtons = ({className="idioma-icon-barra-superior-govco"}) => {
             }
 
             <IsAuthWrapper>
-                <Link to={"/upload"} className={`${className}`}>
-                    Publicar
-                </Link>
                 <Link to={"/dashboard"} className={`${className}`}>
                     Dashboard
                 </Link>
-                <Link to={"/document"} className={`${className}`}>
-                    Boletin
+                <Link to={"/upload"} className={`${className}`}>
+                    Publicar
+                </Link>
+                <Link to={"/process-csv"} className={`${className}`}>
+                    Colocaciones
                 </Link>
                 <Link to={"/slider"} className={`${className}`}>
                     Slider
