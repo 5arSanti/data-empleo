@@ -14,6 +14,8 @@ const graphExportRouter = require("./graph/export.router.js")
 const sliderRouter = require("./slider")
 const fileRouter = require("./file")
 
+const colocacionesRouter = require("./colocaciones/index.js")
+
 
 const routerApi = (app) => {
 	const router = express.Router();
@@ -30,6 +32,8 @@ const routerApi = (app) => {
 	router.use("/slider", sliderRouter);
 
 	router.use("/file", fileRouter);
+
+	router.use("/colocaciones", colocacionesRouter);
 }
 
 module.exports = routerApi;

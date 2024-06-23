@@ -107,20 +107,5 @@ router.post("/upload", upload.array("file"), async (request, response) => {
 	}
 })
 
-// POST file/process
-router.post("/process", process.single("process-file"), async (request, response) => {
-	try {
-		const uploadedFile = request.file;
-
-		validateFile(uploadedFile);
-
-		return response.json({Status: "Success", message: "Archivo guardado correctamente"})
-
-	}
-	catch (err) {
-		return response.status(500).json({Error: err.message});
-	}
-})
-
 
 module.exports = router;

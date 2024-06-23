@@ -32,4 +32,15 @@ const validateFileOption = (option) => {
     return;
 }
 
-module.exports = { validateFiles, validateFile, validateFileOption };
+const validateFileExtension = (file) => {
+	const extension = file.filename.split('.').pop();
+
+    const message = `Por favor, cargue un archivo csv, no un archivo ${extension}.`;
+
+    if (extension != "csv") {
+        throw new Error(message);
+    }
+    return;
+}
+
+module.exports = { validateFiles, validateFile, validateFileOption, validateFileExtension };
