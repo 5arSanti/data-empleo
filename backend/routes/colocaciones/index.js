@@ -11,7 +11,7 @@ const { parseCSV } = require("../../Utils/files/parseCSV");
 const { deleteFile } = require("../../Utils/files/deleteFile");
 const { insertColocacionesInDB } = require("../../Utils/insertColocacionesInDB");
 
-// POST file/process
+// POST colocaciones
 router.post("/", process.single("process-file"), async (request, response) => {
 	try {
 		const uploadedFile = request.file;
@@ -19,8 +19,10 @@ router.post("/", process.single("process-file"), async (request, response) => {
 		validateFile(uploadedFile);
 		validateFileExtension(uploadedFile);
 
+
 		const filePath = path.join(__dirname, "../../process", uploadedFile.filename);
 		const columns = await getColumnNames("colocaciones");
+
 
 		const log = await parseCSV(filePath, columns);
 
@@ -28,9 +30,7 @@ router.post("/", process.single("process-file"), async (request, response) => {
 
 		await insertColocacionesInDB(log);
 
-
-		return response.json({ Status: "Success", message: "Archivo guardado correctamente" })
-
+		return response.json({ Status: "Success", message: "Archivo procesado correctamente" });
 	}
 	catch (err) {
 		return response.status(500).json({Error: err.message});
