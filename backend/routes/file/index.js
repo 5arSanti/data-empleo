@@ -17,14 +17,30 @@ router.get('/', async (request, response) => {
 
 		const mainFolders = await readFolder();
 
-		const promises = mainFolders.map(async (item) => {
-			const files = await readFolder(item);
-			const formattedFile = await formatFile(files);
+		const promises = mainFolders.map(async (mainFolder) => {
+			const subFolders = await readFolder(mainFolder);
 
-			return {[item]: formattedFile};
+			const secondaryPromises = subFolders.map(async (subFolder) => {
+				const file = await readFolder(`${mainFolder}/${subFolder}`);
+
+				const formattedFile = await formatFile(file);
+
+				return {[subFolder]: formattedFile};
+			})
+
+			const secondResolved = await Promise.all(secondaryPromises);
+
+			const subFolderFiles = secondResolved.reduce((acc, curr) => {
+                const key = Object.keys(curr)[0];
+                acc[key] = curr[key];
+                return acc;
+            }, {});
+
+            return {[mainFolder]: subFolderFiles};
 		})
 
 		const resolved = await Promise.all(promises);
+
 
 		resolved.forEach((item) => {
 			const key = Object.keys(item)[0];
