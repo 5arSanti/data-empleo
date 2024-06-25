@@ -30,13 +30,17 @@ router.post("/", process.single("process-file"), async (request, response) => {
 
 		await insertColocacionesInDB(csvInfo);
 
-		return response.json({ Status: "Success", message: "Archivo procesado correctamente", csvLog: {
-			totalRows: csvInfo.totalRows,
-			correctRowsCount: csvInfo.correctRows.length,
-			incorrectRowsCount: csvInfo.incorrectRows.length,
-			incorrectRows: csvInfo.incorrectRows,
-			errors: csvInfo.error.length,
-		} });
+		return response.json({
+			Status: "Success",
+			message: "Archivo procesado correctamente",
+			csvLog: {
+				totalRows: csvInfo.totalRows,
+				correctRowsCount: csvInfo.correctRows.length,
+				incorrectRowsCount: csvInfo.incorrectRows.length,
+				incorrectRows: csvInfo.incorrectRows,
+				errors: csvInfo.error.length,
+			}
+		});
 	}
 	catch (err) {
 		return response.status(500).json({Error: err.message});

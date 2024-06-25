@@ -15,14 +15,13 @@ router.get('/', async (request, response) => {
 	try {
 		let files = {};
 
-		const folders = await readFolder();
+		const mainFolders = await readFolder();
 
-		const promises = folders.map(async (item) => {
+		const promises = mainFolders.map(async (item) => {
 			const files = await readFolder(item);
 			const formattedFile = await formatFile(files);
 
 			return {[item]: formattedFile};
-
 		})
 
 		const resolved = await Promise.all(promises);
