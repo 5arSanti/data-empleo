@@ -4,9 +4,11 @@ import { SliderInstructionsContainer } from "../../SliderInstructionsContainer";
 import { WrapperContainer2 } from "../../WrapperContainers";
 import { ProcessCSVForm } from "../ProcessCSVForm";
 import { AppContext } from "../../../../Context";
+import { CsvLogCard } from "../CsvLogCard";
 
 const ProcessCSVInfoContainer = () => {
     const context = React.useContext(AppContext);
+    console.log(context.csvLog);
 
     const uploadInstructions = [
         {
@@ -29,10 +31,14 @@ const ProcessCSVInfoContainer = () => {
     ]
 
     return(
-        <WrapperContainer2 padding={0} flexDirection={context.windowWidth <= 1150 ? "column" : "row"}>
-            <SliderInstructionsContainer array={uploadInstructions}/>
-            
-            <ProcessCSVForm/>
+        <WrapperContainer2 padding={0} flexDirection="column">
+            <WrapperContainer2 padding={0} flexDirection={context.windowWidth <= 1150 ? "column" : "row"}>
+                <SliderInstructionsContainer array={uploadInstructions}/>
+                
+                <ProcessCSVForm/>
+            </WrapperContainer2>
+
+            <CsvLogCard state={context.csvLog}/>
         </WrapperContainer2>
     );
 }

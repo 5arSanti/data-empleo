@@ -1,19 +1,19 @@
 const { getQuery } = require("../database/query");
 
-const insertColocacionesInDB = async (log) => {
+const insertColocacionesInDB = async (csvInfo) => {
 	try {
-		if (!(log.correctRows)) { return };
+		if (!(csvInfo.correctRows)) { return };
 		let promises = [];
 
-		const array = log.correctRows;
+		const array = csvInfo.correctRows;
 
 		array.map(async (item, index) => {
 			if (index == 0) { return; }
 
 			promises.push((async () => {
 
-				const keys = Object.keys(item).join(", ");
-				const values = Object.values(item).map(item => typeof item === 'string' ? `'${item}'` : item).join(", ");
+				const keys = Object.keys(item.data).join(", ");
+				const values = Object.values(item.data).map(item => typeof item === 'string' ? `'${item}'` : item).join(", ");
 
 				await getQuery(`INSERT INTO colocaciones (${keys}) VALUES (${values})`);
 			})());

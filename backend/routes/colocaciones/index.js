@@ -24,13 +24,19 @@ router.post("/", process.single("process-file"), async (request, response) => {
 		const columns = await getColumnNames("colocaciones");
 
 
-		const log = await parseCSV(filePath, columns);
+		const csvInfo = await parseCSV(filePath, columns);
 
 		await deleteFile(filePath);
 
-		await insertColocacionesInDB(log);
+		await insertColocacionesInDB(csvInfo);
 
-		return response.json({ Status: "Success", message: "Archivo procesado correctamente" });
+		return response.json({ Status: "Success", message: "Archivo procesado correctamente", csvLog: {
+			totalRows: csvInfo.totalRows,
+			correctRowsCount: csvInfo.correctRows.length,
+			incorrectRowsCount: csvInfo.incorrectRows.length,
+			incorrectRows: csvInfo.incorrectRows,
+			errors: csvInfo.error.length,
+		} });
 	}
 	catch (err) {
 		return response.status(500).json({Error: err.message});

@@ -4,27 +4,31 @@ const fs = require("fs");
 const parseCSV = async (filePath, columns) => {
 	try {
 		return new Promise((resolve) => {
-			const log = {
+			const csvInfo = {
+				totalRows: null,
 				correctRows: [],
 				incorrectRows: [],
-				error: []
+				error: [],
 			}
 
+			let rowIndex = 1;
+
 			fs.createReadStream(filePath)
-				.pipe(csv.parse({ headers: columns, strictColumnHandling: true }))
+				.pipe(csv.parse({ headers: columns, delimiter: ";", strictColumnHandling: true }))
 				.on('error', (err) => {
-					log.error.push(err.message);
+					csvInfo.error.push(err);
 				 })
 				.on('data', (row) => {
-					log.correctRows.push(row);
+					csvInfo.correctRows.push({data: row, index: rowIndex});
+					rowIndex += 1;
 				})
 				.on('data-invalid', (row) => {
-					log.incorrectRows.push(row);
+					csvInfo.incorrectRows.push({data: row, index: rowIndex});
+					rowIndex += 1;
 				})
-				.on('end', (rowCount) => {
-					console.log(`Parsed ${rowCount} rows`);
-
-					resolve(log);
+				.on('end', (totalRows) => {
+					csvInfo.totalRows = totalRows,
+					resolve(csvInfo);
 				});
 		})
 	}

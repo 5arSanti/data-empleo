@@ -172,7 +172,8 @@ const AppProvider = ({children}) => {
         setLoading(false);
     }
 
-    
+    // CSV log
+    const [ csvLog, setCsvLog ] = React.useState(null);    
 
     return (
         <AppContext.Provider
@@ -238,7 +239,11 @@ const AppProvider = ({children}) => {
 
                 // Paginacion de graficas
                 currentGraphsPage,
-                setCurrentGraphsPage
+                setCurrentGraphsPage,
+
+                //CSV Log
+                csvLog,
+                setCsvLog,
             }}
         >
             {children}
