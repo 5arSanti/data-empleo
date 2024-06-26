@@ -7,16 +7,16 @@ let splitValue = "_$$_";
 
 let uploadStorage = multer.diskStorage({
     destination: (request, file, callback) => {
-		const { selectedOption } = request.body;
+		const { mainFolder, subFolder } = request.body;
 
-        callback(null, `./uploads/${selectedOption}`);
+        callback(null, `./uploads/${mainFolder}/${subFolder}`);
     },
     filename: (request, file, callback) => {
-		const { selectedOption, year, month } = request.body;
+		const { mainFolder, subFolder, year, month } = request.body;
 
 		const filePublicationDate = moment().format("YYYY-MM-DD&HH-mm-ss");
 
-		const nameArray = [selectedOption, year, month, filePublicationDate, file.originalname];
+		const nameArray = [mainFolder, subFolder, year, month, filePublicationDate, file.originalname];
 		const nameFile = nameArray.join(splitValue);
 
 

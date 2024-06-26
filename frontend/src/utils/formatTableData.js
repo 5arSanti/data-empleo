@@ -10,7 +10,6 @@ const formatTableData = (data, category) => {
     for (const subFolder in categoryData) {
         formattedData[subFolder] = formatTableArray(categoryData[subFolder]);
     }
-    console.log(formattedData);
 
     return formattedData;
 }

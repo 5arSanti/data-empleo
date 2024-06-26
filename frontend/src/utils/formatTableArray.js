@@ -4,9 +4,10 @@ const formatTableArray = (array) => {
     const formattedData = array?.map((item) => ({
         array: [item?.name, `${months[item?.selectedMonth]} del ${item?.selectedYear}`, 'Abrir', 'Descargar'],
         file: item?.fullName,
-        link: `file/${item?.selectedOption}/${item?.fullName}/${item?.name}`,
+        link: `file/${item?.mainFolder}/${item?.subFolder}/${item?.fullName}/${item?.name}`,
         fileType: item?.fileType, 
-        folder: item?.selectedOption,
+        folder: item?.mainFolder,
+        subFolder: item?.subFolder,
         item: item,
     }));
 

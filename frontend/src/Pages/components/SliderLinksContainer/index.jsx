@@ -9,11 +9,13 @@ import { IsAuthWrapper } from "../AuthWrapper";
 const SliderLinksContainer = () => {
     const context = React.useContext(AppContext)
 
-    const array = context.responseData?.folders?.sort((a, b) => {
+    const { folders } = context.responseData || {};
+
+    const array = folders ? Object.keys(folders).sort((a, b) => {
         if (a === 'Home') return -1; //
         if (b === 'Home') return 1;  
         return 0;
-    }) || [];
+    }) : [];
 
     const settings = {
 		infinite: false,

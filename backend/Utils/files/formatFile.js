@@ -11,13 +11,14 @@ const formatFile = async (data) => {
 
 			const parts = item.split(`${splitValue}`);
 
-			const selectedOption = parts[0];
+			const mainFolder = parts[0];
+			const subFolder = parts[1];
 			const originalNameWithExtension = parts.slice(-1).join('_');
 
 			const originalName = originalNameWithExtension.split('.')[0];
 			const fileType = originalNameWithExtension.split('.')[2]
 
-			const fileDate = parts[3];
+			const fileDate = parts[4];
 			const [ date, time ] = formatDateFile(fileDate)
 
 			const file = {
@@ -26,9 +27,10 @@ const formatFile = async (data) => {
 				time: time,
 				fullName: item,
 				fileType: fileType,
-				selectedYear: parts[1],
-				selectedMonth: parts[2],
-				selectedOption: selectedOption,
+				selectedYear: parts[2],
+				selectedMonth: parts[3],
+				mainFolder: mainFolder,
+				subFolder: subFolder,
 			};
 
 			return file;

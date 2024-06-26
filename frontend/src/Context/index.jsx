@@ -167,7 +167,7 @@ const AppProvider = ({children}) => {
     const deleteFile = async (item) => {
         setLoading(true)
 
-        await handleDeleteFile(`${item?.folder}/${item?.file}`)
+        await handleDeleteFile(`${item?.folder}/${item.subFolder}/${item?.file}`)
 
         setLoading(false);
     }

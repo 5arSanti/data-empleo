@@ -45,3 +45,16 @@
 .wrapper-container3:hover {
     border-radius: 20px;
 }
+
+.wrapper-container4 {
+    width: 100%;
+
+    box-sizing: border-box;
+    display: flex;
+
+    border-radius: 20px;
+
+    position: relative;
+
+    background-color: var(--all-info-container-color);
+}

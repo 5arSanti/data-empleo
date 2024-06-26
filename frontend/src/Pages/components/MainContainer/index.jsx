@@ -4,9 +4,11 @@ import { formatURL, removeFirstLetter } from '../../../utils/strings';
 import { DateCard } from "../DateCard";
 
 // import { DropNav } from '../DropDownCards/DropNav';
-import { WrapperContainer2 } from '../WrapperContainers';
+import { WrapperContainer2, WrapperContainer4 } from '../WrapperContainers';
 import { TextCard } from '../TextComponents';
 import { icons } from '../../../utils/icons';
+import { UriButtonsContainer } from '../UriButtonsContainer';
+
 
 import "./styles.css"
 
@@ -22,11 +24,13 @@ const MainContainer = ({children}) => {
                 <DateCard/>
             </div>
 
-            <div className="home-container">
+            <WrapperContainer4>
                 <WrapperContainer2 padding={0} flexDirection='column' gap={40}>
                     {children}
                 </WrapperContainer2>
-            </div>
+            </WrapperContainer4>
+
+            <UriButtonsContainer/>
         </div>
     );
 }

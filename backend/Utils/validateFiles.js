@@ -1,7 +1,8 @@
-const validateFiles = (file, option) => {
+const validateFiles = (file, option, secondOption) => {
     try {
         validateFile(file);
         validateFileOption(option);
+        validateFileOption(secondOption);
         return;
     } catch (err) {
         throw new Error(err.message);
