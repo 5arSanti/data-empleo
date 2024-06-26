@@ -19,6 +19,7 @@ import estudiosTransversales_02 from "./02-H. estudios transversales.png";
 import proyeccionesEstudiosPrestadoresSPE_03 from "./03-H. proyecciones y estudios prestadores SPE.png";
 import documentosSectorialesTejidoEmpresarial_04 from "./04-H. documentos sectoriales y tejido empresarial.png";
 import documentosPoblacionales_05 from "./05-Documentos poblacionales.png";
+import homeIcon from "./home-icon.png"
 
 
 export {
@@ -37,6 +38,7 @@ export {
     xIcon,
     youtubeIcon,
 
+    homeIcon,
     buscadorDeEmpleo_01,
     estudiosTransversales_02,
     proyeccionesEstudiosPrestadoresSPE_03,

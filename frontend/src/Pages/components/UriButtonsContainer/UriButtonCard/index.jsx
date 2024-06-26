@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { TextCard } from "../../TextComponents";
 import { WrapperContainer2 } from "../../WrapperContainers";
 
-import { buscadorDeEmpleo_01, documentosPoblacionales_05, documentosSectorialesTejidoEmpresarial_04, estudiosTransversales_02, proyeccionesEstudiosPrestadoresSPE_03 } from "../../../../assets";
+import { buscadorDeEmpleo_01, documentosPoblacionales_05, documentosSectorialesTejidoEmpresarial_04, estudiosTransversales_02, homeIcon, proyeccionesEstudiosPrestadoresSPE_03 } from "../../../../assets";
 
 import "./styles.css";
 
@@ -22,7 +22,7 @@ const UriButtonCard = ({item={}}) => {
         "Estudios transversales": estudiosTransversales_02,
         "Proyecciones y estudios prestadores del SPE": proyeccionesEstudiosPrestadoresSPE_03,
         "Buscador de empleo": buscadorDeEmpleo_01,
-        "Home": "",
+        "Home": homeIcon,
     }
 
     return (

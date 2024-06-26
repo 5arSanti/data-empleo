@@ -1,8 +1,11 @@
 .uri-button-container{
-    max-width: 175px;
+    width: 175px;
 
     transition: all 0.2s ease;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .uri-button-container:hover p{
     color: var(--lines-color);
