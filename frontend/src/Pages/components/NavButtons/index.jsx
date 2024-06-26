@@ -12,29 +12,20 @@ const NavButtons = ({className="idioma-icon-barra-superior-govco"}) => {
 
     return(
         <div className="nav-buttons-container">
+            <Link to={"/home"} className={className}>Home</Link>
+
             {!context.auth && 
-                <Link to={"/login"} className={`${className}`}>
-                    Iniciar Sesión
-                </Link>
+                <Link to={"/login"} className={`${className}`}>Iniciar Sesión</Link>
             }
 
             <IsAuthWrapper>
-                <Link to={"/dashboard"} className={`${className}`}>
-                    Dashboard
-                </Link>
-                <Link to={"/upload"} className={`${className}`}>
-                    Publicar
-                </Link>
-                <Link to={"/process-csv"} className={`${className}`}>
-                    Colocaciones
-                </Link>
-                <Link to={"/slider"} className={`${className}`}>
-                    Slider
-                </Link>
-                <Link to={"/users"} className={`${className}`}>
-                    Usuarios
-                </Link>
-                    <button  
+                <Link to={"/dashboard"} className={`${className}`}>Dashboard</Link>
+                <Link to={"/upload"} className={`${className}`}>Publicar</Link>
+                <Link to={"/process-csv"} className={`${className}`}>Colocaciones</Link>
+                <Link to={"/slider"} className={`${className}`}>Slider</Link>
+                <Link to={"/users"} className={`${className}`}>Usuarios</Link>
+                
+                <button  
                     className={`${className}`} 
                     onClick={handleLogout}
                 >

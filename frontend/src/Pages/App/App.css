@@ -65,7 +65,7 @@ html {
 
 p, span, div, h2, h1 {
     font-family: "Montserrat-Regular" !important;
-    margin: 0;
+    margin: 0 !important;
 }
 
 body {
@@ -83,7 +83,7 @@ body {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none !important;
     color: transparent;
 }
 button {

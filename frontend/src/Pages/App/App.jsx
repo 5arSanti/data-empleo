@@ -4,6 +4,7 @@ import { HashRouter, Navigate, useLocation, useRoutes } from "react-router-dom";
 
 // CSS
 import './App.css'
+import './App.css'
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
