@@ -8,7 +8,7 @@ const formatTableData = (data, category) => {
     const formattedData = {};
     
     for (const subFolder in categoryData) {
-        formattedData[subFolder] = formatTableArray(categoryData[subFolder]);
+        formattedData[subFolder] = categoryData ?? formatTableArray(categoryData[subFolder]);
     }
 
     return formattedData;
