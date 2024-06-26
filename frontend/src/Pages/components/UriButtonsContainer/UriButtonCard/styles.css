@@ -2,6 +2,7 @@
     max-width: 175px;
 
     transition: all 0.2s ease;
+    cursor: pointer;
 }
 .uri-button-container:hover p{
     color: var(--lines-color);
