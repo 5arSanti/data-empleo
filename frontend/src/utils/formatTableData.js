@@ -3,10 +3,14 @@ import { formatURL } from "./strings";
 
 const formatTableData = (data, category) => {
     const folderName = formatURL(category) || "";
-    
-    const categoryData = data ? data[folderName] : [];
+    const categoryData = data ? data[folderName] : {};
 
-    const formattedData = formatTableArray(categoryData);
+    const formattedData = {};
+    
+    for (const subFolder in categoryData) {
+        formattedData[subFolder] = formatTableArray(categoryData[subFolder]);
+    }
+    console.log(formattedData);
 
     return formattedData;
 }

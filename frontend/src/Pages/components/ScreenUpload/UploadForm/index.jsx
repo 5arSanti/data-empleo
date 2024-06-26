@@ -75,7 +75,7 @@ const UploadForm = () => {
 
                 <OptionInputCard
                     id={"document-type-options"}
-                    label={"Seleccione donde publicar el archivo"}
+                    label={"Seleccione la carpeta principal de publicacion."}
                     array={context.responseData?.folders}
                     onChange={(event) => {handleInputChange("selectedOption", event, setValues)}}
                     defaultValue={values?.selectedOption}

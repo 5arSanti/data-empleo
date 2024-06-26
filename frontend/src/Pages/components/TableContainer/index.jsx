@@ -7,6 +7,7 @@ import { YearAndMonthFilterCard } from "../YearAndMonthFilterCard";
 import { TextCard } from "../TextComponents";
 import { VerifyLength } from "../VerifyLengthWrapper";
 import { Title } from "../Title";
+import { SubTitle } from "../SubTitle";
 
 const TableContainer = ({title, values=[], onOpen, onDownload, onExcel, onDelete}) => {
     const [filters, setFilters] = React.useState({
@@ -21,22 +22,21 @@ const TableContainer = ({title, values=[], onOpen, onDownload, onExcel, onDelete
 
     return(
         <WrapperContainer2 flexDirection="column" gap={5} padding={0}>
-            <Title>{title}</Title>
-
-            <AllInfoGridContainer className="grid-1-1-1">
-                <div></div>
-                <WrapperContainer2 flexDirection="row" alignItems="flex-end" padding={10}>
-                    <TextCard className="bold" textAlign="end">Filtros:</TextCard>
-                </WrapperContainer2>
-                <YearAndMonthFilterCard
-                    state={filters}
-                    setState={setFilters}
-                    id={"files-table"}
-                />
-            </AllInfoGridContainer>
-
+            <SubTitle>{title}</SubTitle>
 
             <VerifyLength array={filteredData}>
+                <AllInfoGridContainer className="grid-1-1-1">
+                    <div></div>
+                    <WrapperContainer2 flexDirection="row" alignItems="flex-end" padding={10}>
+                        <TextCard className="bold" textAlign="end">Filtros:</TextCard>
+                    </WrapperContainer2>
+                    <YearAndMonthFilterCard
+                        state={filters}
+                        setState={setFilters}
+                        id={"files-table"}
+                    />
+                </AllInfoGridContainer>
+
                 <Table values={filteredData} onOpen={onOpen} onDownload={onDownload} onExcel={onExcel} onDelete={onDelete}/>
             </VerifyLength>
         </WrapperContainer2>
