@@ -83,7 +83,6 @@ router.patch("/", async (request, response) => {
 
 		connection.query(query, values, (err, results) => {
 			if(err) {
-				console.log(err);
 				return response.status(500).json({ Error: err.message })
 			}
 

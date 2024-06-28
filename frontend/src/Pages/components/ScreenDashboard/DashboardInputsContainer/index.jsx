@@ -50,7 +50,7 @@ const DashboardInputsContainer = () => {
 
     
     return(
-        <form>
+        <form id="dashboard-inputs-form">
             <WrapperContainer2
                 flexDirection="column"
                 padding={10}
@@ -89,6 +89,15 @@ const DashboardInputsContainer = () => {
                     array={chartTypes}
                     onChange={(event) => handleInputChange("graphType", event, context.setGraphValues)}
                     defaultValue={context.graphValues?.graphType}
+                />
+
+                <OptionInputCard 
+                    none={true}
+                    id={"chart-values"} 
+                    label={"Datos"} 
+                    array={context.responseData?.filterColumns}
+                    onChange={(event) => handleInputChange("graphType", event, context.setGraphValues)}
+                    // defaultValue={context.graphValues?.graphType}
                 />
 
                 <TextAreaCard 

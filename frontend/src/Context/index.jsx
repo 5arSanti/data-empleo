@@ -51,11 +51,11 @@ const AppProvider = ({children}) => {
     // RESPONSE:
     const [responseData, setResponseData] = React.useState({});
 
-    const fetchData = async (endpoints) => {
+    const fetchData = async (endpoints, setState=setResponseData) => {
         try {
             setLoading(true);
             const data = await fetchAllData(endpoints);
-            setResponseData((prevData) => ({
+            setState((prevData) => ({
                 ...prevData,
                 ...data
             }));
@@ -75,7 +75,8 @@ const AppProvider = ({children}) => {
             "/users",
             "/file/folders",
             "/file",
-            "/colocaciones"
+            "/colocaciones",
+            "/columns/filter"
         ]
 
         fetchData(endpoints)
@@ -100,6 +101,25 @@ const AppProvider = ({children}) => {
         fetchData(endpoints);
     }, [currentGraphsPage, filters]);
 
+    // Dashboard filters
+    const [dashboardFilters, setDashboardFilters] = React.useState({
+        mes_coloca: null,
+        anio_coloca: null,
+        column: null,
+    });
+
+    React.useEffect(() => {
+        const filterParams = new URLSearchParams(dashboardFilters);
+
+        const endpoints = [
+            `graph/values?${filterParams.toString()}`,
+        ]
+
+        fetchData(endpoints);
+    }, [dashboardFilters]);
+    
+
+
 
     //CAMBIO DE COLORES
     const [activeHighContrast, setActiveHighContrast] = React.useState(false);
@@ -108,6 +128,7 @@ const AppProvider = ({children}) => {
     }, [activeHighContrast]);
 
 
+    
     // Screen Width
     const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
     React.useEffect(() => {
@@ -238,6 +259,10 @@ const AppProvider = ({children}) => {
                 // Paginacion de graficas
                 currentGraphsPage,
                 setCurrentGraphsPage,
+
+                //Dashboard filters
+                dashboardFilters,
+                setDashboardFilters
             }}
         >
             {children}
