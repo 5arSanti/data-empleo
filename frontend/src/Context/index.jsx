@@ -79,8 +79,7 @@ const AppProvider = ({children}) => {
         ]
 
         fetchData(endpoints)
-    }, [filters]);
-    console.log(responseData)
+    }, []);
 
     React.useEffect(() => {
         handleInputChange("graphType", graphLabels[graphValues.grapLabelsType].type, setGraphValues);
