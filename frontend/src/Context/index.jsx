@@ -40,7 +40,7 @@ const AppProvider = ({children}) => {
         grapLabelsType: "ofertasRegistradas",
         graphType: "bar",
         description: null,
-        values: [20000, 10000, 4, 7, 8, 1],
+        values: null
     })
     
     const [filters, setFilters] = React.useState({
@@ -55,10 +55,7 @@ const AppProvider = ({children}) => {
         try {
             setLoading(true);
             const data = await fetchAllData(endpoints);
-            setState((prevData) => ({
-                ...prevData,
-                ...data
-            }));
+            setState((prevData) => ({ ...prevData, ...data}));
         } 
         catch (err) {
             handleNotifications("error", err.message)
@@ -101,11 +98,12 @@ const AppProvider = ({children}) => {
         fetchData(endpoints);
     }, [currentGraphsPage, filters]);
 
+    
     // Dashboard filters
     const [dashboardFilters, setDashboardFilters] = React.useState({
+        column: null,
         mes_coloca: null,
         anio_coloca: null,
-        column: null,
     });
 
     React.useEffect(() => {
@@ -117,8 +115,6 @@ const AppProvider = ({children}) => {
 
         fetchData(endpoints);
     }, [dashboardFilters]);
-    
-
 
 
     //CAMBIO DE COLORES

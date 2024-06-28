@@ -7,7 +7,7 @@ const DashboardScreen = () => {
     return (
         <AuthWrapper>
             <Title>
-                Dashboard de DATAEMPLEO
+                Dashboard de DATAEMPLEO (¡En mantenimiento!)
             </Title>
             <DashboardInfoContainer/>
         </AuthWrapper>

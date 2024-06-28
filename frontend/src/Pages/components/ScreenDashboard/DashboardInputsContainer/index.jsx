@@ -96,8 +96,8 @@ const DashboardInputsContainer = () => {
                     id={"chart-values"} 
                     label={"Datos"} 
                     array={context.responseData?.filterColumns}
-                    onChange={(event) => handleInputChange("graphType", event, context.setGraphValues)}
-                    // defaultValue={context.graphValues?.graphType}
+                    onChange={(event) => handleInputChange("column", event, context.setDashboardFilters)}
+                    defaultValue={context.dashboardFilters?.column}
                 />
 
                 <TextAreaCard 
