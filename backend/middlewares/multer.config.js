@@ -38,6 +38,8 @@ let processStorage = multer.diskStorage({
 
 		let formatName =`${nameFile}.${mimeTypes.extension(file.mimetype)}`;
 
+		request.body.fileName = file.originalname;
+
 		callback(null, formatName);
     }
 })

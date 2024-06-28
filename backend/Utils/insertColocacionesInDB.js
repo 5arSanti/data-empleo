@@ -3,7 +3,6 @@ const { getQuery } = require("../database/query");
 const insertColocacionesInDB = async (csvInfo) => {
 	try {
 		if (!(csvInfo.correctRows)) { return };
-		// let promises = [];
 
 		const array = csvInfo.correctRows;
 

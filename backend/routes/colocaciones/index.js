@@ -10,10 +10,27 @@ const { getColumnNames } = require("../../Utils/getColumnNames");
 const { parseCSV } = require("../../Utils/files/parseCSV");
 const { deleteFile } = require("../../Utils/files/deleteFile");
 const { insertColocacionesInDB } = require("../../Utils/insertColocacionesInDB");
+const { TrucateTable } = require("../../Utils/trucateTable");
+const { getDate } = require("../../Utils/getDate");
+const { insertColocacionesLog } = require("../../Utils/insertColocacionLog");
+const { arrayToString } = require("../../Utils/arrayToString");
+const { getQuery } = require("../../database/query");
+
+router.get("/", async (request, response) => {
+	try {
+		const colocacionesLog = await getQuery("SELECT * FROM colocaciones_log ORDER BY id DESC LIMIT 1")
+
+		return response.json({colocacionesLog: colocacionesLog})
+	} catch (err) {
+		return response.status(500).json({Error: err.message});
+	}
+})
 
 // POST colocaciones
 router.post("/", process.single("process-file"), async (request, response) => {
 	try {
+		const startDate = getDate();
+
 		const uploadedFile = request.file;
 
 		validateFile(uploadedFile);
@@ -28,18 +45,30 @@ router.post("/", process.single("process-file"), async (request, response) => {
 
 		await deleteFile(filePath);
 
+		await TrucateTable("colocaciones");
+
 		await insertColocacionesInDB(csvInfo);
+
+		const endDate = getDate();
+
+		let csvLog = {
+			fileName: request.body.fileName,
+			totalRows: csvInfo.totalRows - 1,
+			correctRowsCount: csvInfo.correctRows.length == 0 ? csvInfo.correctRows.length - 0 : csvInfo.correctRows.length - 1,
+			incorrectRowsCount: csvInfo.incorrectRows.length,
+			incorrectRows: arrayToString(csvInfo.incorrectRows),
+			errors: csvInfo.error.length,
+			startDate: startDate,
+			endDate: endDate,
+		}
+
+
+		await insertColocacionesLog(csvLog);
 
 		return response.json({
 			Status: "Success",
 			message: "Archivo procesado correctamente",
-			csvLog: {
-				totalRows: csvInfo.totalRows,
-				correctRowsCount: csvInfo.correctRows.length,
-				incorrectRowsCount: csvInfo.incorrectRows.length,
-				incorrectRows: csvInfo.incorrectRows,
-				errors: csvInfo.error.length,
-			}
+			csvLog: csvLog,
 		});
 	}
 	catch (err) {

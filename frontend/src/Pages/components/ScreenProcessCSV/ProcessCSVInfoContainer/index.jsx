@@ -5,10 +5,10 @@ import { WrapperContainer2 } from "../../WrapperContainers";
 import { ProcessCSVForm } from "../ProcessCSVForm";
 import { AppContext } from "../../../../Context";
 import { CsvLogCard } from "../CsvLogCard";
+import { VerifyLength } from "../../VerifyLengthWrapper";
 
 const ProcessCSVInfoContainer = () => {
     const context = React.useContext(AppContext);
-    console.log(context.csvLog);
 
     const uploadInstructions = [
         {
@@ -38,7 +38,11 @@ const ProcessCSVInfoContainer = () => {
                 <ProcessCSVForm/>
             </WrapperContainer2>
 
-            <CsvLogCard state={context.csvLog}/>
+            <VerifyLength array={context.responseData?.colocacionesLog}>                
+                {context.responseData?.colocacionesLog?.map((item, index) => (
+                    <CsvLogCard key={index} item={item}/>
+                ))}
+            </VerifyLength>
         </WrapperContainer2>
     );
 }

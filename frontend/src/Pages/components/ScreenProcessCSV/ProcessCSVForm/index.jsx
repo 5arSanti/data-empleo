@@ -30,8 +30,7 @@ const ProcessCSVForm = () => {
                 formData.append('process-file', values.files[i]);
             }
     
-            const data = await handlePostFile(event, formData, "/colocaciones", console.log);
-            context.setCsvLog(data.csvLog);
+            await handlePostFile(event, formData, "/colocaciones");
         } 
         catch (err) {
             return handleNotifications("error", err.message);

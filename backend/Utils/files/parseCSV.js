@@ -28,6 +28,7 @@ const parseCSV = async (filePath, columns) => {
 				})
 				.on('end', (totalRows) => {
 					csvInfo.totalRows = totalRows,
+
 					resolve(csvInfo);
 				});
 		})

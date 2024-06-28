@@ -74,11 +74,13 @@ const AppProvider = ({children}) => {
             `/slider`,
             "/users",
             "/file/folders",
-            "/file/",
+            "/file",
+            "/colocaciones"
         ]
 
         fetchData(endpoints)
     }, [filters]);
+    console.log(responseData)
 
     React.useEffect(() => {
         handleInputChange("graphType", graphLabels[graphValues.grapLabelsType].type, setGraphValues);
@@ -172,9 +174,6 @@ const AppProvider = ({children}) => {
         setLoading(false);
     }
 
-    // CSV log
-    const [ csvLog, setCsvLog ] = React.useState(null);    
-
     return (
         <AppContext.Provider
             value={{
@@ -240,10 +239,6 @@ const AppProvider = ({children}) => {
                 // Paginacion de graficas
                 currentGraphsPage,
                 setCurrentGraphsPage,
-
-                //CSV Log
-                csvLog,
-                setCsvLog,
             }}
         >
             {children}
