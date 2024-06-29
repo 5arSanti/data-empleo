@@ -28,16 +28,7 @@ const DashboardGraphsGrid = () => {
         context.setEditingGraph(true);
         handleNotifications("info", `Editando grafica con ID ${item.id}`)
 
-        context.setGraphValues({
-            id: item.id,
-            title: item.TITULO_GRAFICA,
-            year: item.AÑO,
-            month: item.MES,
-            grapLabelsType: item.TIPO_DATOS,
-            graphType: item.TIPO_GRAFICA,
-            description: item.DESCRIPCION,
-            values: item.DATOS,
-        })
+        context.setGraphValues(item);
 
         document.documentElement.scrollTo(0, 335)
     }

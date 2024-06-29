@@ -5,7 +5,7 @@ import "./styles.css"
 
 const PaginationInputText = ({className, data={}, setState}) => {
     return(
-        <TextCard className={`center pagination-input-container white-space ${className}`}>
+        <TextCard textAlign="center" className={`pagination-input-container ${className}`}>
             Pagina 
             <input type="text" pattern="[0-9]" placeholder={data?.currentPage} 
                 onKeyDown={(event) => {

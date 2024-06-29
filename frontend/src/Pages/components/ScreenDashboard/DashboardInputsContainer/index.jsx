@@ -13,36 +13,25 @@ import { InputCard, OptionInputCard, TextAreaCard } from "../../InputsCards";
 import { AllInfoGridContainer } from "../../AllInfoContainer";
 import { handleInputChange } from "../../../../utils/handleInputChange";
 import { ButtonCard } from "../../ButtonCard";
+import { handlePatchData } from "../../../../utils/handleData/handlePatchData";
 
 
 const DashboardInputsContainer = () => {
     const context = React.useContext(AppContext);
 
-    const grapLabels = Object.keys(graphLabels);
     const monthsArray = Object.keys(getMonthsUntilCurrent(context.dashboardFilters?.anio_coloca));
 
     const values = {...context.graphValues}
 
-    const handleSubmit = (event) => {
-        context.setLoading(true);
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        context.setLoading(true);
 
         if(!context.editingGraph) {
-            handlePostData(event, values, "/graph/new");
+            await handlePostData(event, values, "/graph/new");
         } 
         else if(context.editingGraph) {
-            axios.patch(`${context.apiUri}/graph`, values)
-                .then(response => {
-                    const {data} = response;
-
-                    if(data.Status === "Success") {
-                        handleNotifications("success", `Gráfica editada correctamente`)
-                        reloadLocation();
-                    } else {
-                        handleNotifications("error", data.Error)
-                    }
-                })
-                .catch(err => {handleNotifications("error", err)})
+            await handlePatchData(event, values, "/graph");
         }
         context.setLoading(false);
     }

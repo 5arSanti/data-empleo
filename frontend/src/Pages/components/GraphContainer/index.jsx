@@ -13,7 +13,7 @@ const GraphContainer = ({graph={}, onConfig=graphValuesConfig, index=0}) => {
         <WrapperContainer2 padding={20} flexDirection="column">
             <WrapperContainer1 flexDirection="column" gap={15}>
                 <SubTitle textAlign="center">
-                {graph?.title || graph?.TITULO_GRAFICA} - {months[graph?.month || graph?.MES]} del {graph?.year || graph?.ANO}
+                {graph?.title } - {months[graph?.month]} del {graph?.year}
                 </SubTitle>
                 
 

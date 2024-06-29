@@ -43,7 +43,7 @@ const AppProvider = ({children}) => {
         indexAxis: "x",
         labels: null,
         datasetLabel: null,
-        values: null
+        graphValues: null
     });
 
 
@@ -101,9 +101,9 @@ const AppProvider = ({children}) => {
     
     // Dashboard filters
     const [dashboardFilters, setDashboardFilters] = React.useState({
-        column: "Sexo",
-        mes_coloca: 3,
-        anio_coloca: 2019,
+        column: null,
+        mes_coloca: actualMonth,
+        anio_coloca: actualYear,
     });
 
 
@@ -154,11 +154,7 @@ const AppProvider = ({children}) => {
             setLoading(true);
             const excelJSON = await readExcelFile(file);            
 
-            const fileInfo = [{
-                fileJSON: excelJSON,
-                name: item.array[0],
-                item: item
-            }]
+            const fileInfo = [{ fileJSON: excelJSON, name: item.array[0], item: item }]
 
             localStorage.setItem("excel-json", JSON.stringify(fileInfo))
             

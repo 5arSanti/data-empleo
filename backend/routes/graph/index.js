@@ -3,6 +3,8 @@ const { connection } = require("../../database");
 
 const { obtenerFechaHoraHoy } = require("../../DateFunctions/index");
 const { getQuery } = require("../../database/query");
+const { validateObjectValues } = require("../../Utils/validateObjectValues");
+const { splitValue } = require("../../middlewares/multer.config");
 
 const router = express.Router();
 
@@ -15,11 +17,18 @@ router.get("/", async (request, response) => {
 
 		const query = `
 			SELECT * FROM graficas
-			ORDER BY FECHA_CREACION
+			ORDER BY creationDate
 			DESC LIMIT ${pageSize} OFFSET ${offset};
 		`;
 
 		const graphs = await getQuery(query)
+        const formatedGraphs = graphs.map(graph => ({
+            ...graph,
+            labels: graph.labels.split(splitValue),
+            datasetLabel: graph.datasetLabel.split(splitValue),
+            graphValues: graph.graphValues.split(splitValue),
+        }));
+
 
 		const totalGraphs = await getQuery("SELECT COUNT(*) AS totalGraphs FROM graficas");
 
@@ -27,7 +36,7 @@ router.get("/", async (request, response) => {
 
 
 		return response.status(200).json({graphsData: {
-			graphs: graphs,
+			graphs: formatedGraphs,
 			totalPages: totalPages,
 			currentPage: page,
 		}})
@@ -39,7 +48,7 @@ router.get("/", async (request, response) => {
 
 router.delete("/", async (request, response) => {
 	try {
-		const id = request.body.id;
+		const { id } = request.body;
 
 		const query = `DELETE FROM graficas WHERE id = ?`;
 
@@ -60,34 +69,33 @@ router.patch("/", async (request, response) => {
 	try {
 		const id = request.body.id;
 
-		const query = `
-			UPDATE graficas
-			SET TITULO_GRAFICA=?, AÑO=?, MES=?, TIPO_DATOS=?, TIPO_GRAFICA=?, DESCRIPCION=?, FECHA_CREACION=?, DATOS=?
-			WHERE id = ${id}
-		`;
-
 		const fechaActual = obtenerFechaHoraHoy();
 
 		const graphValues = {
 			title: request.body.title,
 			year: request.body.year,
 			month: request.body.month,
-			grapLabelsType: request.body.grapLabelsType,
-			graphType: request.body.graphType,
 			description: request.body.description,
-			date: fechaActual,
-			values: null,
+			graphType: request.body.graphType,
+			indexAxis: request.body.indexAxis,
+			labels: request.body.labels.join(splitValue),
+			datasetLabel: request.body.datasetLabel.join(splitValue),
+			graphValues: request.body.graphValues.join(splitValue),
+			creationDate: fechaActual,
 		}
 
-		const values = Object.values(graphValues);
+		validateObjectValues(graphValues)
 
-		connection.query(query, values, (err, results) => {
-			if(err) {
-				return response.status(500).json({ Error: err.message })
-			}
+        const setClause = Object.entries(graphValues)
+            .map(([key, value]) => `${key} = ${typeof value === 'string' ? `'${value}'` : value}`)
+            .join(", ");
 
-			return response.json({ Status: "Success" });
-		});
+		const query = `UPDATE graficas SET ${setClause} WHERE id = ${id}`
+
+		await getQuery(query);
+
+		return response.json({ Status: "Success", message: `Gráfica con id ${id} editada correctamente`})
+
 	} catch (err) {
 		return response.status(500).json({Error: err.message});
 	}

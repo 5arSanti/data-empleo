@@ -1,5 +1,5 @@
-.svg-25 svg {
-    width: 25px !important;
-    height: 25px !important;
+.text-svg-container svg {
+    width: 35px !important;
+    height: 35px !important;
     color: var(--gov-accesibility-card) !important;
 }

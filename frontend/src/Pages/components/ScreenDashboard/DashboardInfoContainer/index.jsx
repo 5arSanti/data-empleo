@@ -15,13 +15,12 @@ const DashboardInfoContainer = () => {
 
     React.useEffect(() => {
         const filterParams = new URLSearchParams(context.dashboardFilters);
-
         const endpoints = [
             `graph/values?${filterParams.toString()}`,
         ]
 
         context.fetchData(endpoints);
-        
+
     }, [context.dashboardFilters]);
 
     const { graphValues } = context.responseData;
@@ -30,7 +29,7 @@ const DashboardInfoContainer = () => {
     graph.month = context.dashboardFilters?.mes_coloca,
     graph.labels = graphValues?.labels,
     graph.datasetLabel = graphValues?.datasetLabel,
-    graph.values = graphValues?.values
+    graph.graphValues = graphValues?.values
 
 
     return(

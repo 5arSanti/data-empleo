@@ -9,7 +9,6 @@ const CsvLogCard = ({item={}}) => {
     if (!item) { return; }
 
     const incorrectRowsArray = item?.incorrectRows != "" ? item?.incorrectRows.split(",") : null;
-    console.log(incorrectRowsArray)
 
     return(
         <WrapperContainer1 flexDirection="column" padding={30}>

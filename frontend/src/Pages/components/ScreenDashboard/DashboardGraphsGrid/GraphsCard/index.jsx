@@ -18,12 +18,12 @@ import { AllInfoGridContainer } from "../../../AllInfoContainer";
 
 const GraphsCard = ({item={}, onEdit, onDelete}) => {
     const graphSvg = {
-        bar: <MdBarChart />,
-        doughnut: <BiSolidDoughnutChart />,
-        pie: <FaChartPie />,
-        line: <GoGraph/>,
-        polarArea: <PiChartPolarFill />,
-        radar: <AiOutlineRadarChart />, 
+        "bar": <MdBarChart />,
+        "doughnut": <BiSolidDoughnutChart />,
+        "pie": <FaChartPie />,
+        "line": <GoGraph/>,
+        "polarArea": <PiChartPolarFill />,
+        "radar": <AiOutlineRadarChart />, 
     }
 
     const wrapperConfig = {
@@ -39,21 +39,20 @@ const GraphsCard = ({item={}, onEdit, onDelete}) => {
                     <WrapperContainer2 flexDirection="column" gap={20} padding={0}>
                         <AllInfoGridContainer className="grid-1-1" gap={20}>
                             <WrapperContainer2 {...wrapperConfig}>
-                                <TextCard><SpanCard>Titulo:</SpanCard> {item.TITULO_GRAFICA} - {months[item.MES]} del {item.AÑO}</TextCard>
-                                <TextCard><SpanCard>Mes:</SpanCard> {months[item.MES]}</TextCard>
-                                <TextCard><SpanCard>Año:</SpanCard> {item.AÑO}</TextCard>
+                                <TextCard><SpanCard>Titulo:</SpanCard> {item.title} - {months[item.month]} del {item.year}</TextCard>
+                                <TextCard><SpanCard>Mes:</SpanCard> {months[item.month]}</TextCard>
+                                <TextCard><SpanCard>Año:</SpanCard> {item.year}</TextCard>
                             </WrapperContainer2>
-                            <WrapperContainer2 flexDirection="column" gap={5} padding={0} alignItems="start" className="svg-25">
-                                <TextCard><SpanCard>Tipo de Datos:</SpanCard> {item.TIPO_DATOS}</TextCard>
-                                <TextCard><SpanCard>Tipo de Gráfica:</SpanCard> {item.TIPO_GRAFICA}</TextCard>
-                                {graphSvg[item.TIPO_GRAFICA]}
+                            <WrapperContainer2 flexDirection="column" gap={5} padding={0} alignItems="start" className="text-svg-container">
+                                <TextCard><SpanCard>Tipo de Gráfica:</SpanCard> {item.graphType}</TextCard>
+                                {graphSvg[item.graphType]}
                             </WrapperContainer2>
                         </AllInfoGridContainer>
                         <WrapperContainer2 flexDirection="column" padding={0} gap={0}>
                             <TextCard><SpanCard>Descripción:</SpanCard></TextCard>
 
                             <ScrollableWrapper maxHeight={100}>
-                                <TextCard>{item.DESCRIPCION}</TextCard>
+                                <TextCard>{item.description}</TextCard>
                             </ScrollableWrapper>
                         </WrapperContainer2>
                     </WrapperContainer2>
@@ -64,7 +63,7 @@ const GraphsCard = ({item={}, onEdit, onDelete}) => {
                             <TextCard textAlign="center"><SpanCard className="font-14">Codigo ID</SpanCard></TextCard>
                         </WrapperContainer2>
                         <WrapperContainer2 flexDirection="column" alignItems="center" justifyContent="center" gap={0} padding={0}>
-                            <TextCard textAlign="center">{moment(item.FECHA_CREACION).format("DD/MM/YYYY  HH:MM:ss")}</TextCard>
+                            <TextCard textAlign="center">{moment(item.creationDate).format("DD/MM/YYYY  HH:MM:ss")}</TextCard>
                             <TextCard textAlign="center"><SpanCard className="font-14">Fecha de Creación</SpanCard></TextCard>
                         </WrapperContainer2>
                     </AllInfoGridContainer>
