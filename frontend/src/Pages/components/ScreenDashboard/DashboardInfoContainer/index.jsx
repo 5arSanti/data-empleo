@@ -7,19 +7,31 @@ import { GraphContainer } from "../../GraphContainer";
 import { DashboardGraphsGrid } from "../DashboardGraphsGrid";
 import { DashboardInputsContainer } from "../DashboardInputsContainer";
 import { WrapperContainer2 } from "../../WrapperContainers";
-import { formatGraphValues } from "../../../../utils/formatGraphValues";
 
 const DashboardInfoContainer = () => {
     const context = React.useContext(AppContext) 
 
     const graph = context.graphValues;
 
+    React.useEffect(() => {
+        const filterParams = new URLSearchParams(context.dashboardFilters);
+
+        const endpoints = [
+            `graph/values?${filterParams.toString()}`,
+        ]
+
+        context.fetchData(endpoints);
+        
+    }, [context.dashboardFilters]);
+
     const { graphValues } = context.responseData;
 
-    const [keys, values] = graphValues ? formatGraphValues(graphValues) : [];
+    graph.year = context.dashboardFilters?.anio_coloca,
+    graph.month = context.dashboardFilters?.mes_coloca,
+    graph.labels = graphValues?.labels,
+    graph.datasetLabel = graphValues?.datasetLabel,
+    graph.values = graphValues?.values
 
-    graph.labels = keys ? keys : graph.labels;
-    graph.values = values ? [values] : graph.values;
 
     return(
         <WrapperContainer2 flexDirection="column" gap={20} padding={0}>

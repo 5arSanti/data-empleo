@@ -66,13 +66,10 @@ const AppRoutes = () => {
         {path: "/users", element: <UsersScreen/>},
         {path: "/category/:category", element: <FoldersDataScreen data={files}/>},
         {path: "/excel-preview", element: <ExcelPreviewScreen/>},
+        {path: "/register", element: <RegisterScreen/>},
 
 
-
-        
-        {path: "/register", element: auth ? <RegisterScreen/> : <Navigate replace to={"/login"} />},
         {path: "/login", element: !auth ? <LoginScreen/> : <Navigate replace to={"/home"}/>},
-        
     ]);
     
     return routes;

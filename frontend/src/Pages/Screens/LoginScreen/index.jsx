@@ -38,7 +38,7 @@ const LoginScreen = () => {
 
                 if(data.Status === "Success") {
                     handleNotifications("success", data.message);
-                    navigate("/dashboard");
+                    navigate("/home");
                 } else {
                     handleNotifications("error", data.Error)
                 }

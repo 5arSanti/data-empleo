@@ -37,12 +37,17 @@ const AppProvider = ({children}) => {
         title: null,
         year: actualYear,
         month: actualMonth,
-        grapLabelsType: "ofertasRegistradas",
-        graphType: "bar",
         description: null,
+
+        graphType: "bar",
+        indexAxis: "x",
+        labels: null,
+        datasetLabel: null,
         values: null
-    })
-    
+    });
+
+
+    // 
     const [filters, setFilters] = React.useState({
         "year": actualYear,
         "month": actualMonth,
@@ -78,11 +83,6 @@ const AppProvider = ({children}) => {
 
         fetchData(endpoints)
     }, []);
-
-    React.useEffect(() => {
-        handleInputChange("graphType", graphLabels[graphValues.grapLabelsType].type, setGraphValues);
-    }, [graphValues.grapLabelsType]);
-    
     
     // Graficas y paginacion
     const [currentGraphsPage, setCurrentGraphsPage] = React.useState(1);
@@ -101,20 +101,10 @@ const AppProvider = ({children}) => {
     
     // Dashboard filters
     const [dashboardFilters, setDashboardFilters] = React.useState({
-        column: null,
-        mes_coloca: null,
-        anio_coloca: null,
+        column: "Sexo",
+        mes_coloca: 3,
+        anio_coloca: 2019,
     });
-
-    React.useEffect(() => {
-        const filterParams = new URLSearchParams(dashboardFilters);
-
-        const endpoints = [
-            `graph/values?${filterParams.toString()}`,
-        ]
-
-        fetchData(endpoints);
-    }, [dashboardFilters]);
 
 
     //CAMBIO DE COLORES
@@ -258,7 +248,8 @@ const AppProvider = ({children}) => {
 
                 //Dashboard filters
                 dashboardFilters,
-                setDashboardFilters
+                setDashboardFilters,
+                fetchData
             }}
         >
             {children}

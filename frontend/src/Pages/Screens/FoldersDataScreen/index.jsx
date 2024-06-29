@@ -7,6 +7,7 @@ import { handleDownloadFile, handleOpen } from "../../../utils/downloadFile";
 import { formatTableData } from "../../../utils/formatTableData";
 import { AppContext } from "../../../Context";
 import { Title } from "../../components/Title";
+import { AuthWrapper } from "../../components/AuthWrapper";
 
 const FoldersDataScreen = ({ data }) => {
     const context = React.useContext(AppContext)
@@ -18,7 +19,7 @@ const FoldersDataScreen = ({ data }) => {
     const subFoldersName = Object.keys(subFolders) || [];
   
     return (
-        <>
+        <AuthWrapper>
             <Title>{formatURL(category)}</Title>
 
             {subFoldersName?.map((item, index) => (
@@ -34,7 +35,7 @@ const FoldersDataScreen = ({ data }) => {
                 />
 
             ))}
-        </>
+        </AuthWrapper>
 
     );
 }

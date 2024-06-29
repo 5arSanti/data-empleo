@@ -35,9 +35,9 @@ const AuthWrapper = ({children}) => {
     }, []);
 
     return (
-        <IsAuthWrapper>
-            {children}
-        </IsAuthWrapper>
+        // <IsAuthWrapper>
+            children
+        // </IsAuthWrapper>
     );
 }
 

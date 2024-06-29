@@ -1,5 +1,3 @@
-import React from "react";
-import { AppContext } from "../../../Context";
 import { WrapperContainer1, WrapperContainer2 } from "../WrapperContainers";
 import { Graph } from "./Graph";
 import { SubTitle } from "../SubTitle";
@@ -8,7 +6,7 @@ import { months } from "../../../utils/dateFunctions";
 
 import { graphValuesConfig } from "../../../utils/graphConfig";
 
-const GraphContainer = ({graph, onConfig=graphValuesConfig, index=0}) => {
+const GraphContainer = ({graph={}, onConfig=graphValuesConfig, index=0}) => {
     const values = onConfig(graph);
 
     return(
