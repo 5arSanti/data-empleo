@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.get("/filter", async (request, response) => {
 	try {
-		const filterColumns = await getColumnNames("colocaciones", ["id", "mes_letras_coloca", "mes_coloca", "anio_coloca", "Municipio"])
+		const filterColumns = await getColumnNames("colocaciones", ["id", "mes_letras_coloca", "mes_coloca", "anio_coloca", "Municipio, Colocados"])
 
 		return response.json({filterColumns: filterColumns});
 	}

@@ -102,8 +102,8 @@ const AppProvider = ({children}) => {
     // Dashboard filters
     const [dashboardFilters, setDashboardFilters] = React.useState({
         column: null,
-        mes_coloca: actualMonth,
-        anio_coloca: actualYear,
+        mes_coloca: 3,
+        anio_coloca: 2019,
     });
 
 

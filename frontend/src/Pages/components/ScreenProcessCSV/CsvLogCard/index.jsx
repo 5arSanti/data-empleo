@@ -1,5 +1,4 @@
 import { AllInfoGridContainer } from "../../AllInfoContainer";
-import { ScrollableWrapper } from "../../ScrollableWrapper";
 import { SubTitle } from "../../SubTitle";
 import { SpanCard, TextCard } from "../../TextComponents";
 import { VerifyLength } from "../../VerifyLengthWrapper";

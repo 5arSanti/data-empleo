@@ -11,7 +11,7 @@ router.get("/", async (request, response) => {
 	try {
 		const params = transformQueryParams(request.query);
 
-		validateObjectValues(params, "Por favor asegurece de ingresar el valor de Datos, Año y Mes");
+		validateObjectValues(params, "Por favor ingrese el tipo de Datos");
 
 		const { column, mes_coloca, anio_coloca  } = request.query;
 
