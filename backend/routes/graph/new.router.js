@@ -1,5 +1,4 @@
 const express = require("express");
-const stringify = require("json-stringify-safe");
 
 const { obtenerFechaHoraHoy } = require("../../DateFunctions/index");
 const { validateObjectValues } = require("../../Utils/validateObjectValues");
