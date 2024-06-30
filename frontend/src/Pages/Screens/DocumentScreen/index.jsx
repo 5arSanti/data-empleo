@@ -1,10 +1,12 @@
-import { AuthWrapper } from '../../components/AuthWrapper';
+import { AuthWrapper, IsAuthWrapper } from '../../components/AuthWrapper';
 import { DocumentInfoContainer } from '../../components/ScreenDocument/DocumentInfoContainer';
 
 const DocumentScreen = () => {
     return(
-        <AuthWrapper>  
-            <DocumentInfoContainer/>
+        <AuthWrapper> 
+            <IsAuthWrapper>
+                <DocumentInfoContainer/>
+            </IsAuthWrapper>
         </AuthWrapper>
     );
 }

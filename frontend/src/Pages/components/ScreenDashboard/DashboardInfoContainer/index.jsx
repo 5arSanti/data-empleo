@@ -1,22 +1,36 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 import { AppContext } from "../../../../Context";
 
-import { AllInfoContainer, AllInfoGridContainer } from "../../AllInfoContainer";
+import { AllInfoGridContainer } from "../../AllInfoContainer";
 import { GraphContainer } from "../../GraphContainer";
-import { ButtonCard } from "../../ButtonCard";
-import { graphValuesConfig } from "../../../../utils/graphConfig";
 import { DashboardGraphsGrid } from "../DashboardGraphsGrid";
 import { DashboardInputsContainer } from "../DashboardInputsContainer";
-import { DashboardGraphsPagination } from "../DashboardGraphsPagination";
 import { WrapperContainer2 } from "../../WrapperContainers";
 
 const DashboardInfoContainer = () => {
-    const context = React.useContext(AppContext)
-    const navigate = useNavigate();    
+    const context = React.useContext(AppContext) 
 
     const graph = context.graphValues;
+
+    React.useEffect(() => {
+        const filterParams = new URLSearchParams(context.dashboardFilters);
+        const endpoints = [
+            `graph/values?${filterParams.toString()}`,
+        ]
+
+        context.fetchData(endpoints);
+
+    }, [context.dashboardFilters]);
+
+    const { graphValues } = context.responseData;
+
+    graph.year = context.dashboardFilters?.anio_coloca,
+    graph.month = context.dashboardFilters?.mes_coloca,
+    graph.labels = graphValues?.labels,
+    graph.datasetLabel = graphValues?.datasetLabel,
+    graph.graphValues = graphValues?.values
+
 
     return(
         <WrapperContainer2 flexDirection="column" gap={20} padding={0}>
@@ -28,8 +42,6 @@ const DashboardInfoContainer = () => {
             </AllInfoGridContainer>
 
             <DashboardGraphsGrid/>
-            <DashboardGraphsPagination/>
-            
         </WrapperContainer2>
     );
 }

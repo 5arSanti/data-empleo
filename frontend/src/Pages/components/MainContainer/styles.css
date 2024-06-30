@@ -18,6 +18,11 @@
 
     padding: 0 40px;
 }
+.drop-date-container p svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--lines-color);
+}
 
 .home-container {
     width: 100%;

@@ -12,4 +12,5 @@ const saveImages = (array) => {
     return images;
 }
 
+
 export { saveImages };

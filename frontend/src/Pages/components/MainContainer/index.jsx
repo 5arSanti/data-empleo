@@ -1,31 +1,36 @@
 import { useLocation } from 'react-router-dom';
-import { removeFirstLetter } from '../../../utils/strings';
+import { formatURL, removeFirstLetter } from '../../../utils/strings';
 
 import { DateCard } from "../DateCard";
 
+// import { DropNav } from '../DropDownCards/DropNav';
+import { WrapperContainer2, WrapperContainer4 } from '../WrapperContainers';
+import { TextCard } from '../TextComponents';
+import { icons } from '../../../utils/icons';
+import { UriButtonsContainer } from '../UriButtonsContainer';
+
 
 import "./styles.css"
-import { DropNav } from '../DropDownCards/DropNav';
-import { WrapperContainer2 } from '../WrapperContainers';
-
 
 const MainContainer = ({children}) => {
     const location = useLocation();
-    const text = removeFirstLetter(location.pathname)
+    const text = removeFirstLetter(formatURL(location.pathname))
 
     return(
         <div className="main-container">
             <div className="drop-date-container">
-                {/* <DropNav/> */}
+                <TextCard>{icons["Ubicacion"]} {text}</TextCard>
 
                 <DateCard/>
             </div>
 
-            <div className="home-container">
+            <WrapperContainer4>
                 <WrapperContainer2 padding={0} flexDirection='column' gap={40}>
                     {children}
                 </WrapperContainer2>
-            </div>
+            </WrapperContainer4>
+
+            <UriButtonsContainer/>
         </div>
     );
 }

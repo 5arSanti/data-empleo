@@ -5,12 +5,15 @@ import { MdComputer } from "react-icons/md";
 import { GiHealthNormal } from "react-icons/gi";
 import { ImAirplane } from "react-icons/im";
 import { FaBus } from "react-icons/fa";
-import { RiMegaphoneFill } from "react-icons/ri";
+import { RiMegaphoneFill, RiPagesLine  } from "react-icons/ri";
 import { IoSchoolSharp } from "react-icons/io5";
 import { FaIndustry } from "react-icons/fa6";
 import { GiGraduateCap } from "react-icons/gi";
-import { FaUserGraduate } from "react-icons/fa";
+import { FaUserGraduate, FaRegCalendarCheck, FaMapMarkerAlt } from "react-icons/fa";
 import { MdBackpack } from "react-icons/md";
+import { MdOutlineUploadFile } from "react-icons/md";
+import { BsCloudCheck } from "react-icons/bs";
+import { VscServerProcess } from "react-icons/vsc";
 
 const icons = {
     "Actividades artísticas": <FaPaintbrush />,
@@ -28,6 +31,12 @@ const icons = {
     "Posgrado": <GiGraduateCap/>,
     "Universitario, tecnólogo o tecnológico": <FaUserGraduate/>,
     "Bachillerato": <MdBackpack/>,
+    "Documento":  <MdOutlineUploadFile/>,
+    "Calendario": <FaRegCalendarCheck/>,
+    "Pagina": <RiPagesLine/>,
+    "Check": <BsCloudCheck/>,
+    "Ubicacion": <FaMapMarkerAlt/>,
+    "Proceso": <VscServerProcess/>
 }
 
 export { icons };

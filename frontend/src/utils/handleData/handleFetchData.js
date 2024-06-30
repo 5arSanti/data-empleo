@@ -1,22 +1,22 @@
 import { api } from "../api";
 
 const fetchData = async (endpoint) => {
-    try {
-        const response = await fetch(`${api}/${endpoint}`);
+    const response = await fetch(`${api}/${endpoint}`);
+    const data = await response.json();
 
-        if (!(response.status == 200)) {
-            throw new Error(`Error fetching ${endpoint}: ${response.statusText}`);
-        }
-    
-        return await response.json();
-    } catch (err) {
-        throw new Error(err)
+    if (data.Error) {
+        throw new Error(data.Error)
     }
 
+    if (response.status !== 200) {
+        throw new Error(`Error fetching ${endpoint}: ${response.statusText}`);
+    }
+
+    return await data;
 };
 
 const fetchAllData = async (endpoints) => {
-    try {
+
         const resultsArray = await Promise.all(
             endpoints.map(fetchData)
         );
@@ -26,10 +26,6 @@ const fetchAllData = async (endpoints) => {
         }, {});
     
         return combinedResults;
-    } catch (err) {
-        throw new Error(err)
-    }
-
 };
 
 export { fetchAllData };

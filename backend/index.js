@@ -12,8 +12,6 @@ app.use(express.json());
 const whiteList = [
     //DEV
 	"http://localhost:5173",
-	"http://127.0.0.1:5173",
-	"http://127.0.0.1:3090",
 
     //QA Y PROD
     "http://10.140.0.16:15205",

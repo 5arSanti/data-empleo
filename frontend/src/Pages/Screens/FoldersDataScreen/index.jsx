@@ -6,29 +6,36 @@ import { formatURL } from "../../../utils/strings";
 import { handleDownloadFile, handleOpen } from "../../../utils/downloadFile";
 import { formatTableData } from "../../../utils/formatTableData";
 import { AppContext } from "../../../Context";
-import { SliderLinksContainer } from "../../components/SliderLinksContainer";
+import { Title } from "../../components/Title";
+import { AuthWrapper } from "../../components/AuthWrapper";
 
 const FoldersDataScreen = ({ data }) => {
     const context = React.useContext(AppContext)
 
     const { category } = useParams() || "";
 
-    const formattedData = formatTableData(data, category);
+    const subFolders = formatTableData(data, category);
 
+    const subFoldersName = Object.keys(subFolders) || [];
   
     return (
-        <>
-            <TableContainer 
-                title={formatURL(category)} 
-                values={formattedData}
-                onOpen={handleOpen}
-                onExcel={context.handleExcelFile}
-                onDownload={handleDownloadFile}
-                onDelete={context.deleteFile}
-            />
-            
-            <SliderLinksContainer/>
-        </>
+        <AuthWrapper>
+            <Title>{formatURL(category)}</Title>
+
+            {subFoldersName?.map((item, index) => (
+
+                <TableContainer 
+                    key={index}
+                    title={item} 
+                    values={subFolders[item]}
+                    onOpen={handleOpen}
+                    onExcel={context.handleExcelFile}
+                    onDownload={handleDownloadFile}
+                    onDelete={context.deleteFile}
+                />
+
+            ))}
+        </AuthWrapper>
 
     );
 }

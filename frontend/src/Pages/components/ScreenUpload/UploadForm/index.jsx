@@ -22,10 +22,14 @@ const UploadForm = () => {
 
     const [values, setValues] = React.useState({
         files: null,
-        selectedOption: null,
+        mainFolder: null,
+        subFolder: null,
         year: actualYear,
         month: actualMonth,
     });
+
+    const { folders } = context.responseData || {};
+    const mainFolders = folders ? Object.keys(folders) : [];
 
     const handleFileUpload = async (event) => {
         try {
@@ -33,10 +37,11 @@ const UploadForm = () => {
             
             event.preventDefault();
 
-            validateFiles(values?.files, values?.selectedOption);
+            validateFiles(values?.files, values?.mainFolder, values?.subFolder);
     
             const formData = new FormData();
-            formData.append("selectedOption", values?.selectedOption)
+            formData.append("mainFolder", values?.mainFolder);
+            formData.append("subFolder", values?.subFolder);
             formData.append("year", values?.year)
             formData.append("month", values?.month)
 
@@ -74,11 +79,19 @@ const UploadForm = () => {
                 />
 
                 <OptionInputCard
-                    id={"document-type-options"}
-                    label={"Seleccione donde publicar el archivo"}
-                    array={context.responseData?.folders}
-                    onChange={(event) => {handleInputChange("selectedOption", event, setValues)}}
-                    defaultValue={values?.selectedOption}
+                    id={"document-main-folder"}
+                    label={"Seleccione la dirección principal de publicacion."}
+                    array={mainFolders}
+                    onChange={(event) => {handleInputChange("mainFolder", event, setValues)}}
+                    defaultValue={values?.mainFolder}
+                    none={true}
+                />
+                <OptionInputCard
+                    id={"document-sub-folder"}
+                    label={"Seleccione subdirección de publicación."}
+                    array={folders?.[values.mainFolder]}
+                    onChange={(event) => {handleInputChange("subFolder", event, setValues)}}
+                    defaultValue={values?.subFolder}
                     none={true}
                 />
 

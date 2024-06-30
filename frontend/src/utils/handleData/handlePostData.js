@@ -58,7 +58,7 @@ const handlePostFile = async (event, object, endpoint, callback = reloadLocation
             handleNotifications("success", data.message);
             callback();
 
-            return data.Status;
+            return data;
         } else {
             handleNotifications("error", data.Error)
         }

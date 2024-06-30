@@ -28,12 +28,17 @@ const AuthWrapper = ({children}) => {
                 }
             })
             .catch(err => {
+                context.setAuth(false);
                 handleNotifications("error", err)
                 navigate("/home");
             })
     }, []);
 
-    return (children);
+    return (
+        // <IsAuthWrapper>
+            children
+        // </IsAuthWrapper>
+    );
 }
 
 const IsAuthWrapper = ({children}) => {

@@ -7,7 +7,7 @@ router.get("/", async (request, response) => {
 	try {
 		const { year, month } = request.query;
 
-		const query = `SELECT * FROM graficas WHERE  AÑO = ${year} AND MES = ${month} ORDER BY FECHA_CREACION DESC LIMIT 6`;
+		const query = `SELECT * FROM graficas WHERE year = ${year} AND month = ${month} ORDER BY creationDate DESC LIMIT 6`;
 
 		const result = await getQuery(query);
 

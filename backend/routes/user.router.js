@@ -81,7 +81,7 @@ router.post("/login", (req, res) => {
 						const token = jwt.sign({name}, `${properties.get("app.login.token")}`, {expiresIn: "1d"});
 						res.cookie("token", token);
 
-						return res.json({ Status: "Success" });
+						return res.json({ Status: "Success", message: "Sesión iniciada correctamente"});
 					} else {
 						return res.json({ Error: "La contraseña es incorrecta" });
 					}

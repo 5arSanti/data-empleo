@@ -15,17 +15,32 @@ router.get('/', async (request, response) => {
 	try {
 		let files = {};
 
-		const folders = await readFolder();
+		const mainFolders = await readFolder();
 
-		const promises = folders.map(async (item) => {
-			const files = await readFolder(item);
-			const formattedFile = await formatFile(files);
+		const promises = mainFolders.map(async (mainFolder) => {
+			const subFolders = await readFolder(mainFolder);
 
-			return {[item]: formattedFile};
+			const secondaryPromises = subFolders.map(async (subFolder) => {
+				const file = await readFolder(`${mainFolder}/${subFolder}`);
 
+				const formattedFile = await formatFile(file);
+
+				return {[subFolder]: formattedFile};
+			})
+
+			const secondResolved = await Promise.all(secondaryPromises);
+
+			const subFolderFiles = secondResolved.reduce((acc, curr) => {
+                const key = Object.keys(curr)[0];
+                acc[key] = curr[key];
+                return acc;
+            }, {});
+
+            return {[mainFolder]: subFolderFiles};
 		})
 
 		const resolved = await Promise.all(promises);
+
 
 		resolved.forEach((item) => {
 			const key = Object.keys(item)[0];
@@ -41,11 +56,11 @@ router.get('/', async (request, response) => {
 
 
 // DELETE File
-router.delete('/:folder/:file', async (request, response) => {
+router.delete('/:folder/:subFolder/:file', async (request, response) => {
 	try {
-		const { folder, file } = request.params;
+		const { folder, subFolder, file } = request.params;
 
-		const pathToFile = `uploads/${folder}/${file}`;
+		const pathToFile = `uploads/${folder}/${subFolder}/${file}`;
 
 		await deleteFile(pathToFile);
 
@@ -58,11 +73,11 @@ router.delete('/:folder/:file', async (request, response) => {
 
 
 // GET File/folder/file/fileName
-router.get('/:folder/:file/:fileName', async (request, response) => {
+router.get('/:folder/:subFolder/:file/:fileName', async (request, response) => {
 	try {
-		const { folder, file, fileName } = request.params;
+		const { folder, subFolder, file, fileName } = request.params;
 
-		const fileUri = path.join(__dirname, "../../uploads", folder, file)
+		const fileUri = path.join(__dirname, "../../uploads", folder, subFolder, file)
 
 		if (!fs.existsSync(fileUri)) {
 			return response.status(404).json({ Error: 'Archivo no encontrado' });
@@ -80,7 +95,23 @@ router.get('/:folder/:file/:fileName', async (request, response) => {
 // GET file/folders
 router.get('/folders', async (request, response) => {
 	try {
-		const folders = await readFolder();
+		const mainFolders = await readFolder();
+
+		const promises = mainFolders.map(async (mainFolder) => {
+			const subFolders = await readFolder(mainFolder);
+
+            return {[mainFolder]: subFolders};
+		})
+
+		const resolved = await Promise.all(promises);
+
+		let folders = {}
+
+		resolved.forEach((item) => {
+			const key = Object.keys(item)[0];
+			folders[key] = item[key];
+		});
+
 
 		return response.json({folders: folders})
 
@@ -90,14 +121,14 @@ router.get('/folders', async (request, response) => {
 });
 
 
-// POST file/upload/selectedOption
+// POST file/upload
 router.post("/upload", upload.array("file"), async (request, response) => {
 	try {
 		const uploadedFiles = request.files;
 
-		const { selectedOption } = request.body;
+		const { mainFolder, subFolder } = request.body;
 
-		validateFiles(uploadedFiles, selectedOption);
+		validateFiles(uploadedFiles, mainFolder, subFolder);
 
 		return response.json({Status: "Success", message: "Archivo guardado correctamente"})
 

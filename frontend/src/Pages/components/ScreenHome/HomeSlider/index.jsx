@@ -7,7 +7,6 @@ import { VerifyLength } from "../../VerifyLengthWrapper";
 import { AllInfoGridContainer } from "../../AllInfoContainer";
 import { MainTextContainer } from "../MainTextContainer";
 import { GraphContainer } from "../../GraphContainer";
-import { graphExportConfig } from "../../../../utils/graphConfig";
 
 const HomeSlider = () => {
     const context = React.useContext(AppContext)
@@ -16,6 +15,7 @@ const HomeSlider = () => {
 
     const settings = {
 		infinite: false,
+		speed: 1000,
 		slidesToShow: 1,
 		slidesToScroll: 1,
 		autoplay: false,
@@ -31,7 +31,7 @@ const HomeSlider = () => {
                     graphs?.map((item, index) => (
                         <AllInfoGridContainer key={index} gap={0}>
                             <MainTextContainer item={item}/>
-                            <GraphContainer index={index} graph={item} onConfig={graphExportConfig}/>
+                            <GraphContainer index={index} graph={item}/>
                         </AllInfoGridContainer>
                     ))
                 }

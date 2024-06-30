@@ -9,22 +9,26 @@ import { HomeSlider } from "../HomeSlider";
 
 
 const HomeInfoContainer = ({data}) => {
-    const context = React.useContext(AppContext)
+    const context = React.useContext(AppContext);
 
-    const formattedData = formatTableData(data, "Home");
+    const subFolders = formatTableData(data, "Home");
+    const subFoldersName = Object.keys(subFolders) || [];
 
     return(
         <WrapperContainer2 flexDirection="column" padding={0} gap={30}>
             <HomeSlider/>
 
-            <TableContainer 
-                title={"DataEmpleo"} 
-                values={formattedData}
-                onOpen={handleOpen}
-                onExcel={context.handleExcelFile}
-                onDownload={handleDownloadFile}
-                onDelete={context.deleteFile}
-            />
+            {subFoldersName?.map((item, index) => (
+                <TableContainer
+                    key={index}
+                    title={item} 
+                    values={subFolders[item]}
+                    onOpen={handleOpen}
+                    onExcel={context.handleExcelFile}
+                    onDownload={handleDownloadFile}
+                    onDelete={context.deleteFile}
+                />
+        ))}
 
         </WrapperContainer2>
         

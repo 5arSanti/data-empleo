@@ -37,12 +37,17 @@ const AppProvider = ({children}) => {
         title: null,
         year: actualYear,
         month: actualMonth,
-        grapLabelsType: "ofertasRegistradas",
-        graphType: "bar",
         description: null,
-        values: [20000, 10000, 4, 7, 8, 1],
-    })
-    
+
+        graphType: "bar",
+        indexAxis: "x",
+        labels: null,
+        datasetLabel: null,
+        graphValues: null
+    });
+
+
+    // 
     const [filters, setFilters] = React.useState({
         "year": actualYear,
         "month": actualMonth,
@@ -51,14 +56,11 @@ const AppProvider = ({children}) => {
     // RESPONSE:
     const [responseData, setResponseData] = React.useState({});
 
-    const fetchData = async (endpoints) => {
+    const fetchData = async (endpoints, setState=setResponseData) => {
         try {
             setLoading(true);
             const data = await fetchAllData(endpoints);
-            setResponseData((prevData) => ({
-                ...prevData,
-                ...data
-            }));
+            setState((prevData) => ({ ...prevData, ...data}));
         } 
         catch (err) {
             handleNotifications("error", err.message)
@@ -74,16 +76,13 @@ const AppProvider = ({children}) => {
             `/slider`,
             "/users",
             "/file/folders",
-            "/file/",
+            "/file",
+            "/colocaciones",
+            "/columns/filter"
         ]
 
         fetchData(endpoints)
-    }, [filters]);
-
-    React.useEffect(() => {
-        handleInputChange("graphType", graphLabels[graphValues.grapLabelsType].type, setGraphValues);
-    }, [graphValues.grapLabelsType]);
-    
+    }, []);
     
     // Graficas y paginacion
     const [currentGraphsPage, setCurrentGraphsPage] = React.useState(1);
@@ -99,6 +98,14 @@ const AppProvider = ({children}) => {
         fetchData(endpoints);
     }, [currentGraphsPage, filters]);
 
+    
+    // Dashboard filters
+    const [dashboardFilters, setDashboardFilters] = React.useState({
+        column: null,
+        mes_coloca: 3,
+        anio_coloca: 2019,
+    });
+
 
     //CAMBIO DE COLORES
     const [activeHighContrast, setActiveHighContrast] = React.useState(false);
@@ -107,6 +114,7 @@ const AppProvider = ({children}) => {
     }, [activeHighContrast]);
 
 
+    
     // Screen Width
     const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
     React.useEffect(() => {
@@ -146,11 +154,7 @@ const AppProvider = ({children}) => {
             setLoading(true);
             const excelJSON = await readExcelFile(file);            
 
-            const fileInfo = [{
-                fileJSON: excelJSON,
-                name: item.array[0],
-                item: item
-            }]
+            const fileInfo = [{ fileJSON: excelJSON, name: item.array[0], item: item }]
 
             localStorage.setItem("excel-json", JSON.stringify(fileInfo))
             
@@ -167,12 +171,10 @@ const AppProvider = ({children}) => {
     const deleteFile = async (item) => {
         setLoading(true)
 
-        await handleDeleteFile(`${item?.folder}/${item?.file}`)
+        await handleDeleteFile(`${item?.folder}/${item.subFolder}/${item?.file}`)
 
         setLoading(false);
     }
-
-    
 
     return (
         <AppContext.Provider
@@ -238,7 +240,12 @@ const AppProvider = ({children}) => {
 
                 // Paginacion de graficas
                 currentGraphsPage,
-                setCurrentGraphsPage
+                setCurrentGraphsPage,
+
+                //Dashboard filters
+                dashboardFilters,
+                setDashboardFilters,
+                fetchData
             }}
         >
             {children}

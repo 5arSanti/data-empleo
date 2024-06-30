@@ -1,41 +1,42 @@
 //Dependencies
 import React from "react";
 import { HashRouter, Navigate, useLocation, useRoutes } from "react-router-dom";
+
+// CSS
+import './App.css'
+import './App.css'
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-//App
-import './App.css'
-import "./App.css"
 
 //Context
 import { AppContext, AppProvider } from "../../Context";
 
-
 //Screens
-import { MainContainer } from "../components/MainContainer";
 import { Home } from "../Screens/Home";
-
-import { Footer } from "../components/Footer";
-import { AccesibilityCard } from "../components/AccesibilityCard";
-import { GovNavbar } from "../components/GovNavbars";
+import { DocumentScreen } from "../Screens/DocumentScreen";
 import { LoginScreen } from "../Screens/LoginScreen";
 import { RegisterScreen } from "../Screens/RegisterScreen";
 import { DashboardScreen } from "../Screens/DashboardScreen";
-import { ConfirmationModal } from "../components/ConfirmationModal";
-import { DocumentScreen } from "../Screens/DocumentScreen";
-import { ToastContainer } from "react-toastify";
 import { UploadScreen } from "../Screens/UploadScreen";
-import { NavImagesCard } from "../components/NavImagesCard";
 import { SliderDataScreen } from "../Screens/SliderDataScreen";
-import { SliderNavContainer } from "../components/SliderNavContainer";
 import { UsersScreen } from "../Screens/UsersScreen";
 import { FoldersDataScreen } from "../Screens/FoldersDataScreen";
-import { scrollToValue } from "../../utils/scrollToValue";
 import { ExcelPreviewScreen } from "../Screens/ExcelPreviewScreen";
+import { ProcessCSVScreen } from "../Screens/ProcessCSVScreen";
+
+//Components
+import { MainContainer } from "../components/MainContainer";
+import { Footer } from "../components/Footer";
+import { AccesibilityCard } from "../components/AccesibilityCard";
+import { GovNavbar } from "../components/GovNavbars";
+import { ConfirmationModal } from "../components/ConfirmationModal";
+import { ToastContainer } from "react-toastify";
+import { NavImagesCard } from "../components/NavImagesCard";
+import { SliderNavContainer } from "../components/SliderNavContainer";
 import { LoadingCard } from "../components/LoadingCard";
-import { SliderLinksContainer } from "../components/SliderLinksContainer";
-import { IsAuthWrapper } from "../components/AuthWrapper";
+
+//Utils
+import { scrollToValue } from "../../utils/scrollToValue";
 
 const Wrapper = ({children}) => {
     const location = useLocation();
@@ -60,17 +61,15 @@ const AppRoutes = () => {
         {path: "/dashboard", element: <DashboardScreen/>},
         {path: "/document", element: <DocumentScreen/>},
         {path: "/upload", element: <UploadScreen/>},
+        {path: "/process-csv", element: <ProcessCSVScreen/>},
         {path: "/slider", element: <SliderDataScreen/>},
         {path: "/users", element: <UsersScreen/>},
         {path: "/category/:category", element: <FoldersDataScreen data={files}/>},
         {path: "/excel-preview", element: <ExcelPreviewScreen/>},
+        {path: "/register", element: <RegisterScreen/>},
 
 
-
-        
-        {path: "/register", element: auth ? <RegisterScreen/> : <Navigate replace to={"/login"} />},
         {path: "/login", element: !auth ? <LoginScreen/> : <Navigate replace to={"/home"}/>},
-        
     ]);
     
     return routes;
@@ -88,7 +87,6 @@ const App = () => {
 
                     <MainContainer>
                         <NavImagesCard/>
-                        <SliderLinksContainer/>
                         <SliderNavContainer/>
                         <AppRoutes/>
                     </MainContainer>

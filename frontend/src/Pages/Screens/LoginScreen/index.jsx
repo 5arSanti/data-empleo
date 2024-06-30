@@ -17,8 +17,8 @@ const LoginScreen = () => {
     const context = React.useContext(AppContext);
 
     React.useEffect(() => {
-        scrollToValue(0, 350)
-    }, [])
+        scrollToValue()
+    }, []);
 
     const [values, setValues] = React.useState({
         email: null,
@@ -38,7 +38,7 @@ const LoginScreen = () => {
 
                 if(data.Status === "Success") {
                     handleNotifications("success", data.message);
-                    navigate("/dashboard");
+                    navigate("/home");
                 } else {
                     handleNotifications("error", data.Error)
                 }
@@ -50,7 +50,7 @@ const LoginScreen = () => {
     }
 
     return(
-        <div className="login-container shadow-style">
+        <div className="login-container shadow-style border-left-style">
             <SubTitle
                 textAlign="center"
             >

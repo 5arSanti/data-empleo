@@ -65,14 +65,14 @@ html {
 
 p, span, div, h2, h1 {
     font-family: "Montserrat-Regular" !important;
-    margin: 0;
+    margin: 0 !important;
 }
 
 body {
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background: var(--main-body-color);
+    background: var(--main-body-color) !important;
 
     transition: all 0.2s ease;
     box-sizing: border-box;
@@ -83,7 +83,7 @@ body {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none !important;
     color: transparent;
 }
 button {
@@ -95,10 +95,12 @@ svg {
     height: 30px;
 }
 
-.shadow-style {
+.border-left-style {
     border: none !important;
     border-left: 1px solid var(--gov-accesibility-card) !important;
+}
 
+.shadow-style {
     transition: all 0.15s ease !important;
 }
 .shadow-style:hover {
